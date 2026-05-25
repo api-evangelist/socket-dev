@@ -1,0 +1,85 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Socket
+providerId: socket-dev
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - FinOps
+  - Cost Management
+  - FOCUS
+  - Supply Chain Security
+description: FOCUS-aligned FinOps definition for Socket. Per-seat (developer) commercial model with
+  enterprise add-ons. Costs are deterministic on a per-month basis, with optional usage overages on
+  high-volume Firewall and Threat Feed contracts.
+sources:
+  - https://socket.dev/pricing
+  - https://docs.socket.dev/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Socket
+serviceCategory: Security
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Purchase
+    - Tax
+    - Credit
+    - Adjustment
+  primaryUnit: developer_seat
+  secondaryUnits:
+    - api_quota_unit
+    - firewall_request
+    - threat_feed_page
+focusColumns:
+  ServiceName: Socket API
+  ServiceCategory: Security
+  ProviderName: Socket
+  PublisherName: Socket
+  InvoiceIssuerName: Socket
+  PricingCategory: Subscription
+  PricingUnit: seat
+  BillingCurrency: USD
+meters:
+  - name: developer_seats
+    unit: developer_seat
+    aggregation: max
+    dimensions:
+      - plan
+      - organization
+  - name: api_quota_consumed
+    unit: api_quota_unit
+    aggregation: sum
+    dimensions:
+      - api_token
+      - endpoint_category
+  - name: firewall_requests
+    unit: firewall_request
+    aggregation: sum
+    dimensions:
+      - registry
+      - decision
+  - name: threat_feed_reads
+    unit: threat_feed_page
+    aggregation: sum
+    dimensions:
+      - ecosystem
+costAllocation:
+  - dimension: organization
+    description: Bill by Socket organization (typically one per company; large orgs can split into
+      multiple).
+  - dimension: repository_label
+    description: Apportion API quota by repo label so security spend can be charged back to product
+      teams.
+  - dimension: api_token
+    description: Per-token accounting for CI tokens, developer tokens, and integration tokens enables
+      service-level chargeback.

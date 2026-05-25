@@ -1,0 +1,397 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Socket Repos Repo Labels
+  description: Socket repos repo labels business capability. Self-contained Naftiko capability covering one Socket business surface.
+  tags:
+  - Socket
+  - Supply Chain Security
+  - Repos
+  - Repo
+  - Labels
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SOCKET_API_KEY: SOCKET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: repos-repo-labels
+    baseUri: https://api.socket.dev/v0
+    description: Socket repos repo labels business capability. Self-contained, no shared references.
+    resources:
+    - name: orgs-org-slug-repos-labels
+      path: /orgs/{org_slug}/repos/labels
+      operations:
+      - name: get-orgs-org-slug-repos-labels
+        method: GET
+        description: List repository labels (beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: per_page
+          in: query
+          type: integer
+          description: ''
+          required: false
+        - name: page
+          in: query
+          type: integer
+          description: ''
+          required: false
+      - name: post-orgs-org-slug-repos-labels
+        method: POST
+        description: Create repository label (beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: orgs-org-slug-repos-labels-label-id
+      path: /orgs/{org_slug}/repos/labels/{label_id}
+      operations:
+      - name: get-orgs-org-slug-repos-labels-label-id
+        method: GET
+        description: Get repository label (beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: label_id
+          in: path
+          type: string
+          description: The ID of the label
+          required: true
+      - name: delete-orgs-org-slug-repos-labels-label-id
+        method: DELETE
+        description: Delete repository label (beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: label_id
+          in: path
+          type: string
+          description: The ID of the label
+          required: true
+    - name: orgs-org-slug-repos-labels-label-id-label-setting
+      path: /orgs/{org_slug}/repos/labels/{label_id}/label-setting
+      operations:
+      - name: get-orgs-org-slug-repos-labels-label-id-label-setting
+        method: GET
+        description: Get repository label setting (beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: label_id
+          in: path
+          type: string
+          description: The ID of the label
+          required: true
+        - name: setting_key
+          in: query
+          type: string
+          description: Setting key to query for in the repository label. Valid values include issueRules, issueRulesPolicyDefault, and licensePolicy
+          required: true
+    - name: orgs-org-slug-repos-labels-label-id-associate
+      path: /orgs/{org_slug}/repos/labels/{label_id}/associate
+      operations:
+      - name: post-orgs-org-slug-repos-labels-label-id-associate
+        method: POST
+        description: Associate repository label (beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: label_id
+          in: path
+          type: string
+          description: The ID of the label
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: orgs-org-slug-repos-labels-label-id-disassociate
+      path: /orgs/{org_slug}/repos/labels/{label_id}/disassociate
+      operations:
+      - name: post-orgs-org-slug-repos-labels-label-id-disassociate
+        method: POST
+        description: Disassociate repository label (beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: label_id
+          in: path
+          type: string
+          description: The ID of the label
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.SOCKET_API_KEY}}'
+      password: ''
+      description: Socket authenticates via HTTP Basic with the API key as the username and empty password.
+  exposes:
+  - type: rest
+    namespace: repos-repo-labels-rest
+    port: 8080
+    description: REST adapter for Socket repos repo labels.
+    resources:
+    - path: /v1/orgs/{org_slug}/repos/labels
+      name: orgs-org-slug-repos-labels
+      description: REST surface for orgs-org-slug-repos-labels.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-repos-labels
+        description: List repository labels (beta)
+        call: repos-repo-labels.get-orgs-org-slug-repos-labels
+        with:
+          org_slug: rest.path.org_slug
+          per_page: rest.query.per_page
+          page: rest.query.page
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: post-orgs-org-slug-repos-labels
+        description: Create repository label (beta)
+        call: repos-repo-labels.post-orgs-org-slug-repos-labels
+        with:
+          org_slug: rest.path.org_slug
+          body: rest.body.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/repos/labels/{label_id}
+      name: orgs-org-slug-repos-labels-label-id
+      description: REST surface for orgs-org-slug-repos-labels-label-id.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-repos-labels-label-id
+        description: Get repository label (beta)
+        call: repos-repo-labels.get-orgs-org-slug-repos-labels-label-id
+        with:
+          org_slug: rest.path.org_slug
+          label_id: rest.path.label_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-orgs-org-slug-repos-labels-label-id
+        description: Delete repository label (beta)
+        call: repos-repo-labels.delete-orgs-org-slug-repos-labels-label-id
+        with:
+          org_slug: rest.path.org_slug
+          label_id: rest.path.label_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/repos/labels/{label_id}/label-setting
+      name: orgs-org-slug-repos-labels-label-id-label-setting
+      description: REST surface for orgs-org-slug-repos-labels-label-id-label-setting.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-repos-labels-label-id-label-setting
+        description: Get repository label setting (beta)
+        call: repos-repo-labels.get-orgs-org-slug-repos-labels-label-id-label-setting
+        with:
+          org_slug: rest.path.org_slug
+          label_id: rest.path.label_id
+          setting_key: rest.query.setting_key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/repos/labels/{label_id}/associate
+      name: orgs-org-slug-repos-labels-label-id-associate
+      description: REST surface for orgs-org-slug-repos-labels-label-id-associate.
+      operations:
+      - method: POST
+        name: post-orgs-org-slug-repos-labels-label-id-associate
+        description: Associate repository label (beta)
+        call: repos-repo-labels.post-orgs-org-slug-repos-labels-label-id-associate
+        with:
+          org_slug: rest.path.org_slug
+          label_id: rest.path.label_id
+          body: rest.body.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/repos/labels/{label_id}/disassociate
+      name: orgs-org-slug-repos-labels-label-id-disassociate
+      description: REST surface for orgs-org-slug-repos-labels-label-id-disassociate.
+      operations:
+      - method: POST
+        name: post-orgs-org-slug-repos-labels-label-id-disassociate
+        description: Disassociate repository label (beta)
+        call: repos-repo-labels.post-orgs-org-slug-repos-labels-label-id-disassociate
+        with:
+          org_slug: rest.path.org_slug
+          label_id: rest.path.label_id
+          body: rest.body.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: repos-repo-labels-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Socket repos repo labels.
+    tools:
+    - name: socket-get-orgs-org-slug-repos-labels
+      description: List repository labels (beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: repos-repo-labels.get-orgs-org-slug-repos-labels
+      with:
+        org_slug: tools.org_slug
+        per_page: tools.per_page
+        page: tools.page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-post-orgs-org-slug-repos-labels
+      description: Create repository label (beta)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: repos-repo-labels.post-orgs-org-slug-repos-labels
+      with:
+        org_slug: tools.org_slug
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-repos-labels-label-id
+      description: Get repository label (beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: repos-repo-labels.get-orgs-org-slug-repos-labels-label-id
+      with:
+        org_slug: tools.org_slug
+        label_id: tools.label_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-delete-orgs-org-slug-repos-labels-label-id
+      description: Delete repository label (beta)
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: repos-repo-labels.delete-orgs-org-slug-repos-labels-label-id
+      with:
+        org_slug: tools.org_slug
+        label_id: tools.label_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-repos-labels-label-id-label-setting
+      description: Get repository label setting (beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: repos-repo-labels.get-orgs-org-slug-repos-labels-label-id-label-setting
+      with:
+        org_slug: tools.org_slug
+        label_id: tools.label_id
+        setting_key: tools.setting_key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-post-orgs-org-slug-repos-labels-label-id-associate
+      description: Associate repository label (beta)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: repos-repo-labels.post-orgs-org-slug-repos-labels-label-id-associate
+      with:
+        org_slug: tools.org_slug
+        label_id: tools.label_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-post-orgs-org-slug-repos-labels-label-id-disassociate
+      description: Disassociate repository label (beta)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: repos-repo-labels.post-orgs-org-slug-repos-labels-label-id-disassociate
+      with:
+        org_slug: tools.org_slug
+        label_id: tools.label_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

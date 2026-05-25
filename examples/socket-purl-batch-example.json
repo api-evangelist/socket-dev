@@ -1,0 +1,50 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.socket.dev/v0/purl",
+    "headers": {
+      "Authorization": "Basic c29ja2V0X3lvdXJfYXBpX2tleTo="
+    },
+    "body": {
+      "components": [
+        { "purl": "pkg:npm/express@4.18.0" },
+        { "purl": "pkg:npm/react@18.2.0" },
+        { "purl": "pkg:pypi/requests@2.32.3" }
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": [
+      {
+        "type": "npm",
+        "name": "express",
+        "version": "4.18.0",
+        "purl": "pkg:npm/express@4.18.0",
+        "license": "MIT",
+        "score": {
+          "supplyChain": 0.91,
+          "quality": 0.94,
+          "maintenance": 0.83,
+          "vulnerability": 0.85,
+          "license": 1.0,
+          "overall": 0.9
+        },
+        "alerts": [
+          { "type": "knownVulnerability", "severity": "medium", "category": "vulnerability" }
+        ],
+        "capabilities": ["filesystemAccess", "networkAccess"]
+      },
+      {
+        "type": "npm",
+        "name": "react",
+        "version": "18.2.0",
+        "purl": "pkg:npm/react@18.2.0",
+        "license": "MIT",
+        "score": { "overall": 0.97 },
+        "alerts": [],
+        "capabilities": []
+      }
+    ]
+  }
+}

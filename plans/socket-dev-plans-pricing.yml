@@ -1,0 +1,93 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Socket
+providerId: socket-dev
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - Supply Chain Security
+  - SCA
+  - Developer Tools
+description: Public-tier breakdown for Socket. Free, Team (per-user, per-month), and Enterprise (custom).
+  Exact unit pricing and contributor-tier limits are subject to change; refer to socket.dev/pricing for
+  current numbers.
+sources:
+  - https://socket.dev/pricing
+  - https://socket.dev/
+  - https://docs.socket.dev/
+plans:
+  - id: free
+    name: Free
+    type: free
+    description: For open source maintainers, individual developers, and small teams getting started with
+      Socket. Pull-request alerts and the Socket GitHub app are free for public repositories.
+    entries:
+      - label: Public repositories
+        name: public_repos
+        type: included
+        metric: repository
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+    elements:
+      - name: Unlimited public repositories
+      - name: PR alerts via Socket GitHub App
+      - name: Full Scans and Diff Scans (subject to fair-use API quota)
+      - name: Threat Feed read access
+      - name: Free CLI, MCP server, VS Code extension, Firewall (sfw)
+  - id: team
+    name: Team
+    type: per-user
+    description: Per-developer pricing for private repositories with org policies, triage, integrations,
+      and unlimited scans.
+    entries:
+      - label: Developer seat
+        name: developer
+        type: per-user
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'Contact'
+        userMultiplied: true
+    elements:
+      - name: Private repositories
+      - name: Security policy and license policy with per-repo label overrides
+      - name: Triage workflow with audit log
+      - name: Slack, Microsoft Teams, Jira, PagerDuty integrations
+      - name: GitHub, GitLab, Bitbucket, Azure DevOps integrations
+      - name: SBOM export (CycloneDX, SPDX, OpenVEX, CSV, PDF)
+      - name: Auto-fix pull requests
+      - name: Email support
+  - id: enterprise
+    name: Enterprise
+    type: enterprise
+    description: For organizations requiring SSO, SCIM, role-based access, advanced compliance reporting,
+      Socket Basics (SAST + Secrets + Container), self-hosted Firewall, and dedicated support.
+    entries:
+      - label: Custom contract
+        name: contract
+        type: enterprise
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: 'Call'
+        userMultiplied: false
+    elements:
+      - name: Single Sign-On (SSO) and SCIM provisioning
+      - name: Role-Based Access Control (RBAC)
+      - name: Socket Basics — SAST, Secrets, Container scanning
+      - name: Self-hosted Socket Firewall and registry proxy
+      - name: Dedicated SIEM connector
+      - name: Custom alert types and severity overrides
+      - name: Priority support and dedicated CSM
+      - name: SOC 2 Type II evidence and trust center access
+      - name: Custom data residency

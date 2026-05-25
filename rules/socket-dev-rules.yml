@@ -1,0 +1,127 @@
+extends: spectral:oas
+formats:
+  - oas3
+  - oas3_0
+  - oas3_1
+functions: []
+rules:
+  socket-info-contact:
+    description: Socket OpenAPI documents should declare an info.contact block.
+    message: '`info.contact` is missing — add Socket support contact metadata.'
+    given: '$.info'
+    severity: warn
+    then:
+      field: contact
+      function: truthy
+
+  socket-info-license:
+    description: Socket OpenAPI documents should declare an info.license block.
+    message: '`info.license` is missing.'
+    given: '$.info'
+    severity: warn
+    then:
+      field: license
+      function: truthy
+
+  socket-server-https-only:
+    description: Socket servers must use HTTPS.
+    message: 'Socket servers must use https:// — found {{value}}.'
+    given: '$.servers[*].url'
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://'
+
+  socket-server-base-path:
+    description: Socket servers should be rooted at api.socket.dev/v0.
+    message: 'Socket production base URL is https://api.socket.dev/v0 — found {{value}}.'
+    given: '$.servers[*].url'
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://api\.socket\.dev/v0'
+
+  socket-operation-id-required:
+    description: Every operation must declare an operationId.
+    message: 'Operation is missing operationId.'
+    given: "$.paths[*][get,post,put,patch,delete]"
+    severity: error
+    then:
+      field: operationId
+      function: truthy
+
+  socket-operation-summary-required:
+    description: Every operation must declare a human-readable summary.
+    message: 'Operation is missing summary.'
+    given: "$.paths[*][get,post,put,patch,delete]"
+    severity: warn
+    then:
+      field: summary
+      function: truthy
+
+  socket-operation-summary-title-case:
+    description: Socket operation summaries should use Title Case.
+    message: 'Operation summary should be Title Case — found "{{value}}".'
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    severity: hint
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z]'
+
+  socket-operation-tags-required:
+    description: Every operation must declare at least one tag (Socket groups its API by resource tag).
+    message: 'Operation must declare at least one tag.'
+    given: "$.paths[*][get,post,put,patch,delete]"
+    severity: warn
+    then:
+      field: tags
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+
+  socket-deprecated-flag:
+    description: Operations tagged as deprecated must set the deprecated flag.
+    message: 'Operations tagged "deprecated" must set `deprecated: true`.'
+    given: "$.paths[*][get,post,put,patch,delete][?(@.tags && @.tags.indexOf('deprecated') !== -1)]"
+    severity: warn
+    then:
+      field: deprecated
+      function: truthy
+
+  socket-org-slug-path-parameter:
+    description: Organization-scoped paths use the path parameter name `org_slug`.
+    message: 'Organization-scoped paths must use the path parameter name `org_slug`.'
+    given: "$.paths[?(@property.match(/{org_slug}/))]"
+    severity: hint
+    then:
+      function: truthy
+
+  socket-purl-vocabulary:
+    description: Endpoints handling packages should reference Package URL (purl) in their
+      description.
+    message: 'Package-oriented operations should mention the Package URL (purl) terminology.'
+    given: "$.paths[/purl,/orgs/{org_slug}/purl][post].description"
+    severity: hint
+    then:
+      function: pattern
+      functionOptions:
+        match: 'purl|Package URL'
+
+  socket-response-success-required:
+    description: Every operation must declare at least one 2xx response.
+    message: 'Operation is missing a 2xx response definition.'
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    severity: warn
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          patternProperties:
+            '^2': {}
+          minProperties: 1

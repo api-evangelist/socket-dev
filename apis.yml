@@ -1,0 +1,468 @@
+aid: socket-dev
+url: https://raw.githubusercontent.com/api-evangelist/socket-dev/refs/heads/main/apis.yml
+apis:
+- aid: socket-dev:socket-packages-api
+  name: Socket Packages API
+  tags:
+  - Packages
+  - Supply Chain Security
+  - Risk Scoring
+  - PURL
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  properties:
+  - url: https://docs.socket.dev/reference/introduction-to-socket-api
+    type: Documentation
+  - url: openapi/socket-packages-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/socket-package-schema.json
+    type: JSONSchema
+  - url: json-ld/socket-context.jsonld
+    type: JSONLD
+  - type: NaftikoCapability
+    url: capabilities/packages-purl.yaml
+  description: Look up risk scores, alerts, capabilities, license, and supply-chain
+    metadata for any open-source package by Package URL (purl). Supports npm, PyPI, Go,
+    Maven, Cargo, NuGet, RubyGems, and other ecosystems. The /purl endpoint accepts a
+    list of package URLs and returns Socket's enriched package facts including
+    capability use, telemetry, alert categories, and depscore.
+- aid: socket-dev:socket-full-scans-api
+  name: Socket Full Scans API
+  tags:
+  - Full Scans
+  - Supply Chain Security
+  - SBOM
+  - CycloneDX
+  - SPDX
+  - OpenVEX
+  humanURL: https://docs.socket.dev/reference/createorgfullscan
+  properties:
+  - url: https://docs.socket.dev/reference/createorgfullscan
+    type: Documentation
+  - url: openapi/socket-full-scans-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/socket-full-scan-schema.json
+    type: JSONSchema
+  - type: NaftikoCapability
+    url: capabilities/full-scans-full-scans.yaml
+  description: Create, list, fetch, rescan, archive, and export full-scan reports for
+    an organization's repos. Upload manifest files (package.json, requirements.txt,
+    go.mod, pom.xml, Cargo.toml, etc.) and Socket returns a full dependency graph with
+    alerts. Exports include CDX (CycloneDX), SPDX, OpenVEX, CSV, PDF, and GFM diff
+    formats.
+- aid: socket-dev:socket-diff-scans-api
+  name: Socket Diff Scans API
+  tags:
+  - Diff Scans
+  - Supply Chain Security
+  - Pull Request
+  - Change Detection
+  humanURL: https://docs.socket.dev/reference/createorgdiffscanfromids
+  properties:
+  - url: https://docs.socket.dev/reference/createorgdiffscanfromids
+    type: Documentation
+  - url: openapi/socket-diff-scans-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/diff-scans-diff-scans.yaml
+  description: Compute and inspect diff scans between two full scans — the engine that
+    powers Socket's pull-request comments. Identifies added, removed, and modified
+    dependencies with their security implications. Returns added/removed alerts in
+    JSON or GFM markdown. Diff scans can be created from full-scan IDs or from a
+    target repo branch.
+- aid: socket-dev:socket-alerts-api
+  name: Socket Alerts API
+  tags:
+  - Alerts
+  - Supply Chain Security
+  - Historical Analytics
+  humanURL: https://docs.socket.dev/reference/getorgalerts
+  properties:
+  - url: https://docs.socket.dev/reference/getorgalerts
+    type: Documentation
+  - url: openapi/socket-alerts-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/socket-alert-schema.json
+    type: JSONSchema
+  - type: NaftikoCapability
+    url: capabilities/alerts-alerts.yaml
+  description: Query current and historical security alerts for an organization across
+    all scans, repos, and packages. Supports trend analysis, filtering by alert type
+    and severity, and full-scan attribution. Backed by Socket's catalog of 70+ alert
+    categories covering malware, typosquats, install scripts, telemetry, native code,
+    crypto wallets, and other supply-chain risks.
+- aid: socket-dev:socket-triage-api
+  name: Socket Triage API
+  tags:
+  - Triage
+  - Alerts
+  - Workflow
+  - Governance
+  humanURL: https://docs.socket.dev/reference/listorgtriagealerts
+  properties:
+  - url: https://docs.socket.dev/reference/listorgtriagealerts
+    type: Documentation
+  - url: openapi/socket-triage-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/triage-alerts.yaml
+  description: Triage workflow for alerts — list and update the disposition (ignore,
+    acknowledge, escalate, allow) of any alert in an organization. Comments and
+    decision history are recorded for audit. Triage is the human-in-the-loop
+    counterpart to Socket's automated security gates.
+- aid: socket-dev:socket-repos-api
+  name: Socket Repos API
+  tags:
+  - Repositories
+  - Labels
+  - Organization
+  humanURL: https://docs.socket.dev/reference/getorgrepolist
+  properties:
+  - url: https://docs.socket.dev/reference/getorgrepolist
+    type: Documentation
+  - url: openapi/socket-repos-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/repos-repos.yaml
+  - type: NaftikoCapability
+    url: capabilities/repos-repo-labels.yaml
+  description: Manage the repositories Socket is monitoring inside an organization,
+    plus repo labels for policy targeting. CRUD repos, attach/detach labels, and
+    configure per-label settings that override organization-level security and license
+    policies.
+- aid: socket-dev:socket-org-settings-api
+  name: Socket Organization Settings API
+  tags:
+  - Organization Settings
+  - Security Policy
+  - License Policy
+  - Telemetry
+  humanURL: https://docs.socket.dev/reference/getorgsecuritypolicy
+  properties:
+  - url: https://docs.socket.dev/reference/getorgsecuritypolicy
+    type: Documentation
+  - url: openapi/socket-org-settings-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/org-settings-security-policy.yaml
+  - type: NaftikoCapability
+    url: capabilities/org-settings-license-policy.yaml
+  - type: NaftikoCapability
+    url: capabilities/org-settings-telemetry.yaml
+  - type: NaftikoCapability
+    url: capabilities/org-settings-socket-basics.yaml
+  - type: NaftikoCapability
+    url: capabilities/org-settings-integration-events.yaml
+  description: Configure Socket at the organization level — security policy (which
+    alerts block/warn/ignore), license policy (allowed/denied SPDX identifiers),
+    telemetry collection toggles, Socket Basics SAST/Secrets/Container scanning
+    configuration, and integration event hooks for GitHub/GitLab/Bitbucket apps.
+- aid: socket-dev:socket-webhooks-api
+  name: Socket Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  humanURL: https://docs.socket.dev/reference/listorgwebhooks
+  properties:
+  - url: https://docs.socket.dev/reference/listorgwebhooks
+    type: Documentation
+  - url: openapi/socket-webhooks-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/webhooks-webhooks.yaml
+  description: Register, list, update, and delete webhooks that fire when scans
+    complete, alerts trigger, triage decisions are made, or threat-feed entries match
+    an organization's packages. Useful for connecting Socket to Slack, Jira, PagerDuty,
+    or custom internal automation.
+- aid: socket-dev:socket-threat-feed-api
+  name: Socket Threat Feed API
+  tags:
+  - Threat Feed
+  - Malware
+  - Real-Time Intelligence
+  humanURL: https://docs.socket.dev/reference/getorgthreatfeed
+  properties:
+  - url: https://docs.socket.dev/reference/getorgthreatfeed
+    type: Documentation
+  - url: openapi/socket-threat-feed-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/threat-feed-threat-feed.yaml
+  description: Real-time feed of newly discovered malicious or suspicious packages
+    across npm, PyPI, Go, RubyGems, and other ecosystems. Filter by ecosystem, alert
+    type, and time window. Powers Socket's malware research dashboards and the
+    public-disclosure firehose.
+- aid: socket-dev:socket-fixes-api
+  name: Socket Fixes API
+  tags:
+  - Fixes
+  - Remediation
+  - Patches
+  humanURL: https://docs.socket.dev/reference/getorgfixes
+  properties:
+  - url: https://docs.socket.dev/reference/getorgfixes
+    type: Documentation
+  - url: openapi/socket-fixes-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/fixes-fixes.yaml
+  description: List available fixes — version bumps, patches, and overrides — for
+    vulnerable or risky dependencies in an organization's scanned projects. Powers
+    Socket's auto-fix pull-request generation.
+- aid: socket-dev:socket-dependencies-api
+  name: Socket Dependencies API
+  tags:
+  - Dependencies
+  - Search
+  - Reverse Lookup
+  humanURL: https://docs.socket.dev/reference/searchdependencies
+  properties:
+  - url: https://docs.socket.dev/reference/searchdependencies
+    type: Documentation
+  - url: openapi/socket-dependencies-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/dependencies-search.yaml
+  description: Search and reverse-look-up dependencies across all of an organization's
+    scanned repos. Find every project consuming a specific package and version, plus
+    historical dependency-count trends used by Socket's analytics dashboards.
+- aid: socket-dev:socket-api-tokens-api
+  name: Socket API Tokens API
+  tags:
+  - API Tokens
+  - Authentication
+  - Administration
+  - Quota
+  humanURL: https://docs.socket.dev/reference/getorgtokens
+  properties:
+  - url: https://docs.socket.dev/reference/getorgtokens
+    type: Documentation
+  - url: openapi/socket-api-tokens-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/api-tokens-api-tokens.yaml
+  - type: NaftikoCapability
+    url: capabilities/api-tokens-organizations.yaml
+  description: Provision, rotate, and revoke API tokens for an organization, inspect
+    the caller's quota, and list the organizations the calling token has access to.
+    Token-scoped permission grants are configured at creation and on update.
+- aid: socket-dev:socket-audit-log-api
+  name: Socket Audit Log API
+  tags:
+  - Audit Log
+  - Compliance
+  - Governance
+  humanURL: https://docs.socket.dev/reference/getauditlog
+  properties:
+  - url: https://docs.socket.dev/reference/getauditlog
+    type: Documentation
+  - url: openapi/socket-audit-log-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/audit-log-audit-log.yaml
+  description: Append-only audit log of every administrative event in a Socket
+    organization — policy changes, member changes, token actions, triage decisions, and
+    integration changes. Use for compliance evidence and incident review.
+- aid: socket-dev:socket-org-snapshots-api
+  name: Socket Organization Snapshots API
+  tags:
+  - Snapshots
+  - Historical Analytics
+  - Reporting
+  humanURL: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  properties:
+  - url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+    type: Documentation
+  - url: openapi/socket-org-snapshots-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/org-snapshots-snapshots.yaml
+  description: Retrieve historical organization-level snapshots — point-in-time
+    aggregations of dependencies, alerts, and risk metrics across all monitored repos.
+    Used to populate trend dashboards and compliance posture reports.
+- aid: socket-dev:socket-metadata-api
+  name: Socket Metadata API
+  tags:
+  - Metadata
+  - Reference Data
+  - OpenAPI
+  humanURL: https://docs.socket.dev/reference/getalerttypes
+  properties:
+  - url: https://docs.socket.dev/reference/getalerttypes
+    type: Documentation
+  - url: openapi/socket-metadata-api-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/metadata-alert-types.yaml
+  description: Reference metadata for the Socket platform — the live machine-readable
+    OpenAPI spec, the catalog of alert types and their severities, the catalog of
+    license metadata used by license-policy, and the list of file types Socket can
+    detect and scan.
+name: Socket
+tags:
+- Supply Chain Security
+- Open Source Security
+- Software Composition Analysis
+- SCA
+- Malware Detection
+- Dependency Scanning
+- SBOM
+- npm
+- PyPI
+- Go
+- Maven
+- Cargo
+- NuGet
+- RubyGems
+- Developer Security
+kind: contract
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+common:
+- type: Portal
+  url: https://socket.dev/
+- type: Documentation
+  url: https://docs.socket.dev/
+- type: Documentation
+  name: Introduction to Socket API
+  url: https://docs.socket.dev/reference/introduction-to-socket-api
+- type: GettingStarted
+  url: https://docs.socket.dev/docs/getting-started
+- type: Authentication
+  url: https://docs.socket.dev/reference/authentication-types
+- type: SignUp
+  url: https://socket.dev/login
+- type: Blog
+  url: https://socket.dev/blog
+- type: ChangeLog
+  url: https://socket.dev/blog/categories/product-updates
+- type: StatusPage
+  url: https://status.socket.dev/
+- type: Pricing
+  url: https://socket.dev/pricing
+- type: TermsOfService
+  url: https://socket.dev/legal/terms
+- type: PrivacyPolicy
+  url: https://socket.dev/legal/privacy
+- type: TrustCenter
+  url: https://socket.dev/legal/trust
+- type: GitHubOrganization
+  url: https://github.com/SocketDev
+- type: LinkedIn
+  url: https://www.linkedin.com/company/socket-security
+- type: Twitter
+  url: https://twitter.com/SocketSecurity
+- type: SDK
+  name: JavaScript / TypeScript SDK
+  url: https://github.com/SocketDev/socket-sdk-js
+- type: SDK
+  name: Python SDK
+  url: https://github.com/SocketDev/socket-sdk-python
+- type: Tool
+  name: Socket CLI
+  url: https://github.com/SocketDev/socket-cli
+- type: Tool
+  name: Socket Python CLI
+  url: https://github.com/SocketDev/socket-python-cli
+- type: Tool
+  name: Socket MCP Server
+  url: https://github.com/SocketDev/socket-mcp
+- type: Tool
+  name: Socket Firewall (sfw-free)
+  url: https://github.com/SocketDev/sfw-free
+- type: Tool
+  name: Socket VSCode Extension
+  url: https://github.com/SocketDev/socket-vscode
+- type: Tool
+  name: Socket GitHub Action
+  url: https://github.com/SocketDev/action
+- type: Tool
+  name: Socket Basics (SAST + Secrets + Container)
+  url: https://github.com/SocketDev/socket-basics
+- type: Tool
+  name: Socket Patch CLI
+  url: https://github.com/SocketDev/socket-patch
+- type: Tool
+  name: Socket SIEM Connector
+  url: https://github.com/SocketDev/socket-siem-connector
+- type: Tool
+  name: Bun Security Scanner
+  url: https://github.com/SocketDev/bun-security-scanner
+- type: Tool
+  name: Socket Optimize (registry overrides)
+  url: https://github.com/SocketDev/socket-registry
+- type: Tool
+  name: Socket Config (socket.yml)
+  url: https://github.com/SocketDev/socket-config-js
+- type: Integrations
+  name: GitHub App
+  url: https://github.com/apps/socket-security
+- type: Integrations
+  name: GitLab Integration
+  url: https://docs.socket.dev/docs/gitlab-integration
+- type: Integrations
+  name: Bitbucket Integration
+  url: https://docs.socket.dev/docs/bitbucket-integration
+- type: Integrations
+  name: Azure DevOps Integration
+  url: https://docs.socket.dev/docs/azure-devops-integration
+- type: Integrations
+  name: Jira Integration
+  url: https://docs.socket.dev/docs/jira-integration
+- type: Integrations
+  name: Slack Integration
+  url: https://docs.socket.dev/docs/slack-integration
+- type: Integrations
+  name: Microsoft Teams Integration
+  url: https://docs.socket.dev/docs/microsoft-teams-integration
+- type: OpenAPI
+  name: Live OpenAPI from Socket API
+  url: https://api.socket.dev/v0/openapi
+- type: Plans
+  url: plans/socket-dev-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/socket-dev-rate-limits.yml
+- type: FinOps
+  url: finops/socket-dev-finops.yml
+- type: Features
+  data:
+  - Socket API — supply-chain risk data via Package URL (purl) across npm, PyPI, Go, Maven, Cargo, NuGet, RubyGems, and others
+  - Full Scans — repository-wide dependency graph and alert reports with SBOM export (CycloneDX, SPDX, OpenVEX, CSV, PDF)
+  - Diff Scans — pull-request-aware comparison between two full scans, output as JSON or GFM markdown comment
+  - Triage workflow — list and update disposition (ignore, acknowledge, escalate, allow) for alerts at scale
+  - Historical alerts, dependencies, and snapshots — long-window trend analytics for posture reporting
+  - Threat Feed — real-time discovery of malicious and suspicious packages across ecosystems
+  - Fixes — version bumps, patches, and overrides for vulnerable dependencies, including auto-PR generation
+  - 70+ alert categories — malware, typosquats, install scripts, telemetry, native code, crypto wallets, supply-chain risks
+  - Security and license policies per organization with per-repo label overrides
+  - Webhooks for scan completion, alert generation, triage events, and threat-feed matches
+  - Socket Firewall — registry proxy and `sfw` runtime that prevents installation of malicious packages
+  - Socket CLI (JavaScript + Python) for scanning, fixing, and config validation
+  - Socket MCP Server — Model Context Protocol server exposing Socket data to AI agents
+  - Socket Optimize — drop-in package overrides for npm/pnpm/yarn that replace vulnerable transitive dependencies
+  - Socket Basics — bundled SAST + Secrets + Container scanning for organizations standardizing on a single tool
+  - Socket VS Code extension and Socket GitHub Action for in-editor and in-CI security gates
+  - GitHub, GitLab, Bitbucket, Azure DevOps, Jira, Slack, and Microsoft Teams integrations
+  - SDKs for JavaScript / TypeScript (`@socketsecurity/sdk`) and Python
+  - Append-only audit log of every administrative action for compliance evidence
+  - Live OpenAPI spec served from https://api.socket.dev/v0/openapi
+  sources:
+  - https://socket.dev
+  - https://docs.socket.dev/
+  - https://github.com/SocketDev
+created: '2026-05-25'
+modified: '2026-05-25'
+description: Socket is a developer-first supply-chain security platform that protects
+  applications from malicious dependencies, vulnerable packages, license risk, and
+  software-supply-chain attacks across npm, PyPI, Go, Maven, Cargo, NuGet, RubyGems,
+  and other open-source ecosystems. Socket ships a hosted API, CLI, MCP server,
+  Firewall package-installer proxy (sfw), GitHub App, IDE extensions, SDKs, and
+  reusable integrations for Jira, Slack, GitHub, GitLab, Bitbucket, Azure DevOps,
+  and Microsoft Teams. The Socket API exposes 70+ alert categories — malware, typo-
+  squats, install scripts, telemetry, native code, crypto wallets, suspicious
+  network activity, license issues — plus full-scan reports with SBOM export
+  (CycloneDX, SPDX, OpenVEX), diff scans for pull requests, a triage workflow,
+  webhooks, and a real-time threat feed of newly discovered malicious packages.
+maintainers:
+- FN: API Evangelist
+  email: info@apievangelist.com

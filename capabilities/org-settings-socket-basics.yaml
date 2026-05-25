@@ -1,0 +1,83 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Socket Org Settings Socket Basics
+  description: Socket org settings socket basics business capability. Self-contained Naftiko capability covering one Socket business surface.
+  tags:
+  - Socket
+  - Supply Chain Security
+  - Org
+  - Settings
+  - Socket
+  - Basics
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SOCKET_API_KEY: SOCKET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: org-settings-socket-basics
+    baseUri: https://api.socket.dev/v0
+    description: Socket org settings socket basics business capability. Self-contained, no shared references.
+    resources:
+    - name: orgs-org-slug-settings-socket-basics
+      path: /orgs/{org_slug}/settings/socket-basics
+      operations:
+      - name: get-orgs-org-slug-settings-socket-basics
+        method: GET
+        description: Get Socket Basics configuration, including toggles for the various tools it supports.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.SOCKET_API_KEY}}'
+      password: ''
+      description: Socket authenticates via HTTP Basic with the API key as the username and empty password.
+  exposes:
+  - type: rest
+    namespace: org-settings-socket-basics-rest
+    port: 8080
+    description: REST adapter for Socket org settings socket basics.
+    resources:
+    - path: /v1/orgs/{org_slug}/settings/socket-basics
+      name: orgs-org-slug-settings-socket-basics
+      description: REST surface for orgs-org-slug-settings-socket-basics.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-settings-socket-basics
+        description: Get Socket Basics configuration, including toggles for the various tools it supports.
+        call: org-settings-socket-basics.get-orgs-org-slug-settings-socket-basics
+        with:
+          org_slug: rest.path.org_slug
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: org-settings-socket-basics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Socket org settings socket basics.
+    tools:
+    - name: socket-get-orgs-org-slug-settings-socket-basics
+      description: Get Socket Basics configuration, including toggles for the various tools it supports.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: org-settings-socket-basics.get-orgs-org-slug-settings-socket-basics
+      with:
+        org_slug: tools.org_slug
+      outputParameters:
+      - type: object
+        mapping: $.

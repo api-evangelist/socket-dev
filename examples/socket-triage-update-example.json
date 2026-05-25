@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "PUT",
+    "url": "https://api.socket.dev/v0/orgs/api-evangelist/triage/alerts/abc-12345-uuid",
+    "headers": {
+      "Authorization": "Basic c29ja2V0X3lvdXJfYXBpX2tleTo=",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "decision": "ignore",
+      "comment": "Acceptable for build-only dependency; reviewed in ticket SEC-481."
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "uuid": "abc-12345-uuid",
+      "alert_type": "telemetry",
+      "decision": "ignore",
+      "comment": "Acceptable for build-only dependency; reviewed in ticket SEC-481.",
+      "decided_by": "kinlane@api-evangelist",
+      "decided_at": "2026-05-25T17:55:23Z"
+    }
+  }
+}

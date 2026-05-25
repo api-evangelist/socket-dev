@@ -1,0 +1,242 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Socket Webhooks Webhooks
+  description: Socket webhooks webhooks business capability. Self-contained Naftiko capability covering one Socket business surface.
+  tags:
+  - Socket
+  - Supply Chain Security
+  - Webhooks
+  - Webhooks
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SOCKET_API_KEY: SOCKET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: webhooks-webhooks
+    baseUri: https://api.socket.dev/v0
+    description: Socket webhooks webhooks business capability. Self-contained, no shared references.
+    resources:
+    - name: orgs-org-slug-webhooks
+      path: /orgs/{org_slug}/webhooks
+      operations:
+      - name: get-orgs-org-slug-webhooks
+        method: GET
+        description: List all webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: sort
+          in: query
+          type: string
+          description: ''
+          required: false
+        - name: direction
+          in: query
+          type: string
+          description: ''
+          required: false
+        - name: per_page
+          in: query
+          type: integer
+          description: ''
+          required: false
+        - name: page
+          in: query
+          type: integer
+          description: ''
+          required: false
+      - name: post-orgs-org-slug-webhooks
+        method: POST
+        description: Create a webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: orgs-org-slug-webhooks-webhook-id
+      path: /orgs/{org_slug}/webhooks/{webhook_id}
+      operations:
+      - name: get-orgs-org-slug-webhooks-webhook-id
+        method: GET
+        description: Get webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: webhook_id
+          in: path
+          type: string
+          description: The ID of the webhook
+          required: true
+      - name: delete-orgs-org-slug-webhooks-webhook-id
+        method: DELETE
+        description: Delete webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: webhook_id
+          in: path
+          type: string
+          description: The ID of the webhook
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.SOCKET_API_KEY}}'
+      password: ''
+      description: Socket authenticates via HTTP Basic with the API key as the username and empty password.
+  exposes:
+  - type: rest
+    namespace: webhooks-webhooks-rest
+    port: 8080
+    description: REST adapter for Socket webhooks webhooks.
+    resources:
+    - path: /v1/orgs/{org_slug}/webhooks
+      name: orgs-org-slug-webhooks
+      description: REST surface for orgs-org-slug-webhooks.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-webhooks
+        description: List all webhooks
+        call: webhooks-webhooks.get-orgs-org-slug-webhooks
+        with:
+          org_slug: rest.path.org_slug
+          sort: rest.query.sort
+          direction: rest.query.direction
+          per_page: rest.query.per_page
+          page: rest.query.page
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: post-orgs-org-slug-webhooks
+        description: Create a webhook
+        call: webhooks-webhooks.post-orgs-org-slug-webhooks
+        with:
+          org_slug: rest.path.org_slug
+          body: rest.body.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/webhooks/{webhook_id}
+      name: orgs-org-slug-webhooks-webhook-id
+      description: REST surface for orgs-org-slug-webhooks-webhook-id.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-webhooks-webhook-id
+        description: Get webhook
+        call: webhooks-webhooks.get-orgs-org-slug-webhooks-webhook-id
+        with:
+          org_slug: rest.path.org_slug
+          webhook_id: rest.path.webhook_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-orgs-org-slug-webhooks-webhook-id
+        description: Delete webhook
+        call: webhooks-webhooks.delete-orgs-org-slug-webhooks-webhook-id
+        with:
+          org_slug: rest.path.org_slug
+          webhook_id: rest.path.webhook_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: webhooks-webhooks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Socket webhooks webhooks.
+    tools:
+    - name: socket-get-orgs-org-slug-webhooks
+      description: List all webhooks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: webhooks-webhooks.get-orgs-org-slug-webhooks
+      with:
+        org_slug: tools.org_slug
+        sort: tools.sort
+        direction: tools.direction
+        per_page: tools.per_page
+        page: tools.page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-post-orgs-org-slug-webhooks
+      description: Create a webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: webhooks-webhooks.post-orgs-org-slug-webhooks
+      with:
+        org_slug: tools.org_slug
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-webhooks-webhook-id
+      description: Get webhook
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: webhooks-webhooks.get-orgs-org-slug-webhooks-webhook-id
+      with:
+        org_slug: tools.org_slug
+        webhook_id: tools.webhook_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-delete-orgs-org-slug-webhooks-webhook-id
+      description: Delete webhook
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: webhooks-webhooks.delete-orgs-org-slug-webhooks-webhook-id
+      with:
+        org_slug: tools.org_slug
+        webhook_id: tools.webhook_id
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,1476 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Socket Alerts Alerts
+  description: Socket alerts alerts business capability. Self-contained Naftiko capability covering one Socket business surface.
+  tags:
+  - Socket
+  - Supply Chain Security
+  - Alerts
+  - Alerts
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SOCKET_API_KEY: SOCKET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: alerts-alerts
+    baseUri: https://api.socket.dev/v0
+    description: Socket alerts alerts business capability. Self-contained, no shared references.
+    resources:
+    - name: orgs-org-slug-alerts
+      path: /orgs/{org_slug}/alerts
+      operations:
+      - name: get-orgs-org-slug-alerts
+        method: GET
+        description: List latest alerts (Beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: per_page
+          in: query
+          type: integer
+          description: Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check "endCursor" in response body to know if
+            there are more pages
+          required: false
+        - name: startAfterCursor
+          in: query
+          type: string
+          description: The pagination cursor that was returned as the "endCursor" property in previous request
+          required: false
+        - name: filters.alertAction
+          in: query
+          type: string
+          description: Comma-separated list of alert actions ("error", "warn", "monitor", or "ignore) that should be included
+          required: false
+        - name: filters.alertAction.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert actions ("error", "warn", "monitor", or "ignore) that should be excluded
+          required: false
+        - name: filters.alertActionSourceType
+          in: query
+          type: string
+          description: Comma-separated list of alert action source types ("fallback", "injected-alert", "org-policy", "reachability", "repo-label-policy", "socket-yml", or "triage") that should be included
+          required: false
+        - name: filters.alertActionSourceType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert action source types ("fallback", "injected-alert", "org-policy", "reachability", "repo-label-policy", "socket-yml", or "triage") that should be excluded
+          required: false
+        - name: filters.alertCategory
+          in: query
+          type: string
+          description: Comma-separated list of alert categories ("supplyChainRisk", "maintenance", "quality", "license", or "vulnerability") that should be included
+          required: false
+        - name: filters.alertCategory.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert categories ("supplyChainRisk", "maintenance", "quality", "license", or "vulnerability") that should be excluded
+          required: false
+        - name: filters.alertClearedAt.eq
+          in: query
+          type: string
+          description: Alert cleared at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertClearedAt.lt
+          in: query
+          type: string
+          description: Alert cleared at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertClearedAt.lte
+          in: query
+          type: string
+          description: Alert cleared at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertClearedAt.gt
+          in: query
+          type: string
+          description: Alert cleared at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertClearedAt.gte
+          in: query
+          type: string
+          description: Alert cleared at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertCreatedAt.eq
+          in: query
+          type: string
+          description: Alert created at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertCreatedAt.lt
+          in: query
+          type: string
+          description: Alert created at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertCreatedAt.lte
+          in: query
+          type: string
+          description: Alert created at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertCreatedAt.gt
+          in: query
+          type: string
+          description: Alert created at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertCreatedAt.gte
+          in: query
+          type: string
+          description: Alert created at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertCveId
+          in: query
+          type: string
+          description: CVE ID
+          required: false
+        - name: filters.alertCveId.notIn
+          in: query
+          type: string
+          description: CVE ID
+          required: false
+        - name: filters.alertCveTitle
+          in: query
+          type: string
+          description: CVE title
+          required: false
+        - name: filters.alertCveTitle.notIn
+          in: query
+          type: string
+          description: CVE title
+          required: false
+        - name: filters.alertCweId
+          in: query
+          type: string
+          description: CWE ID
+          required: false
+        - name: filters.alertCweId.notIn
+          in: query
+          type: string
+          description: CWE ID
+          required: false
+        - name: filters.alertCweName
+          in: query
+          type: string
+          description: CWE name
+          required: false
+        - name: filters.alertCweName.notIn
+          in: query
+          type: string
+          description: CWE name
+          required: false
+        - name: filters.alertEPSS
+          in: query
+          type: string
+          description: Alert EPSS ("low", "medium", "high", "critical")
+          required: false
+        - name: filters.alertEPSS.notIn
+          in: query
+          type: string
+          description: Alert EPSS ("low", "medium", "high", "critical")
+          required: false
+        - name: filters.alertFixType
+          in: query
+          type: string
+          description: Comma-separated list of alert fix types ("upgrade", "cve", or "remove") that should be included
+          required: false
+        - name: filters.alertFixType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert fix types ("upgrade", "cve", or "remove") that should be excluded
+          required: false
+        - name: filters.alertKEV
+          in: query
+          type: boolean
+          description: Alert KEV (Known Exploited Vulnerability) filter flag
+          required: false
+        - name: filters.alertKEV.notIn
+          in: query
+          type: boolean
+          description: Alert KEV (Known Exploited Vulnerability) filter flag
+          required: false
+        - name: filters.alertPriority
+          in: query
+          type: string
+          description: Alert priority ("low", "medium", "high", or "critical")
+          required: false
+        - name: filters.alertPriority.notIn
+          in: query
+          type: string
+          description: Alert priority ("low", "medium", "high", or "critical")
+          required: false
+        - name: filters.alertReachabilityAnalysisType
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability analysis types ("full-scan" or "precomputed") that should be included
+          required: false
+        - name: filters.alertReachabilityAnalysisType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability analysis types ("full-scan" or "precomputed") that should be excluded
+          required: false
+        - name: filters.alertReachabilityType
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability types ("direct_dependency", "error", "maybe_reachable", "missing_support", "pending", "reachable", "undeterminable_reachability", "unknown",
+            or "unreacha
+          required: false
+        - name: filters.alertReachabilityType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability types ("direct_dependency", "error", "maybe_reachable", "missing_support", "pending", "reachable", "undeterminable_reachability", "unknown",
+            or "unreacha
+          required: false
+        - name: filters.alertSeverity
+          in: query
+          type: string
+          description: Comma-separated list of alert severities ("low", "medium", "high", or "critical") that should be included
+          required: false
+        - name: filters.alertSeverity.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert severities ("low", "medium", "high", or "critical") that should be excluded
+          required: false
+        - name: filters.alertStatus
+          in: query
+          type: string
+          description: A single alert status ("open" or "cleared")
+          required: false
+        - name: filters.alertStatus.notIn
+          in: query
+          type: string
+          description: A single alert status ("open" or "cleared")
+          required: false
+        - name: filters.alertType
+          in: query
+          type: string
+          description: Comma-separated list of alert types (e.g. "usesEval", "unmaintained", etc.) that should be included
+          required: false
+        - name: filters.alertType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert types (e.g. "usesEval", "unmaintained", etc.) that should be excluded
+          required: false
+        - name: filters.alertUpdatedAt.eq
+          in: query
+          type: string
+          description: Alert updated at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertUpdatedAt.lt
+          in: query
+          type: string
+          description: Alert updated at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertUpdatedAt.lte
+          in: query
+          type: string
+          description: Alert updated at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertUpdatedAt.gt
+          in: query
+          type: string
+          description: Alert updated at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.alertUpdatedAt.gte
+          in: query
+          type: string
+          description: Alert updated at (YYYY-MM-DD HH:MM:SS in UTC time zone)
+          required: false
+        - name: filters.artifactName
+          in: query
+          type: string
+          description: Name of artifact
+          required: false
+        - name: filters.artifactName.notIn
+          in: query
+          type: string
+          description: Name of artifact
+          required: false
+        - name: filters.artifactType
+          in: query
+          type: string
+          description: Comma-separated list of artifact types (e.g. "npm", "pypi", "gem", "maven", "golang", etc.) that should be included
+          required: false
+        - name: filters.artifactType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of artifact types (e.g. "npm", "pypi", "gem", "maven", "golang", etc.) that should be excluded
+          required: false
+        - name: filters.branch
+          in: query
+          type: string
+          description: Comma-separated list of branch names that should be included
+          required: false
+        - name: filters.branch.notIn
+          in: query
+          type: string
+          description: Comma-separated list of branch names that should be excluded
+          required: false
+        - name: filters.cvePatchStatus
+          in: query
+          type: string
+          description: Comma-separated list of patch statuses ("patch_unavailable", "patch_available", or "patch_applied") that should be included
+          required: false
+        - name: filters.cvePatchStatus.notIn
+          in: query
+          type: string
+          description: Comma-separated list of patch statuses ("patch_unavailable", "patch_available", or "patch_applied") that should be excluded
+          required: false
+        - name: filters.dependencyDead
+          in: query
+          type: boolean
+          description: Dead/reachable dependency filter flag
+          required: false
+        - name: filters.dependencyDead.notIn
+          in: query
+          type: boolean
+          description: Dead/reachable dependency filter flag
+          required: false
+        - name: filters.dependencyDev
+          in: query
+          type: boolean
+          description: Development/production dependency filter flag
+          required: false
+        - name: filters.dependencyDev.notIn
+          in: query
+          type: boolean
+          description: Development/production dependency filter flag
+          required: false
+        - name: filters.dependencyDirect
+          in: query
+          type: boolean
+          description: Direct/transitive dependency filter flag
+          required: false
+        - name: filters.dependencyDirect.notIn
+          in: query
+          type: boolean
+          description: Direct/transitive dependency filter flag
+          required: false
+        - name: filters.repoFullName
+          in: query
+          type: string
+          description: Comma-separated list of repo full names that should be included
+          required: false
+        - name: filters.repoFullName.notIn
+          in: query
+          type: string
+          description: Comma-separated list of repo full names that should be excluded
+          required: false
+        - name: filters.repoLabels
+          in: query
+          type: string
+          description: Comma-separated list of repo labels that should be included. Use "" to filter for repositories with no labels.
+          required: false
+        - name: filters.repoLabels.notIn
+          in: query
+          type: string
+          description: Comma-separated list of repo labels that should be excluded. Use "" to filter for repositories with no labels.
+          required: false
+        - name: filters.repoSlug
+          in: query
+          type: string
+          description: Comma-separated list of repo slugs that should be included
+          required: false
+        - name: filters.repoSlug.notIn
+          in: query
+          type: string
+          description: Comma-separated list of repo slugs that should be excluded
+          required: false
+    - name: orgs-org-slug-historical-alerts
+      path: /orgs/{org_slug}/historical/alerts
+      operations:
+      - name: get-orgs-org-slug-historical-alerts
+        method: GET
+        description: List historical alerts (Beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: date
+          in: query
+          type: string
+          description: The UTC date in YYYY-MM-DD format for which to fetch alerts
+          required: false
+        - name: range
+          in: query
+          type: string
+          description: The number of days of data to fetch as an offset from input date (e.g. "-7d" or "7d") or use "latest" to query for latest alerts for each repo
+          required: false
+        - name: per_page
+          in: query
+          type: integer
+          description: Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check "endCursor" in response body to know if
+            there are more pages
+          required: false
+        - name: startAfterCursor
+          in: query
+          type: string
+          description: The pagination cursor that was returned as the "endCursor" property in previous request
+          required: false
+        - name: filters.alertAction
+          in: query
+          type: string
+          description: Comma-separated list of alert actions ("error", "warn", "monitor", or "ignore) that should be included
+          required: false
+        - name: filters.alertAction.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert actions ("error", "warn", "monitor", or "ignore) that should be excluded
+          required: false
+        - name: filters.alertActionSourceType
+          in: query
+          type: string
+          description: Comma-separated list of alert action source types ("fallback", "injected-alert", "org-policy", "reachability", "repo-label-policy", "socket-yml", or "triage") that should be included
+          required: false
+        - name: filters.alertActionSourceType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert action source types ("fallback", "injected-alert", "org-policy", "reachability", "repo-label-policy", "socket-yml", or "triage") that should be excluded
+          required: false
+        - name: filters.alertCategory
+          in: query
+          type: string
+          description: Comma-separated list of alert categories ("supplyChainRisk", "maintenance", "quality", "license", or "vulnerability") that should be included
+          required: false
+        - name: filters.alertCategory.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert categories ("supplyChainRisk", "maintenance", "quality", "license", or "vulnerability") that should be excluded
+          required: false
+        - name: filters.alertCveId
+          in: query
+          type: string
+          description: CVE ID
+          required: false
+        - name: filters.alertCveId.notIn
+          in: query
+          type: string
+          description: CVE ID
+          required: false
+        - name: filters.alertCveTitle
+          in: query
+          type: string
+          description: CVE title
+          required: false
+        - name: filters.alertCveTitle.notIn
+          in: query
+          type: string
+          description: CVE title
+          required: false
+        - name: filters.alertCweId
+          in: query
+          type: string
+          description: CWE ID
+          required: false
+        - name: filters.alertCweId.notIn
+          in: query
+          type: string
+          description: CWE ID
+          required: false
+        - name: filters.alertCweName
+          in: query
+          type: string
+          description: CWE name
+          required: false
+        - name: filters.alertCweName.notIn
+          in: query
+          type: string
+          description: CWE name
+          required: false
+        - name: filters.alertEPSS
+          in: query
+          type: string
+          description: Alert EPSS ("low", "medium", "high", "critical")
+          required: false
+        - name: filters.alertEPSS.notIn
+          in: query
+          type: string
+          description: Alert EPSS ("low", "medium", "high", "critical")
+          required: false
+        - name: filters.alertFixType
+          in: query
+          type: string
+          description: Comma-separated list of alert fix types ("upgrade", "cve", or "remove") that should be included
+          required: false
+        - name: filters.alertFixType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert fix types ("upgrade", "cve", or "remove") that should be excluded
+          required: false
+        - name: filters.alertKEV
+          in: query
+          type: boolean
+          description: Alert KEV (Known Exploited Vulnerability) filter flag
+          required: false
+        - name: filters.alertKEV.notIn
+          in: query
+          type: boolean
+          description: Alert KEV (Known Exploited Vulnerability) filter flag
+          required: false
+        - name: filters.alertPriority
+          in: query
+          type: string
+          description: Alert priority ("low", "medium", "high", or "critical")
+          required: false
+        - name: filters.alertPriority.notIn
+          in: query
+          type: string
+          description: Alert priority ("low", "medium", "high", or "critical")
+          required: false
+        - name: filters.alertReachabilityAnalysisType
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability analysis types ("full-scan" or "precomputed") that should be included
+          required: false
+        - name: filters.alertReachabilityAnalysisType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability analysis types ("full-scan" or "precomputed") that should be excluded
+          required: false
+        - name: filters.alertReachabilityType
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability types ("direct_dependency", "error", "maybe_reachable", "missing_support", "pending", "reachable", "undeterminable_reachability", "unknown",
+            or "unreacha
+          required: false
+        - name: filters.alertReachabilityType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability types ("direct_dependency", "error", "maybe_reachable", "missing_support", "pending", "reachable", "undeterminable_reachability", "unknown",
+            or "unreacha
+          required: false
+        - name: filters.alertSeverity
+          in: query
+          type: string
+          description: Comma-separated list of alert severities ("low", "medium", "high", or "critical") that should be included
+          required: false
+        - name: filters.alertSeverity.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert severities ("low", "medium", "high", or "critical") that should be excluded
+          required: false
+        - name: filters.alertType
+          in: query
+          type: string
+          description: Comma-separated list of alert types (e.g. "usesEval", "unmaintained", etc.) that should be included
+          required: false
+        - name: filters.alertType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert types (e.g. "usesEval", "unmaintained", etc.) that should be excluded
+          required: false
+        - name: filters.artifactName
+          in: query
+          type: string
+          description: Name of artifact
+          required: false
+        - name: filters.artifactName.notIn
+          in: query
+          type: string
+          description: Name of artifact
+          required: false
+        - name: filters.artifactType
+          in: query
+          type: string
+          description: Comma-separated list of artifact types (e.g. "npm", "pypi", "gem", "maven", "golang", etc.) that should be included
+          required: false
+        - name: filters.artifactType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of artifact types (e.g. "npm", "pypi", "gem", "maven", "golang", etc.) that should be excluded
+          required: false
+        - name: filters.branch
+          in: query
+          type: string
+          description: Comma-separated list of branch names that should be included
+          required: false
+        - name: filters.branch.notIn
+          in: query
+          type: string
+          description: Comma-separated list of branch names that should be excluded
+          required: false
+        - name: filters.cvePatchStatus
+          in: query
+          type: string
+          description: Comma-separated list of patch statuses ("patch_unavailable", "patch_available", or "patch_applied") that should be included
+          required: false
+        - name: filters.cvePatchStatus.notIn
+          in: query
+          type: string
+          description: Comma-separated list of patch statuses ("patch_unavailable", "patch_available", or "patch_applied") that should be excluded
+          required: false
+        - name: filters.dependencyDead
+          in: query
+          type: boolean
+          description: Dead/reachable dependency filter flag
+          required: false
+        - name: filters.dependencyDead.notIn
+          in: query
+          type: boolean
+          description: Dead/reachable dependency filter flag
+          required: false
+        - name: filters.dependencyDev
+          in: query
+          type: boolean
+          description: Development/production dependency filter flag
+          required: false
+        - name: filters.dependencyDev.notIn
+          in: query
+          type: boolean
+          description: Development/production dependency filter flag
+          required: false
+        - name: filters.dependencyDirect
+          in: query
+          type: boolean
+          description: Direct/transitive dependency filter flag
+          required: false
+        - name: filters.dependencyDirect.notIn
+          in: query
+          type: boolean
+          description: Direct/transitive dependency filter flag
+          required: false
+        - name: filters.repoFullName
+          in: query
+          type: string
+          description: Comma-separated list of repo full names that should be included
+          required: false
+        - name: filters.repoFullName.notIn
+          in: query
+          type: string
+          description: Comma-separated list of repo full names that should be excluded
+          required: false
+        - name: filters.repoLabels
+          in: query
+          type: string
+          description: Comma-separated list of repo labels that should be included. Use "" to filter for repositories with no labels.
+          required: false
+        - name: filters.repoLabels.notIn
+          in: query
+          type: string
+          description: Comma-separated list of repo labels that should be excluded. Use "" to filter for repositories with no labels.
+          required: false
+        - name: filters.repoSlug
+          in: query
+          type: string
+          description: Comma-separated list of repo slugs that should be included
+          required: false
+        - name: filters.repoSlug.notIn
+          in: query
+          type: string
+          description: Comma-separated list of repo slugs that should be excluded
+          required: false
+    - name: orgs-org-slug-historical-alerts-trend
+      path: /orgs/{org_slug}/historical/alerts/trend
+      operations:
+      - name: get-orgs-org-slug-historical-alerts-trend
+        method: GET
+        description: Trend of historical alerts (Beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: date
+          in: query
+          type: string
+          description: The UTC date in YYYY-MM-DD format for which to fetch alerts
+          required: false
+        - name: range
+          in: query
+          type: string
+          description: The number of days of data to fetch as an offset from input date
+          required: false
+        - name: aggregation.fields
+          in: query
+          type: string
+          description: 'Comma-separated list of fields that should be used for count aggregation (allowed: alertSeverity,repoSlug,repoFullName,branch,repoLabels,alertType,artifactType,alertAction,alertActionSourceType,alertF'
+          required: false
+        - name: filters.alertAction
+          in: query
+          type: string
+          description: Comma-separated list of alert actions ("error", "warn", "monitor", or "ignore) that should be included
+          required: false
+        - name: filters.alertAction.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert actions ("error", "warn", "monitor", or "ignore) that should be excluded
+          required: false
+        - name: filters.alertActionSourceType
+          in: query
+          type: string
+          description: Comma-separated list of alert action source types ("fallback", "injected-alert", "org-policy", "reachability", "repo-label-policy", "socket-yml", or "triage") that should be included
+          required: false
+        - name: filters.alertActionSourceType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert action source types ("fallback", "injected-alert", "org-policy", "reachability", "repo-label-policy", "socket-yml", or "triage") that should be excluded
+          required: false
+        - name: filters.alertCategory
+          in: query
+          type: string
+          description: Comma-separated list of alert categories ("supplyChainRisk", "maintenance", "quality", "license", or "vulnerability") that should be included
+          required: false
+        - name: filters.alertCategory.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert categories ("supplyChainRisk", "maintenance", "quality", "license", or "vulnerability") that should be excluded
+          required: false
+        - name: filters.alertCveId
+          in: query
+          type: string
+          description: CVE ID
+          required: false
+        - name: filters.alertCveId.notIn
+          in: query
+          type: string
+          description: CVE ID
+          required: false
+        - name: filters.alertCveTitle
+          in: query
+          type: string
+          description: CVE title
+          required: false
+        - name: filters.alertCveTitle.notIn
+          in: query
+          type: string
+          description: CVE title
+          required: false
+        - name: filters.alertCweId
+          in: query
+          type: string
+          description: CWE ID
+          required: false
+        - name: filters.alertCweId.notIn
+          in: query
+          type: string
+          description: CWE ID
+          required: false
+        - name: filters.alertCweName
+          in: query
+          type: string
+          description: CWE name
+          required: false
+        - name: filters.alertCweName.notIn
+          in: query
+          type: string
+          description: CWE name
+          required: false
+        - name: filters.alertEPSS
+          in: query
+          type: string
+          description: Alert EPSS ("low", "medium", "high", "critical")
+          required: false
+        - name: filters.alertEPSS.notIn
+          in: query
+          type: string
+          description: Alert EPSS ("low", "medium", "high", "critical")
+          required: false
+        - name: filters.alertFixType
+          in: query
+          type: string
+          description: Comma-separated list of alert fix types ("upgrade", "cve", or "remove") that should be included
+          required: false
+        - name: filters.alertFixType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert fix types ("upgrade", "cve", or "remove") that should be excluded
+          required: false
+        - name: filters.alertKEV
+          in: query
+          type: boolean
+          description: Alert KEV (Known Exploited Vulnerability) filter flag
+          required: false
+        - name: filters.alertKEV.notIn
+          in: query
+          type: boolean
+          description: Alert KEV (Known Exploited Vulnerability) filter flag
+          required: false
+        - name: filters.alertPriority
+          in: query
+          type: string
+          description: Alert priority ("low", "medium", "high", or "critical")
+          required: false
+        - name: filters.alertPriority.notIn
+          in: query
+          type: string
+          description: Alert priority ("low", "medium", "high", or "critical")
+          required: false
+        - name: filters.alertReachabilityAnalysisType
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability analysis types ("full-scan" or "precomputed") that should be included
+          required: false
+        - name: filters.alertReachabilityAnalysisType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability analysis types ("full-scan" or "precomputed") that should be excluded
+          required: false
+        - name: filters.alertReachabilityType
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability types ("direct_dependency", "error", "maybe_reachable", "missing_support", "pending", "reachable", "undeterminable_reachability", "unknown",
+            or "unreacha
+          required: false
+        - name: filters.alertReachabilityType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert CVE reachability types ("direct_dependency", "error", "maybe_reachable", "missing_support", "pending", "reachable", "undeterminable_reachability", "unknown",
+            or "unreacha
+          required: false
+        - name: filters.alertSeverity
+          in: query
+          type: string
+          description: Comma-separated list of alert severities ("low", "medium", "high", or "critical") that should be included
+          required: false
+        - name: filters.alertSeverity.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert severities ("low", "medium", "high", or "critical") that should be excluded
+          required: false
+        - name: filters.alertType
+          in: query
+          type: string
+          description: Comma-separated list of alert types (e.g. "usesEval", "unmaintained", etc.) that should be included
+          required: false
+        - name: filters.alertType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of alert types (e.g. "usesEval", "unmaintained", etc.) that should be excluded
+          required: false
+        - name: filters.artifactName
+          in: query
+          type: string
+          description: Name of artifact
+          required: false
+        - name: filters.artifactName.notIn
+          in: query
+          type: string
+          description: Name of artifact
+          required: false
+        - name: filters.artifactType
+          in: query
+          type: string
+          description: Comma-separated list of artifact types (e.g. "npm", "pypi", "gem", "maven", "golang", etc.) that should be included
+          required: false
+        - name: filters.artifactType.notIn
+          in: query
+          type: string
+          description: Comma-separated list of artifact types (e.g. "npm", "pypi", "gem", "maven", "golang", etc.) that should be excluded
+          required: false
+        - name: filters.branch
+          in: query
+          type: string
+          description: Comma-separated list of branch names that should be included
+          required: false
+        - name: filters.branch.notIn
+          in: query
+          type: string
+          description: Comma-separated list of branch names that should be excluded
+          required: false
+        - name: filters.cvePatchStatus
+          in: query
+          type: string
+          description: Comma-separated list of patch statuses ("patch_unavailable", "patch_available", or "patch_applied") that should be included
+          required: false
+        - name: filters.cvePatchStatus.notIn
+          in: query
+          type: string
+          description: Comma-separated list of patch statuses ("patch_unavailable", "patch_available", or "patch_applied") that should be excluded
+          required: false
+        - name: filters.dependencyDead
+          in: query
+          type: boolean
+          description: Dead/reachable dependency filter flag
+          required: false
+        - name: filters.dependencyDead.notIn
+          in: query
+          type: boolean
+          description: Dead/reachable dependency filter flag
+          required: false
+        - name: filters.dependencyDev
+          in: query
+          type: boolean
+          description: Development/production dependency filter flag
+          required: false
+        - name: filters.dependencyDev.notIn
+          in: query
+          type: boolean
+          description: Development/production dependency filter flag
+          required: false
+        - name: filters.dependencyDirect
+          in: query
+          type: boolean
+          description: Direct/transitive dependency filter flag
+          required: false
+        - name: filters.dependencyDirect.notIn
+          in: query
+          type: boolean
+          description: Direct/transitive dependency filter flag
+          required: false
+        - name: filters.repoFullName
+          in: query
+          type: string
+          description: Comma-separated list of repo full names that should be included
+          required: false
+        - name: filters.repoFullName.notIn
+          in: query
+          type: string
+          description: Comma-separated list of repo full names that should be excluded
+          required: false
+        - name: filters.repoLabels
+          in: query
+          type: string
+          description: Comma-separated list of repo labels that should be included. Use "" to filter for repositories with no labels.
+          required: false
+        - name: filters.repoLabels.notIn
+          in: query
+          type: string
+          description: Comma-separated list of repo labels that should be excluded. Use "" to filter for repositories with no labels.
+          required: false
+        - name: filters.repoSlug
+          in: query
+          type: string
+          description: Comma-separated list of repo slugs that should be included
+          required: false
+        - name: filters.repoSlug.notIn
+          in: query
+          type: string
+          description: Comma-separated list of repo slugs that should be excluded
+          required: false
+    - name: orgs-org-slug-alert-full-scan-search
+      path: /orgs/{org_slug}/alert-full-scan-search
+      operations:
+      - name: get-orgs-org-slug-alert-full-scan-search
+        method: GET
+        description: List full scans associated with alert (Beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: per_page
+          in: query
+          type: integer
+          description: Specify the maximum number of items to return per page (intermediate pages may have fewer than this limit and callers should always check "endCursor" in response body to know if there
+            are more pages)
+          required: false
+        - name: startAfterCursor
+          in: query
+          type: string
+          description: The pagination cursor that was returned as the "endCursor" property in previous request
+          required: false
+        - name: alertKey
+          in: query
+          type: string
+          description: One or more alert keys for which to find associated full scans
+          required: true
+        - name: range
+          in: query
+          type: string
+          description: The number of days of data to fetch as an offset from current date (e.g. "-7d" for past 7 days)
+          required: false
+    authentication:
+      type: basic
+      username: '{{env.SOCKET_API_KEY}}'
+      password: ''
+      description: Socket authenticates via HTTP Basic with the API key as the username and empty password.
+  exposes:
+  - type: rest
+    namespace: alerts-alerts-rest
+    port: 8080
+    description: REST adapter for Socket alerts alerts.
+    resources:
+    - path: /v1/orgs/{org_slug}/alerts
+      name: orgs-org-slug-alerts
+      description: REST surface for orgs-org-slug-alerts.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-alerts
+        description: List latest alerts (Beta)
+        call: alerts-alerts.get-orgs-org-slug-alerts
+        with:
+          org_slug: rest.path.org_slug
+          per_page: rest.query.per_page
+          startAfterCursor: rest.query.startAfterCursor
+          filters.alertAction: rest.query.filters.alertAction
+          filters.alertAction.notIn: rest.query.filters.alertAction.notIn
+          filters.alertActionSourceType: rest.query.filters.alertActionSourceType
+          filters.alertActionSourceType.notIn: rest.query.filters.alertActionSourceType.notIn
+          filters.alertCategory: rest.query.filters.alertCategory
+          filters.alertCategory.notIn: rest.query.filters.alertCategory.notIn
+          filters.alertClearedAt.eq: rest.query.filters.alertClearedAt.eq
+          filters.alertClearedAt.lt: rest.query.filters.alertClearedAt.lt
+          filters.alertClearedAt.lte: rest.query.filters.alertClearedAt.lte
+          filters.alertClearedAt.gt: rest.query.filters.alertClearedAt.gt
+          filters.alertClearedAt.gte: rest.query.filters.alertClearedAt.gte
+          filters.alertCreatedAt.eq: rest.query.filters.alertCreatedAt.eq
+          filters.alertCreatedAt.lt: rest.query.filters.alertCreatedAt.lt
+          filters.alertCreatedAt.lte: rest.query.filters.alertCreatedAt.lte
+          filters.alertCreatedAt.gt: rest.query.filters.alertCreatedAt.gt
+          filters.alertCreatedAt.gte: rest.query.filters.alertCreatedAt.gte
+          filters.alertCveId: rest.query.filters.alertCveId
+          filters.alertCveId.notIn: rest.query.filters.alertCveId.notIn
+          filters.alertCveTitle: rest.query.filters.alertCveTitle
+          filters.alertCveTitle.notIn: rest.query.filters.alertCveTitle.notIn
+          filters.alertCweId: rest.query.filters.alertCweId
+          filters.alertCweId.notIn: rest.query.filters.alertCweId.notIn
+          filters.alertCweName: rest.query.filters.alertCweName
+          filters.alertCweName.notIn: rest.query.filters.alertCweName.notIn
+          filters.alertEPSS: rest.query.filters.alertEPSS
+          filters.alertEPSS.notIn: rest.query.filters.alertEPSS.notIn
+          filters.alertFixType: rest.query.filters.alertFixType
+          filters.alertFixType.notIn: rest.query.filters.alertFixType.notIn
+          filters.alertKEV: rest.query.filters.alertKEV
+          filters.alertKEV.notIn: rest.query.filters.alertKEV.notIn
+          filters.alertPriority: rest.query.filters.alertPriority
+          filters.alertPriority.notIn: rest.query.filters.alertPriority.notIn
+          filters.alertReachabilityAnalysisType: rest.query.filters.alertReachabilityAnalysisType
+          filters.alertReachabilityAnalysisType.notIn: rest.query.filters.alertReachabilityAnalysisType.notIn
+          filters.alertReachabilityType: rest.query.filters.alertReachabilityType
+          filters.alertReachabilityType.notIn: rest.query.filters.alertReachabilityType.notIn
+          filters.alertSeverity: rest.query.filters.alertSeverity
+          filters.alertSeverity.notIn: rest.query.filters.alertSeverity.notIn
+          filters.alertStatus: rest.query.filters.alertStatus
+          filters.alertStatus.notIn: rest.query.filters.alertStatus.notIn
+          filters.alertType: rest.query.filters.alertType
+          filters.alertType.notIn: rest.query.filters.alertType.notIn
+          filters.alertUpdatedAt.eq: rest.query.filters.alertUpdatedAt.eq
+          filters.alertUpdatedAt.lt: rest.query.filters.alertUpdatedAt.lt
+          filters.alertUpdatedAt.lte: rest.query.filters.alertUpdatedAt.lte
+          filters.alertUpdatedAt.gt: rest.query.filters.alertUpdatedAt.gt
+          filters.alertUpdatedAt.gte: rest.query.filters.alertUpdatedAt.gte
+          filters.artifactName: rest.query.filters.artifactName
+          filters.artifactName.notIn: rest.query.filters.artifactName.notIn
+          filters.artifactType: rest.query.filters.artifactType
+          filters.artifactType.notIn: rest.query.filters.artifactType.notIn
+          filters.branch: rest.query.filters.branch
+          filters.branch.notIn: rest.query.filters.branch.notIn
+          filters.cvePatchStatus: rest.query.filters.cvePatchStatus
+          filters.cvePatchStatus.notIn: rest.query.filters.cvePatchStatus.notIn
+          filters.dependencyDead: rest.query.filters.dependencyDead
+          filters.dependencyDead.notIn: rest.query.filters.dependencyDead.notIn
+          filters.dependencyDev: rest.query.filters.dependencyDev
+          filters.dependencyDev.notIn: rest.query.filters.dependencyDev.notIn
+          filters.dependencyDirect: rest.query.filters.dependencyDirect
+          filters.dependencyDirect.notIn: rest.query.filters.dependencyDirect.notIn
+          filters.repoFullName: rest.query.filters.repoFullName
+          filters.repoFullName.notIn: rest.query.filters.repoFullName.notIn
+          filters.repoLabels: rest.query.filters.repoLabels
+          filters.repoLabels.notIn: rest.query.filters.repoLabels.notIn
+          filters.repoSlug: rest.query.filters.repoSlug
+          filters.repoSlug.notIn: rest.query.filters.repoSlug.notIn
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/historical/alerts
+      name: orgs-org-slug-historical-alerts
+      description: REST surface for orgs-org-slug-historical-alerts.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-historical-alerts
+        description: List historical alerts (Beta)
+        call: alerts-alerts.get-orgs-org-slug-historical-alerts
+        with:
+          org_slug: rest.path.org_slug
+          date: rest.query.date
+          range: rest.query.range
+          per_page: rest.query.per_page
+          startAfterCursor: rest.query.startAfterCursor
+          filters.alertAction: rest.query.filters.alertAction
+          filters.alertAction.notIn: rest.query.filters.alertAction.notIn
+          filters.alertActionSourceType: rest.query.filters.alertActionSourceType
+          filters.alertActionSourceType.notIn: rest.query.filters.alertActionSourceType.notIn
+          filters.alertCategory: rest.query.filters.alertCategory
+          filters.alertCategory.notIn: rest.query.filters.alertCategory.notIn
+          filters.alertCveId: rest.query.filters.alertCveId
+          filters.alertCveId.notIn: rest.query.filters.alertCveId.notIn
+          filters.alertCveTitle: rest.query.filters.alertCveTitle
+          filters.alertCveTitle.notIn: rest.query.filters.alertCveTitle.notIn
+          filters.alertCweId: rest.query.filters.alertCweId
+          filters.alertCweId.notIn: rest.query.filters.alertCweId.notIn
+          filters.alertCweName: rest.query.filters.alertCweName
+          filters.alertCweName.notIn: rest.query.filters.alertCweName.notIn
+          filters.alertEPSS: rest.query.filters.alertEPSS
+          filters.alertEPSS.notIn: rest.query.filters.alertEPSS.notIn
+          filters.alertFixType: rest.query.filters.alertFixType
+          filters.alertFixType.notIn: rest.query.filters.alertFixType.notIn
+          filters.alertKEV: rest.query.filters.alertKEV
+          filters.alertKEV.notIn: rest.query.filters.alertKEV.notIn
+          filters.alertPriority: rest.query.filters.alertPriority
+          filters.alertPriority.notIn: rest.query.filters.alertPriority.notIn
+          filters.alertReachabilityAnalysisType: rest.query.filters.alertReachabilityAnalysisType
+          filters.alertReachabilityAnalysisType.notIn: rest.query.filters.alertReachabilityAnalysisType.notIn
+          filters.alertReachabilityType: rest.query.filters.alertReachabilityType
+          filters.alertReachabilityType.notIn: rest.query.filters.alertReachabilityType.notIn
+          filters.alertSeverity: rest.query.filters.alertSeverity
+          filters.alertSeverity.notIn: rest.query.filters.alertSeverity.notIn
+          filters.alertType: rest.query.filters.alertType
+          filters.alertType.notIn: rest.query.filters.alertType.notIn
+          filters.artifactName: rest.query.filters.artifactName
+          filters.artifactName.notIn: rest.query.filters.artifactName.notIn
+          filters.artifactType: rest.query.filters.artifactType
+          filters.artifactType.notIn: rest.query.filters.artifactType.notIn
+          filters.branch: rest.query.filters.branch
+          filters.branch.notIn: rest.query.filters.branch.notIn
+          filters.cvePatchStatus: rest.query.filters.cvePatchStatus
+          filters.cvePatchStatus.notIn: rest.query.filters.cvePatchStatus.notIn
+          filters.dependencyDead: rest.query.filters.dependencyDead
+          filters.dependencyDead.notIn: rest.query.filters.dependencyDead.notIn
+          filters.dependencyDev: rest.query.filters.dependencyDev
+          filters.dependencyDev.notIn: rest.query.filters.dependencyDev.notIn
+          filters.dependencyDirect: rest.query.filters.dependencyDirect
+          filters.dependencyDirect.notIn: rest.query.filters.dependencyDirect.notIn
+          filters.repoFullName: rest.query.filters.repoFullName
+          filters.repoFullName.notIn: rest.query.filters.repoFullName.notIn
+          filters.repoLabels: rest.query.filters.repoLabels
+          filters.repoLabels.notIn: rest.query.filters.repoLabels.notIn
+          filters.repoSlug: rest.query.filters.repoSlug
+          filters.repoSlug.notIn: rest.query.filters.repoSlug.notIn
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/historical/alerts/trend
+      name: orgs-org-slug-historical-alerts-trend
+      description: REST surface for orgs-org-slug-historical-alerts-trend.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-historical-alerts-trend
+        description: Trend of historical alerts (Beta)
+        call: alerts-alerts.get-orgs-org-slug-historical-alerts-trend
+        with:
+          org_slug: rest.path.org_slug
+          date: rest.query.date
+          range: rest.query.range
+          aggregation.fields: rest.query.aggregation.fields
+          filters.alertAction: rest.query.filters.alertAction
+          filters.alertAction.notIn: rest.query.filters.alertAction.notIn
+          filters.alertActionSourceType: rest.query.filters.alertActionSourceType
+          filters.alertActionSourceType.notIn: rest.query.filters.alertActionSourceType.notIn
+          filters.alertCategory: rest.query.filters.alertCategory
+          filters.alertCategory.notIn: rest.query.filters.alertCategory.notIn
+          filters.alertCveId: rest.query.filters.alertCveId
+          filters.alertCveId.notIn: rest.query.filters.alertCveId.notIn
+          filters.alertCveTitle: rest.query.filters.alertCveTitle
+          filters.alertCveTitle.notIn: rest.query.filters.alertCveTitle.notIn
+          filters.alertCweId: rest.query.filters.alertCweId
+          filters.alertCweId.notIn: rest.query.filters.alertCweId.notIn
+          filters.alertCweName: rest.query.filters.alertCweName
+          filters.alertCweName.notIn: rest.query.filters.alertCweName.notIn
+          filters.alertEPSS: rest.query.filters.alertEPSS
+          filters.alertEPSS.notIn: rest.query.filters.alertEPSS.notIn
+          filters.alertFixType: rest.query.filters.alertFixType
+          filters.alertFixType.notIn: rest.query.filters.alertFixType.notIn
+          filters.alertKEV: rest.query.filters.alertKEV
+          filters.alertKEV.notIn: rest.query.filters.alertKEV.notIn
+          filters.alertPriority: rest.query.filters.alertPriority
+          filters.alertPriority.notIn: rest.query.filters.alertPriority.notIn
+          filters.alertReachabilityAnalysisType: rest.query.filters.alertReachabilityAnalysisType
+          filters.alertReachabilityAnalysisType.notIn: rest.query.filters.alertReachabilityAnalysisType.notIn
+          filters.alertReachabilityType: rest.query.filters.alertReachabilityType
+          filters.alertReachabilityType.notIn: rest.query.filters.alertReachabilityType.notIn
+          filters.alertSeverity: rest.query.filters.alertSeverity
+          filters.alertSeverity.notIn: rest.query.filters.alertSeverity.notIn
+          filters.alertType: rest.query.filters.alertType
+          filters.alertType.notIn: rest.query.filters.alertType.notIn
+          filters.artifactName: rest.query.filters.artifactName
+          filters.artifactName.notIn: rest.query.filters.artifactName.notIn
+          filters.artifactType: rest.query.filters.artifactType
+          filters.artifactType.notIn: rest.query.filters.artifactType.notIn
+          filters.branch: rest.query.filters.branch
+          filters.branch.notIn: rest.query.filters.branch.notIn
+          filters.cvePatchStatus: rest.query.filters.cvePatchStatus
+          filters.cvePatchStatus.notIn: rest.query.filters.cvePatchStatus.notIn
+          filters.dependencyDead: rest.query.filters.dependencyDead
+          filters.dependencyDead.notIn: rest.query.filters.dependencyDead.notIn
+          filters.dependencyDev: rest.query.filters.dependencyDev
+          filters.dependencyDev.notIn: rest.query.filters.dependencyDev.notIn
+          filters.dependencyDirect: rest.query.filters.dependencyDirect
+          filters.dependencyDirect.notIn: rest.query.filters.dependencyDirect.notIn
+          filters.repoFullName: rest.query.filters.repoFullName
+          filters.repoFullName.notIn: rest.query.filters.repoFullName.notIn
+          filters.repoLabels: rest.query.filters.repoLabels
+          filters.repoLabels.notIn: rest.query.filters.repoLabels.notIn
+          filters.repoSlug: rest.query.filters.repoSlug
+          filters.repoSlug.notIn: rest.query.filters.repoSlug.notIn
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/alert-full-scan-search
+      name: orgs-org-slug-alert-full-scan-search
+      description: REST surface for orgs-org-slug-alert-full-scan-search.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-alert-full-scan-search
+        description: List full scans associated with alert (Beta)
+        call: alerts-alerts.get-orgs-org-slug-alert-full-scan-search
+        with:
+          org_slug: rest.path.org_slug
+          per_page: rest.query.per_page
+          startAfterCursor: rest.query.startAfterCursor
+          alertKey: rest.query.alertKey
+          range: rest.query.range
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: alerts-alerts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Socket alerts alerts.
+    tools:
+    - name: socket-get-orgs-org-slug-alerts
+      description: List latest alerts (Beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: alerts-alerts.get-orgs-org-slug-alerts
+      with:
+        org_slug: tools.org_slug
+        per_page: tools.per_page
+        startAfterCursor: tools.startAfterCursor
+        filters.alertAction: tools.filters.alertAction
+        filters.alertAction.notIn: tools.filters.alertAction.notIn
+        filters.alertActionSourceType: tools.filters.alertActionSourceType
+        filters.alertActionSourceType.notIn: tools.filters.alertActionSourceType.notIn
+        filters.alertCategory: tools.filters.alertCategory
+        filters.alertCategory.notIn: tools.filters.alertCategory.notIn
+        filters.alertClearedAt.eq: tools.filters.alertClearedAt.eq
+        filters.alertClearedAt.lt: tools.filters.alertClearedAt.lt
+        filters.alertClearedAt.lte: tools.filters.alertClearedAt.lte
+        filters.alertClearedAt.gt: tools.filters.alertClearedAt.gt
+        filters.alertClearedAt.gte: tools.filters.alertClearedAt.gte
+        filters.alertCreatedAt.eq: tools.filters.alertCreatedAt.eq
+        filters.alertCreatedAt.lt: tools.filters.alertCreatedAt.lt
+        filters.alertCreatedAt.lte: tools.filters.alertCreatedAt.lte
+        filters.alertCreatedAt.gt: tools.filters.alertCreatedAt.gt
+        filters.alertCreatedAt.gte: tools.filters.alertCreatedAt.gte
+        filters.alertCveId: tools.filters.alertCveId
+        filters.alertCveId.notIn: tools.filters.alertCveId.notIn
+        filters.alertCveTitle: tools.filters.alertCveTitle
+        filters.alertCveTitle.notIn: tools.filters.alertCveTitle.notIn
+        filters.alertCweId: tools.filters.alertCweId
+        filters.alertCweId.notIn: tools.filters.alertCweId.notIn
+        filters.alertCweName: tools.filters.alertCweName
+        filters.alertCweName.notIn: tools.filters.alertCweName.notIn
+        filters.alertEPSS: tools.filters.alertEPSS
+        filters.alertEPSS.notIn: tools.filters.alertEPSS.notIn
+        filters.alertFixType: tools.filters.alertFixType
+        filters.alertFixType.notIn: tools.filters.alertFixType.notIn
+        filters.alertKEV: tools.filters.alertKEV
+        filters.alertKEV.notIn: tools.filters.alertKEV.notIn
+        filters.alertPriority: tools.filters.alertPriority
+        filters.alertPriority.notIn: tools.filters.alertPriority.notIn
+        filters.alertReachabilityAnalysisType: tools.filters.alertReachabilityAnalysisType
+        filters.alertReachabilityAnalysisType.notIn: tools.filters.alertReachabilityAnalysisType.notIn
+        filters.alertReachabilityType: tools.filters.alertReachabilityType
+        filters.alertReachabilityType.notIn: tools.filters.alertReachabilityType.notIn
+        filters.alertSeverity: tools.filters.alertSeverity
+        filters.alertSeverity.notIn: tools.filters.alertSeverity.notIn
+        filters.alertStatus: tools.filters.alertStatus
+        filters.alertStatus.notIn: tools.filters.alertStatus.notIn
+        filters.alertType: tools.filters.alertType
+        filters.alertType.notIn: tools.filters.alertType.notIn
+        filters.alertUpdatedAt.eq: tools.filters.alertUpdatedAt.eq
+        filters.alertUpdatedAt.lt: tools.filters.alertUpdatedAt.lt
+        filters.alertUpdatedAt.lte: tools.filters.alertUpdatedAt.lte
+        filters.alertUpdatedAt.gt: tools.filters.alertUpdatedAt.gt
+        filters.alertUpdatedAt.gte: tools.filters.alertUpdatedAt.gte
+        filters.artifactName: tools.filters.artifactName
+        filters.artifactName.notIn: tools.filters.artifactName.notIn
+        filters.artifactType: tools.filters.artifactType
+        filters.artifactType.notIn: tools.filters.artifactType.notIn
+        filters.branch: tools.filters.branch
+        filters.branch.notIn: tools.filters.branch.notIn
+        filters.cvePatchStatus: tools.filters.cvePatchStatus
+        filters.cvePatchStatus.notIn: tools.filters.cvePatchStatus.notIn
+        filters.dependencyDead: tools.filters.dependencyDead
+        filters.dependencyDead.notIn: tools.filters.dependencyDead.notIn
+        filters.dependencyDev: tools.filters.dependencyDev
+        filters.dependencyDev.notIn: tools.filters.dependencyDev.notIn
+        filters.dependencyDirect: tools.filters.dependencyDirect
+        filters.dependencyDirect.notIn: tools.filters.dependencyDirect.notIn
+        filters.repoFullName: tools.filters.repoFullName
+        filters.repoFullName.notIn: tools.filters.repoFullName.notIn
+        filters.repoLabels: tools.filters.repoLabels
+        filters.repoLabels.notIn: tools.filters.repoLabels.notIn
+        filters.repoSlug: tools.filters.repoSlug
+        filters.repoSlug.notIn: tools.filters.repoSlug.notIn
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-historical-alerts
+      description: List historical alerts (Beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: alerts-alerts.get-orgs-org-slug-historical-alerts
+      with:
+        org_slug: tools.org_slug
+        date: tools.date
+        range: tools.range
+        per_page: tools.per_page
+        startAfterCursor: tools.startAfterCursor
+        filters.alertAction: tools.filters.alertAction
+        filters.alertAction.notIn: tools.filters.alertAction.notIn
+        filters.alertActionSourceType: tools.filters.alertActionSourceType
+        filters.alertActionSourceType.notIn: tools.filters.alertActionSourceType.notIn
+        filters.alertCategory: tools.filters.alertCategory
+        filters.alertCategory.notIn: tools.filters.alertCategory.notIn
+        filters.alertCveId: tools.filters.alertCveId
+        filters.alertCveId.notIn: tools.filters.alertCveId.notIn
+        filters.alertCveTitle: tools.filters.alertCveTitle
+        filters.alertCveTitle.notIn: tools.filters.alertCveTitle.notIn
+        filters.alertCweId: tools.filters.alertCweId
+        filters.alertCweId.notIn: tools.filters.alertCweId.notIn
+        filters.alertCweName: tools.filters.alertCweName
+        filters.alertCweName.notIn: tools.filters.alertCweName.notIn
+        filters.alertEPSS: tools.filters.alertEPSS
+        filters.alertEPSS.notIn: tools.filters.alertEPSS.notIn
+        filters.alertFixType: tools.filters.alertFixType
+        filters.alertFixType.notIn: tools.filters.alertFixType.notIn
+        filters.alertKEV: tools.filters.alertKEV
+        filters.alertKEV.notIn: tools.filters.alertKEV.notIn
+        filters.alertPriority: tools.filters.alertPriority
+        filters.alertPriority.notIn: tools.filters.alertPriority.notIn
+        filters.alertReachabilityAnalysisType: tools.filters.alertReachabilityAnalysisType
+        filters.alertReachabilityAnalysisType.notIn: tools.filters.alertReachabilityAnalysisType.notIn
+        filters.alertReachabilityType: tools.filters.alertReachabilityType
+        filters.alertReachabilityType.notIn: tools.filters.alertReachabilityType.notIn
+        filters.alertSeverity: tools.filters.alertSeverity
+        filters.alertSeverity.notIn: tools.filters.alertSeverity.notIn
+        filters.alertType: tools.filters.alertType
+        filters.alertType.notIn: tools.filters.alertType.notIn
+        filters.artifactName: tools.filters.artifactName
+        filters.artifactName.notIn: tools.filters.artifactName.notIn
+        filters.artifactType: tools.filters.artifactType
+        filters.artifactType.notIn: tools.filters.artifactType.notIn
+        filters.branch: tools.filters.branch
+        filters.branch.notIn: tools.filters.branch.notIn
+        filters.cvePatchStatus: tools.filters.cvePatchStatus
+        filters.cvePatchStatus.notIn: tools.filters.cvePatchStatus.notIn
+        filters.dependencyDead: tools.filters.dependencyDead
+        filters.dependencyDead.notIn: tools.filters.dependencyDead.notIn
+        filters.dependencyDev: tools.filters.dependencyDev
+        filters.dependencyDev.notIn: tools.filters.dependencyDev.notIn
+        filters.dependencyDirect: tools.filters.dependencyDirect
+        filters.dependencyDirect.notIn: tools.filters.dependencyDirect.notIn
+        filters.repoFullName: tools.filters.repoFullName
+        filters.repoFullName.notIn: tools.filters.repoFullName.notIn
+        filters.repoLabels: tools.filters.repoLabels
+        filters.repoLabels.notIn: tools.filters.repoLabels.notIn
+        filters.repoSlug: tools.filters.repoSlug
+        filters.repoSlug.notIn: tools.filters.repoSlug.notIn
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-historical-alerts-trend
+      description: Trend of historical alerts (Beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: alerts-alerts.get-orgs-org-slug-historical-alerts-trend
+      with:
+        org_slug: tools.org_slug
+        date: tools.date
+        range: tools.range
+        aggregation.fields: tools.aggregation.fields
+        filters.alertAction: tools.filters.alertAction
+        filters.alertAction.notIn: tools.filters.alertAction.notIn
+        filters.alertActionSourceType: tools.filters.alertActionSourceType
+        filters.alertActionSourceType.notIn: tools.filters.alertActionSourceType.notIn
+        filters.alertCategory: tools.filters.alertCategory
+        filters.alertCategory.notIn: tools.filters.alertCategory.notIn
+        filters.alertCveId: tools.filters.alertCveId
+        filters.alertCveId.notIn: tools.filters.alertCveId.notIn
+        filters.alertCveTitle: tools.filters.alertCveTitle
+        filters.alertCveTitle.notIn: tools.filters.alertCveTitle.notIn
+        filters.alertCweId: tools.filters.alertCweId
+        filters.alertCweId.notIn: tools.filters.alertCweId.notIn
+        filters.alertCweName: tools.filters.alertCweName
+        filters.alertCweName.notIn: tools.filters.alertCweName.notIn
+        filters.alertEPSS: tools.filters.alertEPSS
+        filters.alertEPSS.notIn: tools.filters.alertEPSS.notIn
+        filters.alertFixType: tools.filters.alertFixType
+        filters.alertFixType.notIn: tools.filters.alertFixType.notIn
+        filters.alertKEV: tools.filters.alertKEV
+        filters.alertKEV.notIn: tools.filters.alertKEV.notIn
+        filters.alertPriority: tools.filters.alertPriority
+        filters.alertPriority.notIn: tools.filters.alertPriority.notIn
+        filters.alertReachabilityAnalysisType: tools.filters.alertReachabilityAnalysisType
+        filters.alertReachabilityAnalysisType.notIn: tools.filters.alertReachabilityAnalysisType.notIn
+        filters.alertReachabilityType: tools.filters.alertReachabilityType
+        filters.alertReachabilityType.notIn: tools.filters.alertReachabilityType.notIn
+        filters.alertSeverity: tools.filters.alertSeverity
+        filters.alertSeverity.notIn: tools.filters.alertSeverity.notIn
+        filters.alertType: tools.filters.alertType
+        filters.alertType.notIn: tools.filters.alertType.notIn
+        filters.artifactName: tools.filters.artifactName
+        filters.artifactName.notIn: tools.filters.artifactName.notIn
+        filters.artifactType: tools.filters.artifactType
+        filters.artifactType.notIn: tools.filters.artifactType.notIn
+        filters.branch: tools.filters.branch
+        filters.branch.notIn: tools.filters.branch.notIn
+        filters.cvePatchStatus: tools.filters.cvePatchStatus
+        filters.cvePatchStatus.notIn: tools.filters.cvePatchStatus.notIn
+        filters.dependencyDead: tools.filters.dependencyDead
+        filters.dependencyDead.notIn: tools.filters.dependencyDead.notIn
+        filters.dependencyDev: tools.filters.dependencyDev
+        filters.dependencyDev.notIn: tools.filters.dependencyDev.notIn
+        filters.dependencyDirect: tools.filters.dependencyDirect
+        filters.dependencyDirect.notIn: tools.filters.dependencyDirect.notIn
+        filters.repoFullName: tools.filters.repoFullName
+        filters.repoFullName.notIn: tools.filters.repoFullName.notIn
+        filters.repoLabels: tools.filters.repoLabels
+        filters.repoLabels.notIn: tools.filters.repoLabels.notIn
+        filters.repoSlug: tools.filters.repoSlug
+        filters.repoSlug.notIn: tools.filters.repoSlug.notIn
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-alert-full-scan-search
+      description: List full scans associated with alert (Beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: alerts-alerts.get-orgs-org-slug-alert-full-scan-search
+      with:
+        org_slug: tools.org_slug
+        per_page: tools.per_page
+        startAfterCursor: tools.startAfterCursor
+        alertKey: tools.alertKey
+        range: tools.range
+      outputParameters:
+      - type: object
+        mapping: $.

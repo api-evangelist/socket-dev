@@ -1,0 +1,50 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Socket
+providerId: socket-dev
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - Rate Limiting
+  - Quotas
+  - Supply Chain Security
+description: Rate limits and quota model for the Socket API. Socket meters API usage via a quota system
+  exposed at GET /quota; individual endpoint rates are not separately published. Quotas vary by plan and
+  contract; refer to /quota for the live remaining balance.
+sources:
+  - https://docs.socket.dev/reference/getquota
+  - https://docs.socket.dev/reference/authentication-types
+  - https://github.com/SocketDev/socket-sdk-js
+headers:
+  limit: x-ratelimit-limit
+  remaining: x-ratelimit-remaining
+  reset: x-ratelimit-reset
+  retryAfter: retry-after
+responseCodes:
+  throttled: 429
+  quotaExceeded: 402
+algorithm: quota
+quotaEndpoint: https://api.socket.dev/v0/quota
+notes:
+  - Use GET /quota to inspect the remaining quota for the calling API token.
+  - Quotas are token-scoped; each token can be assigned a permission set and quota allotment.
+  - The /purl and /dependencies/search endpoints consume quota proportional to the number of packages
+    inspected per request.
+  - Full Scan creation consumes quota proportional to manifest size; diff scans are billed separately
+    from the parent full scans.
+  - Threat Feed reads consume quota at a fixed per-page cost.
+limits:
+  - tier: Free
+    scope: public-repo API usage
+    notes: Fair-use quota; sufficient for typical open-source maintainers and CI integrations on public
+      repositories.
+  - tier: Team
+    scope: per-organization
+    notes: Quota sized to development-team scanning workloads; contact Socket for headroom on large
+      monorepos.
+  - tier: Enterprise
+    scope: per-contract
+    notes: Custom quota negotiated as part of the contract; supports very large scan volumes, dedicated
+      Firewall throughput, and high-frequency Threat Feed polling.

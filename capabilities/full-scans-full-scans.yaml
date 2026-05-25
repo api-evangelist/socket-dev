@@ -1,0 +1,990 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Socket Full Scans Full Scans
+  description: Socket full scans full scans business capability. Self-contained Naftiko capability covering one Socket business surface.
+  tags:
+  - Socket
+  - Supply Chain Security
+  - Full
+  - Scans
+  - Full
+  - Scans
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SOCKET_API_KEY: SOCKET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-scans-full-scans
+    baseUri: https://api.socket.dev/v0
+    description: Socket full scans full scans business capability. Self-contained, no shared references.
+    resources:
+    - name: orgs-org-slug-full-scans
+      path: /orgs/{org_slug}/full-scans
+      operations:
+      - name: get-orgs-org-slug-full-scans
+        method: GET
+        description: List full scans
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: sort
+          in: query
+          type: string
+          description: Specify Sort order.
+          required: false
+        - name: direction
+          in: query
+          type: string
+          description: Specify sort direction.
+          required: false
+        - name: per_page
+          in: query
+          type: integer
+          description: Specify the maximum number of results to return per page.
+          required: false
+        - name: page
+          in: query
+          type: integer
+          description: The page number to return when using offset-style pagination. Ignored when cursor pagination is used.
+          required: false
+        - name: startAfterCursor
+          in: query
+          type: string
+          description: Cursor token for pagination. Pass the returned nextPageCursor from previous responses to fetch the next set of results.
+          required: false
+        - name: use_cursor
+          in: query
+          type: boolean
+          description: Set to true on the first request to opt into cursor-based pagination.
+          required: false
+        - name: from
+          in: query
+          type: string
+          description: A Unix timestamp in seconds that filters full-scans prior to the date.
+          required: false
+        - name: workspace
+          in: query
+          type: string
+          description: A repository workspace to filter full-scans by.
+          required: false
+        - name: repo
+          in: query
+          type: string
+          description: A repository slug to filter full-scans by.
+          required: false
+        - name: branch
+          in: query
+          type: string
+          description: A branch name to filter full-scans by.
+          required: false
+        - name: pull_request
+          in: query
+          type: string
+          description: A PR number to filter full-scans by.
+          required: false
+        - name: commit_hash
+          in: query
+          type: string
+          description: A commit hash to filter full-scans by.
+          required: false
+        - name: scan_type
+          in: query
+          type: string
+          description: A scan type to filter full-scans by (e.g. socket, socket_tier1, socket_basics).
+          required: false
+      - name: post-orgs-org-slug-full-scans
+        method: POST
+        description: Create full scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: repo
+          in: query
+          type: string
+          description: The slug of the repository to associate the full-scan with.
+          required: true
+        - name: workspace
+          in: query
+          type: string
+          description: The workspace of the repository to associate the full-scan with.
+          required: false
+        - name: branch
+          in: query
+          type: string
+          description: 'The branch name to associate the full-scan with. Branch names must follow Git branch name rules: be 1–255 characters long; cannot be exactly @;  cannot begin or end with /, ., or
+            .lock; cannot contain'
+          required: false
+        - name: commit_message
+          in: query
+          type: string
+          description: The commit message to associate the full-scan with.
+          required: false
+        - name: commit_hash
+          in: query
+          type: string
+          description: The commit hash to associate the full-scan with.
+          required: false
+        - name: pull_request
+          in: query
+          type: integer
+          description: The pull request number to associate the full-scan with.
+          required: false
+        - name: committers
+          in: query
+          type: string
+          description: The committers to associate with the full-scan. Set query more than once to set multiple.
+          required: false
+        - name: integration_type
+          in: query
+          type: string
+          description: The integration type to associate the full-scan with. Defaults to "Api" if omitted.
+          required: false
+        - name: integration_org_slug
+          in: query
+          type: string
+          description: The integration org slug to associate the full-scan with. If omitted, the Socket org name will be used. This is used to generate links and badges.
+          required: false
+        - name: make_default_branch
+          in: query
+          type: boolean
+          description: Set the default branch of the repository to the branch of this full-scan. A branch name is required with this option.
+          required: false
+        - name: set_as_pending_head
+          in: query
+          type: boolean
+          description: Designate this full-scan as the latest scan of a given branch. Default branch head scans are included in org alerts. This is only supported on the default branch. A branch name is
+            required with this o
+          required: false
+        - name: tmp
+          in: query
+          type: boolean
+          description: Create a temporary full-scan that is not listed in the reports dashboard. Cannot be used when set_as_pending_head=true.
+          required: false
+        - name: scan_type
+          in: query
+          type: string
+          description: The type of scan to perform. Defaults to 'socket'. Must be 32 characters or less. Used for categorizing multiple SBOM heads per repository branch.
+          required: false
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: orgs-org-slug-full-scans-full-scan-id
+      path: /orgs/{org_slug}/full-scans/{full_scan_id}
+      operations:
+      - name: get-orgs-org-slug-full-scans-full-scan-id
+        method: GET
+        description: Stream full scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: full_scan_id
+          in: path
+          type: string
+          description: The ID of the full scan
+          required: true
+        - name: include_alert_priority_details
+          in: query
+          type: string
+          description: Control which alert priority fields to include in the response. Set to "true" to include all fields, "false" to exclude all fields, or specify individual fields like "components,formula"
+            to include on
+          required: false
+        - name: include_scores
+          in: query
+          type: boolean
+          description: Include scores event in the response. include_scores_details implies this flag
+          required: true
+        - name: include_scores_details
+          in: query
+          type: string
+          description: 'Control which score detail fields to include in the scores event. Set to "true" to include all fields, "false" to exclude all fields, or specify individual fields like "components,formula"
+            to include '
+          required: false
+        - name: include_license_details
+          in: query
+          type: boolean
+          description: Include license details in the response. This can increase the response size significantly.
+          required: true
+        - name: cached
+          in: query
+          type: boolean
+          description: Return cached immutable scan results. When enabled and results are cached, returns the pre-computed scan. When results are not yet cached, returns 202 Accepted and enqueues a background
+            job.
+          required: false
+      - name: delete-orgs-org-slug-full-scans-full-scan-id
+        method: DELETE
+        description: Delete full scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: full_scan_id
+          in: path
+          type: string
+          description: The ID of the full scan
+          required: true
+    - name: orgs-org-slug-full-scans-full-scan-id-metadata
+      path: /orgs/{org_slug}/full-scans/{full_scan_id}/metadata
+      operations:
+      - name: get-orgs-org-slug-full-scans-full-scan-id-metadata
+        method: GET
+        description: Get full scan metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: full_scan_id
+          in: path
+          type: string
+          description: The ID of the full scan
+          required: true
+    - name: orgs-org-slug-full-scans-full-scan-id-files-tar
+      path: /orgs/{org_slug}/full-scans/{full_scan_id}/files/tar
+      operations:
+      - name: get-orgs-org-slug-full-scans-full-scan-id-files-tar
+        method: GET
+        description: Download full scan files as tarball
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: full_scan_id
+          in: path
+          type: string
+          description: The ID of the full scan
+          required: true
+    - name: orgs-org-slug-full-scans-archive
+      path: /orgs/{org_slug}/full-scans/archive
+      operations:
+      - name: post-orgs-org-slug-full-scans-archive
+        method: POST
+        description: Create full scan from archive
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: repo
+          in: query
+          type: string
+          description: The slug of the repository to associate the full-scan with.
+          required: true
+        - name: workspace
+          in: query
+          type: string
+          description: The workspace of the repository to associate the full-scan with.
+          required: false
+        - name: branch
+          in: query
+          type: string
+          description: 'The branch name to associate the full-scan with. Branch names must follow Git branch name rules: be 1–255 characters long; cannot be exactly @;  cannot begin or end with /, ., or
+            .lock; cannot contain'
+          required: false
+        - name: commit_message
+          in: query
+          type: string
+          description: The commit message to associate the full-scan with.
+          required: false
+        - name: commit_hash
+          in: query
+          type: string
+          description: The commit hash to associate the full-scan with.
+          required: false
+        - name: pull_request
+          in: query
+          type: integer
+          description: The pull request number to associate the full-scan with.
+          required: false
+        - name: committers
+          in: query
+          type: string
+          description: The committers to associate with the full-scan. Set query more than once to set multiple.
+          required: false
+        - name: integration_type
+          in: query
+          type: string
+          description: The integration type to associate the full-scan with. Defaults to "Api" if omitted.
+          required: false
+        - name: integration_org_slug
+          in: query
+          type: string
+          description: The integration org slug to associate the full-scan with. If omitted, the Socket org name will be used. This is used to generate links and badges.
+          required: false
+        - name: make_default_branch
+          in: query
+          type: boolean
+          description: Set the default branch of the repository to the branch of this full-scan. A branch name is required with this option.
+          required: false
+        - name: set_as_pending_head
+          in: query
+          type: boolean
+          description: Designate this full-scan as the latest scan of a given branch. Default branch head scans are included in org alerts. This is only supported on the default branch. A branch name is
+            required with this o
+          required: false
+        - name: tmp
+          in: query
+          type: boolean
+          description: Create a temporary full-scan that is not listed in the reports dashboard. Cannot be used when set_as_pending_head=true.
+          required: false
+        - name: scan_type
+          in: query
+          type: string
+          description: The type of scan to perform. Defaults to 'socket'. Must be 32 characters or less. Used for categorizing multiple SBOM heads per repository branch.
+          required: false
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: orgs-org-slug-full-scans-full-scan-id-rescan
+      path: /orgs/{org_slug}/full-scans/{full_scan_id}/rescan
+      operations:
+      - name: post-orgs-org-slug-full-scans-full-scan-id-rescan
+        method: POST
+        description: Rescan full scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: full_scan_id
+          in: path
+          type: string
+          description: The ID of the full scan to rescan
+          required: true
+        - name: mode
+          in: query
+          type: string
+          description: 'The rescan mode: "shallow" (default) re-applies policies to cached data, "deep" re-fetches the SBOM stream.'
+          required: false
+    - name: orgs-org-slug-export-cdx-id
+      path: /orgs/{org_slug}/export/cdx/{id}
+      operations:
+      - name: get-orgs-org-slug-export-cdx-id
+        method: GET
+        description: Export CycloneDX SBOM (Beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The full scan OR sbom report ID
+          required: true
+        - name: author
+          in: query
+          type: string
+          description: 'The person(s) who created the BOM.
+
+            Set this value if you''re intending the modify the BOM and claim authorship.'
+          required: false
+        - name: project_group
+          in: query
+          type: string
+          description: Dependency track project group
+          required: false
+        - name: project_name
+          in: query
+          type: string
+          description: Dependency track project name. Default use the directory name
+          required: false
+        - name: project_version
+          in: query
+          type: string
+          description: Dependency track project version
+          required: false
+        - name: project_id
+          in: query
+          type: string
+          description: Dependency track project id. Either provide the id or the project name and version together
+          required: false
+        - name: include_vulnerabilities
+          in: query
+          type: string
+          description: Include vulnerability information in the SBOM. Also includes reachability/VEX if available
+          required: false
+    - name: orgs-org-slug-export-openvex-id
+      path: /orgs/{org_slug}/export/openvex/{id}
+      operations:
+      - name: get-orgs-org-slug-export-openvex-id
+        method: GET
+        description: Export OpenVEX Document (Beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The full scan OR sbom report ID
+          required: true
+        - name: author
+          in: query
+          type: string
+          description: The author of the VEX document. Should be an individual or organization.
+          required: false
+        - name: role
+          in: query
+          type: string
+          description: The role of the document author (e.g., "VEX Generator", "Security Team").
+          required: false
+        - name: document_id
+          in: query
+          type: string
+          description: Custom IRI for the VEX document. If not provided, a default IRI will be generated.
+          required: false
+    - name: orgs-org-slug-export-spdx-id
+      path: /orgs/{org_slug}/export/spdx/{id}
+      operations:
+      - name: get-orgs-org-slug-export-spdx-id
+        method: GET
+        description: Export SPDX SBOM (Beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: The full scan OR sbom report ID
+          required: true
+        - name: author
+          in: query
+          type: string
+          description: 'The person(s) who created the BOM.
+
+            Set this value if you''re intending the modify the BOM and claim authorship.'
+          required: false
+        - name: project_group
+          in: query
+          type: string
+          description: Dependency track project group
+          required: false
+        - name: project_name
+          in: query
+          type: string
+          description: Dependency track project name. Default use the directory name
+          required: false
+        - name: project_version
+          in: query
+          type: string
+          description: Dependency track project version
+          required: false
+        - name: project_id
+          in: query
+          type: string
+          description: Dependency track project id. Either provide the id or the project name and version together
+          required: false
+        - name: include_vulnerabilities
+          in: query
+          type: string
+          description: Include vulnerability information in the SBOM. Also includes reachability/VEX if available
+          required: false
+    authentication:
+      type: basic
+      username: '{{env.SOCKET_API_KEY}}'
+      password: ''
+      description: Socket authenticates via HTTP Basic with the API key as the username and empty password.
+  exposes:
+  - type: rest
+    namespace: full-scans-full-scans-rest
+    port: 8080
+    description: REST adapter for Socket full scans full scans.
+    resources:
+    - path: /v1/orgs/{org_slug}/full-scans
+      name: orgs-org-slug-full-scans
+      description: REST surface for orgs-org-slug-full-scans.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-full-scans
+        description: List full scans
+        call: full-scans-full-scans.get-orgs-org-slug-full-scans
+        with:
+          org_slug: rest.path.org_slug
+          sort: rest.query.sort
+          direction: rest.query.direction
+          per_page: rest.query.per_page
+          page: rest.query.page
+          startAfterCursor: rest.query.startAfterCursor
+          use_cursor: rest.query.use_cursor
+          from: rest.query.from
+          workspace: rest.query.workspace
+          repo: rest.query.repo
+          branch: rest.query.branch
+          pull_request: rest.query.pull_request
+          commit_hash: rest.query.commit_hash
+          scan_type: rest.query.scan_type
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: post-orgs-org-slug-full-scans
+        description: Create full scan
+        call: full-scans-full-scans.post-orgs-org-slug-full-scans
+        with:
+          org_slug: rest.path.org_slug
+          repo: rest.query.repo
+          workspace: rest.query.workspace
+          branch: rest.query.branch
+          commit_message: rest.query.commit_message
+          commit_hash: rest.query.commit_hash
+          pull_request: rest.query.pull_request
+          committers: rest.query.committers
+          integration_type: rest.query.integration_type
+          integration_org_slug: rest.query.integration_org_slug
+          make_default_branch: rest.query.make_default_branch
+          set_as_pending_head: rest.query.set_as_pending_head
+          tmp: rest.query.tmp
+          scan_type: rest.query.scan_type
+          body: rest.body.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/full-scans/{full_scan_id}
+      name: orgs-org-slug-full-scans-full-scan-id
+      description: REST surface for orgs-org-slug-full-scans-full-scan-id.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-full-scans-full-scan-id
+        description: Stream full scan
+        call: full-scans-full-scans.get-orgs-org-slug-full-scans-full-scan-id
+        with:
+          org_slug: rest.path.org_slug
+          full_scan_id: rest.path.full_scan_id
+          include_alert_priority_details: rest.query.include_alert_priority_details
+          include_scores: rest.query.include_scores
+          include_scores_details: rest.query.include_scores_details
+          include_license_details: rest.query.include_license_details
+          cached: rest.query.cached
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-orgs-org-slug-full-scans-full-scan-id
+        description: Delete full scan
+        call: full-scans-full-scans.delete-orgs-org-slug-full-scans-full-scan-id
+        with:
+          org_slug: rest.path.org_slug
+          full_scan_id: rest.path.full_scan_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/full-scans/{full_scan_id}/metadata
+      name: orgs-org-slug-full-scans-full-scan-id-metadata
+      description: REST surface for orgs-org-slug-full-scans-full-scan-id-metadata.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-full-scans-full-scan-id-metadata
+        description: Get full scan metadata
+        call: full-scans-full-scans.get-orgs-org-slug-full-scans-full-scan-id-metadata
+        with:
+          org_slug: rest.path.org_slug
+          full_scan_id: rest.path.full_scan_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/full-scans/{full_scan_id}/files/tar
+      name: orgs-org-slug-full-scans-full-scan-id-files-tar
+      description: REST surface for orgs-org-slug-full-scans-full-scan-id-files-tar.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-full-scans-full-scan-id-files-tar
+        description: Download full scan files as tarball
+        call: full-scans-full-scans.get-orgs-org-slug-full-scans-full-scan-id-files-tar
+        with:
+          org_slug: rest.path.org_slug
+          full_scan_id: rest.path.full_scan_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/full-scans/archive
+      name: orgs-org-slug-full-scans-archive
+      description: REST surface for orgs-org-slug-full-scans-archive.
+      operations:
+      - method: POST
+        name: post-orgs-org-slug-full-scans-archive
+        description: Create full scan from archive
+        call: full-scans-full-scans.post-orgs-org-slug-full-scans-archive
+        with:
+          org_slug: rest.path.org_slug
+          repo: rest.query.repo
+          workspace: rest.query.workspace
+          branch: rest.query.branch
+          commit_message: rest.query.commit_message
+          commit_hash: rest.query.commit_hash
+          pull_request: rest.query.pull_request
+          committers: rest.query.committers
+          integration_type: rest.query.integration_type
+          integration_org_slug: rest.query.integration_org_slug
+          make_default_branch: rest.query.make_default_branch
+          set_as_pending_head: rest.query.set_as_pending_head
+          tmp: rest.query.tmp
+          scan_type: rest.query.scan_type
+          body: rest.body.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/full-scans/{full_scan_id}/rescan
+      name: orgs-org-slug-full-scans-full-scan-id-rescan
+      description: REST surface for orgs-org-slug-full-scans-full-scan-id-rescan.
+      operations:
+      - method: POST
+        name: post-orgs-org-slug-full-scans-full-scan-id-rescan
+        description: Rescan full scan
+        call: full-scans-full-scans.post-orgs-org-slug-full-scans-full-scan-id-rescan
+        with:
+          org_slug: rest.path.org_slug
+          full_scan_id: rest.path.full_scan_id
+          mode: rest.query.mode
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/export/cdx/{id}
+      name: orgs-org-slug-export-cdx-id
+      description: REST surface for orgs-org-slug-export-cdx-id.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-export-cdx-id
+        description: Export CycloneDX SBOM (Beta)
+        call: full-scans-full-scans.get-orgs-org-slug-export-cdx-id
+        with:
+          org_slug: rest.path.org_slug
+          id: rest.path.id
+          author: rest.query.author
+          project_group: rest.query.project_group
+          project_name: rest.query.project_name
+          project_version: rest.query.project_version
+          project_id: rest.query.project_id
+          include_vulnerabilities: rest.query.include_vulnerabilities
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/export/openvex/{id}
+      name: orgs-org-slug-export-openvex-id
+      description: REST surface for orgs-org-slug-export-openvex-id.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-export-openvex-id
+        description: Export OpenVEX Document (Beta)
+        call: full-scans-full-scans.get-orgs-org-slug-export-openvex-id
+        with:
+          org_slug: rest.path.org_slug
+          id: rest.path.id
+          author: rest.query.author
+          role: rest.query.role
+          document_id: rest.query.document_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/export/spdx/{id}
+      name: orgs-org-slug-export-spdx-id
+      description: REST surface for orgs-org-slug-export-spdx-id.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-export-spdx-id
+        description: Export SPDX SBOM (Beta)
+        call: full-scans-full-scans.get-orgs-org-slug-export-spdx-id
+        with:
+          org_slug: rest.path.org_slug
+          id: rest.path.id
+          author: rest.query.author
+          project_group: rest.query.project_group
+          project_name: rest.query.project_name
+          project_version: rest.query.project_version
+          project_id: rest.query.project_id
+          include_vulnerabilities: rest.query.include_vulnerabilities
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-scans-full-scans-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Socket full scans full scans.
+    tools:
+    - name: socket-get-orgs-org-slug-full-scans
+      description: List full scans
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-scans-full-scans.get-orgs-org-slug-full-scans
+      with:
+        org_slug: tools.org_slug
+        sort: tools.sort
+        direction: tools.direction
+        per_page: tools.per_page
+        page: tools.page
+        startAfterCursor: tools.startAfterCursor
+        use_cursor: tools.use_cursor
+        from: tools.from
+        workspace: tools.workspace
+        repo: tools.repo
+        branch: tools.branch
+        pull_request: tools.pull_request
+        commit_hash: tools.commit_hash
+        scan_type: tools.scan_type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-post-orgs-org-slug-full-scans
+      description: Create full scan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-scans-full-scans.post-orgs-org-slug-full-scans
+      with:
+        org_slug: tools.org_slug
+        repo: tools.repo
+        workspace: tools.workspace
+        branch: tools.branch
+        commit_message: tools.commit_message
+        commit_hash: tools.commit_hash
+        pull_request: tools.pull_request
+        committers: tools.committers
+        integration_type: tools.integration_type
+        integration_org_slug: tools.integration_org_slug
+        make_default_branch: tools.make_default_branch
+        set_as_pending_head: tools.set_as_pending_head
+        tmp: tools.tmp
+        scan_type: tools.scan_type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-full-scans-full-scan-id
+      description: Stream full scan
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-scans-full-scans.get-orgs-org-slug-full-scans-full-scan-id
+      with:
+        org_slug: tools.org_slug
+        full_scan_id: tools.full_scan_id
+        include_alert_priority_details: tools.include_alert_priority_details
+        include_scores: tools.include_scores
+        include_scores_details: tools.include_scores_details
+        include_license_details: tools.include_license_details
+        cached: tools.cached
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-delete-orgs-org-slug-full-scans-full-scan-id
+      description: Delete full scan
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-scans-full-scans.delete-orgs-org-slug-full-scans-full-scan-id
+      with:
+        org_slug: tools.org_slug
+        full_scan_id: tools.full_scan_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-full-scans-full-scan-id-metadata
+      description: Get full scan metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-scans-full-scans.get-orgs-org-slug-full-scans-full-scan-id-metadata
+      with:
+        org_slug: tools.org_slug
+        full_scan_id: tools.full_scan_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-full-scans-full-scan-id-files-tar
+      description: Download full scan files as tarball
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-scans-full-scans.get-orgs-org-slug-full-scans-full-scan-id-files-tar
+      with:
+        org_slug: tools.org_slug
+        full_scan_id: tools.full_scan_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-post-orgs-org-slug-full-scans-archive
+      description: Create full scan from archive
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-scans-full-scans.post-orgs-org-slug-full-scans-archive
+      with:
+        org_slug: tools.org_slug
+        repo: tools.repo
+        workspace: tools.workspace
+        branch: tools.branch
+        commit_message: tools.commit_message
+        commit_hash: tools.commit_hash
+        pull_request: tools.pull_request
+        committers: tools.committers
+        integration_type: tools.integration_type
+        integration_org_slug: tools.integration_org_slug
+        make_default_branch: tools.make_default_branch
+        set_as_pending_head: tools.set_as_pending_head
+        tmp: tools.tmp
+        scan_type: tools.scan_type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-post-orgs-org-slug-full-scans-full-scan-id-rescan
+      description: Rescan full scan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-scans-full-scans.post-orgs-org-slug-full-scans-full-scan-id-rescan
+      with:
+        org_slug: tools.org_slug
+        full_scan_id: tools.full_scan_id
+        mode: tools.mode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-export-cdx-id
+      description: Export CycloneDX SBOM (Beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-scans-full-scans.get-orgs-org-slug-export-cdx-id
+      with:
+        org_slug: tools.org_slug
+        id: tools.id
+        author: tools.author
+        project_group: tools.project_group
+        project_name: tools.project_name
+        project_version: tools.project_version
+        project_id: tools.project_id
+        include_vulnerabilities: tools.include_vulnerabilities
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-export-openvex-id
+      description: Export OpenVEX Document (Beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-scans-full-scans.get-orgs-org-slug-export-openvex-id
+      with:
+        org_slug: tools.org_slug
+        id: tools.id
+        author: tools.author
+        role: tools.role
+        document_id: tools.document_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-export-spdx-id
+      description: Export SPDX SBOM (Beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-scans-full-scans.get-orgs-org-slug-export-spdx-id
+      with:
+        org_slug: tools.org_slug
+        id: tools.id
+        author: tools.author
+        project_group: tools.project_group
+        project_name: tools.project_name
+        project_version: tools.project_version
+        project_id: tools.project_id
+        include_vulnerabilities: tools.include_vulnerabilities
+      outputParameters:
+      - type: object
+        mapping: $.

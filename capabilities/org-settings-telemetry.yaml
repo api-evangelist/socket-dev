@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Socket Org Settings Telemetry
+  description: Socket org settings telemetry business capability. Self-contained Naftiko capability covering one Socket business surface.
+  tags:
+  - Socket
+  - Supply Chain Security
+  - Org
+  - Settings
+  - Telemetry
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SOCKET_API_KEY: SOCKET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: org-settings-telemetry
+    baseUri: https://api.socket.dev/v0
+    description: Socket org settings telemetry business capability. Self-contained, no shared references.
+    resources:
+    - name: orgs-org-slug-telemetry-config
+      path: /orgs/{org_slug}/telemetry/config
+      operations:
+      - name: get-orgs-org-slug-telemetry-config
+        method: GET
+        description: Get Organization Telemetry Config
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.SOCKET_API_KEY}}'
+      password: ''
+      description: Socket authenticates via HTTP Basic with the API key as the username and empty password.
+  exposes:
+  - type: rest
+    namespace: org-settings-telemetry-rest
+    port: 8080
+    description: REST adapter for Socket org settings telemetry.
+    resources:
+    - path: /v1/orgs/{org_slug}/telemetry/config
+      name: orgs-org-slug-telemetry-config
+      description: REST surface for orgs-org-slug-telemetry-config.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-telemetry-config
+        description: Get Organization Telemetry Config
+        call: org-settings-telemetry.get-orgs-org-slug-telemetry-config
+        with:
+          org_slug: rest.path.org_slug
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: org-settings-telemetry-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Socket org settings telemetry.
+    tools:
+    - name: socket-get-orgs-org-slug-telemetry-config
+      description: Get Organization Telemetry Config
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: org-settings-telemetry.get-orgs-org-slug-telemetry-config
+      with:
+        org_slug: tools.org_slug
+      outputParameters:
+      - type: object
+        mapping: $.

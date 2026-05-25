@@ -1,0 +1,140 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "socket": "https://api.socket.dev/v0/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "spdx": "http://spdx.org/rdf/terms#",
+    "purl": "https://github.com/package-url/purl-spec#",
+    "cyclonedx": "https://cyclonedx.org/schema/bom/",
+
+    "Package": {
+      "@id": "socket:Package",
+      "@context": {
+        "purl": { "@id": "purl:purl", "@type": "xsd:string" },
+        "type": { "@id": "socket:Package/type", "@type": "xsd:string" },
+        "namespace": { "@id": "socket:Package/namespace", "@type": "xsd:string" },
+        "name": { "@id": "socket:Package/name", "@type": "xsd:string" },
+        "version": { "@id": "socket:Package/version", "@type": "xsd:string" },
+        "license": { "@id": "spdx:licenseId", "@type": "xsd:string" },
+        "score": { "@id": "socket:Package/score", "@type": "socket:Score" },
+        "alerts": { "@id": "socket:Package/alerts", "@container": "@list" },
+        "capabilities": { "@id": "socket:Package/capabilities", "@container": "@list" },
+        "size": { "@id": "socket:Package/size", "@type": "xsd:integer" }
+      }
+    },
+
+    "Alert": {
+      "@id": "socket:Alert",
+      "@context": {
+        "type": { "@id": "socket:Alert/type", "@type": "xsd:string" },
+        "severity": { "@id": "socket:Alert/severity", "@type": "xsd:string" },
+        "category": { "@id": "socket:Alert/category", "@type": "xsd:string" },
+        "description": { "@id": "socket:Alert/description", "@type": "xsd:string" },
+        "key": { "@id": "socket:Alert/key", "@type": "xsd:string" },
+        "props": { "@id": "socket:Alert/props", "@type": "@json" }
+      }
+    },
+
+    "Score": {
+      "@id": "socket:Score",
+      "@context": {
+        "supplyChain": { "@id": "socket:Score/supplyChain", "@type": "xsd:decimal" },
+        "quality": { "@id": "socket:Score/quality", "@type": "xsd:decimal" },
+        "maintenance": { "@id": "socket:Score/maintenance", "@type": "xsd:decimal" },
+        "vulnerability": { "@id": "socket:Score/vulnerability", "@type": "xsd:decimal" },
+        "license": { "@id": "socket:Score/license", "@type": "xsd:decimal" },
+        "overall": { "@id": "socket:Score/overall", "@type": "xsd:decimal" }
+      }
+    },
+
+    "FullScan": {
+      "@id": "socket:FullScan",
+      "@context": {
+        "id": { "@id": "socket:FullScan/id", "@type": "xsd:string" },
+        "organization_id": { "@id": "socket:FullScan/organizationId", "@type": "xsd:string" },
+        "repository_id": { "@id": "socket:FullScan/repositoryId", "@type": "xsd:string" },
+        "branch": { "@id": "socket:FullScan/branch", "@type": "xsd:string" },
+        "commit_hash": { "@id": "socket:FullScan/commitHash", "@type": "xsd:string" },
+        "pull_request": { "@id": "socket:FullScan/pullRequest", "@type": "xsd:integer" },
+        "committer": { "@id": "socket:FullScan/committer", "@type": "xsd:string" },
+        "created_at": { "@id": "socket:FullScan/createdAt", "@type": "xsd:dateTime" },
+        "artifacts": { "@id": "socket:FullScan/artifacts", "@container": "@list" }
+      }
+    },
+
+    "DiffScan": {
+      "@id": "socket:DiffScan",
+      "@context": {
+        "id": { "@id": "socket:DiffScan/id", "@type": "xsd:string" },
+        "before_full_scan_id": { "@id": "socket:DiffScan/beforeFullScanId", "@type": "xsd:string" },
+        "after_full_scan_id": { "@id": "socket:DiffScan/afterFullScanId", "@type": "xsd:string" },
+        "diff_report_url": { "@id": "socket:DiffScan/diffReportUrl", "@type": "xsd:string" },
+        "added": { "@id": "socket:DiffScan/added", "@container": "@list" },
+        "removed": { "@id": "socket:DiffScan/removed", "@container": "@list" },
+        "changed": { "@id": "socket:DiffScan/changed", "@container": "@list" }
+      }
+    },
+
+    "Repository": {
+      "@id": "socket:Repository",
+      "@context": {
+        "id": { "@id": "socket:Repository/id", "@type": "xsd:string" },
+        "slug": { "@id": "socket:Repository/slug", "@type": "xsd:string" },
+        "name": { "@id": "socket:Repository/name", "@type": "xsd:string" },
+        "description": { "@id": "socket:Repository/description", "@type": "xsd:string" },
+        "homepage": { "@id": "socket:Repository/homepage", "@type": "xsd:string" },
+        "visibility": { "@id": "socket:Repository/visibility", "@type": "xsd:string" },
+        "default_branch": { "@id": "socket:Repository/defaultBranch", "@type": "xsd:string" },
+        "archived": { "@id": "socket:Repository/archived", "@type": "xsd:boolean" }
+      }
+    },
+
+    "ThreatFeedEntry": {
+      "@id": "socket:ThreatFeedEntry",
+      "@context": {
+        "ecosystem": { "@id": "socket:ThreatFeedEntry/ecosystem", "@type": "xsd:string" },
+        "name": { "@id": "socket:ThreatFeedEntry/name", "@type": "xsd:string" },
+        "version": { "@id": "socket:ThreatFeedEntry/version", "@type": "xsd:string" },
+        "alert_type": { "@id": "socket:ThreatFeedEntry/alertType", "@type": "xsd:string" },
+        "category": { "@id": "socket:ThreatFeedEntry/category", "@type": "xsd:string" },
+        "discovered_at": { "@id": "socket:ThreatFeedEntry/discoveredAt", "@type": "xsd:dateTime" }
+      }
+    },
+
+    "Triage": {
+      "@id": "socket:Triage",
+      "@context": {
+        "uuid": { "@id": "socket:Triage/uuid", "@type": "xsd:string" },
+        "alert_type": { "@id": "socket:Triage/alertType", "@type": "xsd:string" },
+        "decision": { "@id": "socket:Triage/decision", "@type": "xsd:string" },
+        "comment": { "@id": "socket:Triage/comment", "@type": "xsd:string" },
+        "decided_by": { "@id": "socket:Triage/decidedBy", "@type": "xsd:string" },
+        "decided_at": { "@id": "socket:Triage/decidedAt", "@type": "xsd:dateTime" }
+      }
+    },
+
+    "Webhook": {
+      "@id": "socket:Webhook",
+      "@context": {
+        "id": { "@id": "socket:Webhook/id", "@type": "xsd:string" },
+        "url": { "@id": "socket:Webhook/url", "@type": "xsd:string" },
+        "events": { "@id": "socket:Webhook/events", "@container": "@list" },
+        "active": { "@id": "socket:Webhook/active", "@type": "xsd:boolean" }
+      }
+    },
+
+    "ApiToken": {
+      "@id": "socket:ApiToken",
+      "@context": {
+        "id": { "@id": "socket:ApiToken/id", "@type": "xsd:string" },
+        "name": { "@id": "socket:ApiToken/name", "@type": "xsd:string" },
+        "scopes": { "@id": "socket:ApiToken/scopes", "@container": "@list" },
+        "created_at": { "@id": "socket:ApiToken/createdAt", "@type": "xsd:dateTime" },
+        "last_used_at": { "@id": "socket:ApiToken/lastUsedAt", "@type": "xsd:dateTime" }
+      }
+    }
+  }
+}

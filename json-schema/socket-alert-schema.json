@@ -1,0 +1,480 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Unique identifier for this alert instance, used for deduplication and tracking across scans",
+      "default": ""
+    },
+    "type": {
+      "type": "string",
+      "description": "Alert type identifier referencing the alert type definition",
+      "default": ""
+    },
+    "severity": {
+      "$ref": "#/$defs/SocketIssueSeverity"
+    },
+    "category": {
+      "$ref": "#/$defs/SocketCategory"
+    },
+    "file": {
+      "type": "string",
+      "description": "File path where this alert was detected",
+      "default": ""
+    },
+    "start": {
+      "type": "integer",
+      "description": "Starting position of the alert in the file",
+      "default": 0
+    },
+    "end": {
+      "type": "integer",
+      "description": "Ending position of the alert in the file",
+      "default": 0
+    },
+    "props": {
+      "type": "object",
+      "description": "Additional alert-specific properties and metadata that vary by alert type",
+      "default": null
+    },
+    "action": {
+      "type": "string",
+      "description": "Action to take for this alert (e.g., error, warn, ignore)",
+      "default": ""
+    },
+    "actionSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of action source (e.g., policy, override)",
+          "default": ""
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Type of action candidate",
+                "default": ""
+              },
+              "action": {
+                "type": "string",
+                "description": "Proposed action for this candidate",
+                "default": ""
+              },
+              "actionPolicyIndex": {
+                "type": "integer",
+                "description": "Index of the policy rule for this candidate",
+                "default": 0
+              },
+              "repoLabelId": {
+                "type": "string",
+                "description": "Repository label ID associated with this candidate",
+                "default": ""
+              }
+            },
+            "required": [
+              "action",
+              "actionPolicyIndex",
+              "repoLabelId",
+              "type"
+            ]
+          },
+          "description": ""
+        }
+      },
+      "required": [
+        "candidates",
+        "type"
+      ]
+    },
+    "actionPolicyIndex": {
+      "type": "integer",
+      "description": "Index of the policy rule that triggered this action, for traceability to security policies",
+      "default": 0
+    },
+    "fix": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of fix available (e.g., upgrade, remove, cve)",
+          "default": ""
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of how to fix this issue",
+          "default": ""
+        },
+        "patch": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "uuid": {
+                "type": "string",
+                "description": "Unique identifier for this patch",
+                "default": ""
+              },
+              "tier": {
+                "type": "string",
+                "enum": [
+                  "free",
+                  "paid"
+                ],
+                "description": "Access tier required for this patch (free or paid)",
+                "default": "free"
+              },
+              "deprecated": {
+                "type": "boolean",
+                "default": false,
+                "description": "Indicates if this patch is deprecated and should not be used"
+              }
+            },
+            "required": [
+              "tier",
+              "uuid"
+            ]
+          },
+          "description": "Patches available to fix this specific alert"
+        }
+      },
+      "required": [
+        "description",
+        "type"
+      ]
+    },
+    "patch": {
+      "$ref": "#/$defs/SocketPatch"
+    },
+    "reachability": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "head": {
+          "$ref": "#/$defs/ReachabilityResult"
+        },
+        "base": {
+          "$ref": "#/$defs/ReachabilityResult"
+        }
+      },
+      "description": ""
+    },
+    "subType": {
+      "type": "string",
+      "description": "Generic alert sub-type",
+      "default": ""
+    }
+  },
+  "required": [
+    "key",
+    "type"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/socket-dev/main/json-schema/socket-socketalert-schema.json",
+  "title": "SocketAlert",
+  "$defs": {
+    "ReachabilityResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "precomputed",
+            "full-scan"
+          ],
+          "description": "Type of reachability analysis performed",
+          "default": "precomputed"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ReachabilityResultItem"
+          },
+          "description": "Reachability analysis results for each vulnerability"
+        }
+      },
+      "required": [
+        "results",
+        "type"
+      ]
+    },
+    "ReachabilityType": {
+      "type": "string",
+      "enum": [
+        "missing_support",
+        "undeterminable_reachability",
+        "pending",
+        "unreachable",
+        "unknown",
+        "direct_dependency",
+        "error",
+        "maybe_reachable",
+        "reachable"
+      ],
+      "description": "Status of reachability analysis for vulnerable code paths",
+      "default": "unknown"
+    },
+    "SocketPatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "description": "Unique identifier for this patch",
+          "default": ""
+        },
+        "tier": {
+          "type": "string",
+          "enum": [
+            "free",
+            "paid"
+          ],
+          "description": "Access tier required for this patch (free or paid)",
+          "default": "free"
+        },
+        "deprecated": {
+          "type": "boolean",
+          "default": false,
+          "description": "Indicates if this patch is deprecated and should not be used"
+        }
+      },
+      "required": [
+        "tier",
+        "uuid"
+      ]
+    },
+    "SocketIssueSeverity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "middle",
+        "high",
+        "critical"
+      ],
+      "description": "",
+      "default": "low"
+    },
+    "SourceLocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "",
+      "properties": {
+        "start": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "",
+          "properties": {
+            "line": {
+              "type": "integer",
+              "description": "Line number in the source file",
+              "default": 0
+            },
+            "column": {
+              "type": "integer",
+              "description": "Column number in the source file",
+              "default": 0
+            },
+            "byteOffset": {
+              "type": "integer",
+              "description": "Absolute byte position from the beginning of the file, used for precise location tracking",
+              "default": 0
+            }
+          },
+          "required": [
+            "byteOffset",
+            "column",
+            "line"
+          ]
+        },
+        "end": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "line": {
+              "type": "integer",
+              "description": "Line number in the source file",
+              "default": 0
+            },
+            "column": {
+              "type": "integer",
+              "description": "Column number in the source file",
+              "default": 0
+            },
+            "byteOffset": {
+              "type": "integer",
+              "description": "Absolute byte position from the beginning of the file, used for precise location tracking",
+              "default": 0
+            }
+          },
+          "description": ""
+        },
+        "filename": {
+          "type": "string",
+          "description": "Path to the source file",
+          "default": ""
+        },
+        "fileHash": {
+          "type": "string",
+          "description": "Hash of the source file for integrity verification",
+          "default": ""
+        }
+      },
+      "required": [
+        "end",
+        "fileHash",
+        "filename",
+        "start"
+      ]
+    },
+    "ReachabilityResultItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/ReachabilityType"
+        },
+        "truncated": {
+          "type": "boolean",
+          "default": false,
+          "description": "Indicates if the reachability analysis was stopped early due to depth or complexity limits"
+        },
+        "error": {
+          "type": "string",
+          "description": "Error message if reachability analysis failed",
+          "default": ""
+        },
+        "matches": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "function-level"
+                  ]
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/CallStackItem"
+                    },
+                    "description": ""
+                  },
+                  "description": ""
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "class-level"
+                  ]
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/ClassStackItem"
+                    },
+                    "description": ""
+                  },
+                  "description": ""
+                }
+              }
+            }
+          ]
+        },
+        "workspacePath": {
+          "type": "string",
+          "description": "Path to the workspace root for multi-workspace projects",
+          "default": ""
+        },
+        "subprojectPath": {
+          "type": "string",
+          "description": "Path to the subproject within the workspace",
+          "default": ""
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "CallStackItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "purl": {
+          "type": "string",
+          "description": "Package URL (PURL) of the dependency containing this code",
+          "default": ""
+        },
+        "sourceLocation": {
+          "$ref": "#/$defs/SourceLocation"
+        },
+        "confidence": {
+          "type": "number",
+          "description": "Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result",
+          "default": 0
+        }
+      },
+      "description": ""
+    },
+    "SocketCategory": {
+      "type": "string",
+      "enum": [
+        "supplyChainRisk",
+        "quality",
+        "maintenance",
+        "vulnerability",
+        "license",
+        "other"
+      ],
+      "description": "",
+      "default": "other"
+    },
+    "ClassStackItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "purl": {
+          "type": "string",
+          "description": "Package URL (PURL) of the dependency containing this class",
+          "default": ""
+        },
+        "class": {
+          "type": "string",
+          "description": "Name of the class in the dependency",
+          "default": ""
+        },
+        "confidence": {
+          "type": "number",
+          "description": "Confidence score from 0.0 to 1.0 indicating how certain the reachability analysis is about this result",
+          "default": 0
+        }
+      },
+      "description": ""
+    }
+  }
+}

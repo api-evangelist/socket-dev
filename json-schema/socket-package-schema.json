@@ -1,0 +1,83 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "$ref": "#/$defs/SocketPURL_Type"
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Package namespace or scope, such as npm organizations (@angular), Maven groupIds, or Docker image owners",
+      "default": ""
+    },
+    "name": {
+      "type": "string",
+      "description": "Package name within its ecosystem",
+      "default": ""
+    },
+    "version": {
+      "type": "string",
+      "description": "Package version string",
+      "default": ""
+    },
+    "subpath": {
+      "type": "string",
+      "description": "Path within the package to a specific file or directory, used to reference nested components",
+      "default": ""
+    },
+    "release": {
+      "type": "string",
+      "description": "Package-specific release identifier, such as PyPI's artifact ID or the specific build/release version",
+      "default": ""
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/socket-dev/main/json-schema/socket-socketpurl-schema.json",
+  "title": "SocketPURL",
+  "$defs": {
+    "SocketPURL_Type": {
+      "type": "string",
+      "enum": [
+        "alpm",
+        "apk",
+        "bitbucket",
+        "cocoapods",
+        "cargo",
+        "chrome",
+        "clawhub",
+        "composer",
+        "conan",
+        "conda",
+        "cran",
+        "deb",
+        "docker",
+        "gem",
+        "generic",
+        "github",
+        "golang",
+        "hackage",
+        "hex",
+        "huggingface",
+        "maven",
+        "mlflow",
+        "npm",
+        "nuget",
+        "qpkg",
+        "oci",
+        "pub",
+        "pypi",
+        "rpm",
+        "socket",
+        "swid",
+        "swift",
+        "vscode",
+        "unknown"
+      ],
+      "description": "Package ecosystem type identifier based on the PURL specification",
+      "default": "unknown"
+    }
+  }
+}

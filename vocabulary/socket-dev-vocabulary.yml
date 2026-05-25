@@ -1,0 +1,85 @@
+name: Socket Vocabulary
+provider: Socket
+providerId: socket-dev
+description: Domain vocabulary and taxonomy used by the Socket supply-chain security platform.
+sources:
+  - https://docs.socket.dev/
+  - https://api.socket.dev/v0/openapi
+  - https://api.socket.dev/v0/alert-types
+concepts:
+  - term: Package URL
+    abbr: purl
+    definition: A standardized identifier for a software package combining type, namespace, name,
+      version, and qualifiers (e.g. pkg:npm/express@4.18.0). Socket uses purl as the primary key for all
+      package data.
+    source: https://github.com/package-url/purl-spec
+  - term: Full Scan
+    definition: A point-in-time scan of a repository's manifest files that produces a complete
+      dependency graph plus alerts for every dependency.
+  - term: Diff Scan
+    definition: A comparison between two Full Scans (typically before and after a pull request) that
+      surfaces added, removed, and modified dependencies and their security implications.
+  - term: Alert
+    definition: A security or quality signal raised against a specific package version. Examples
+      include malware, install-script, telemetry, native-code, suspicious-string, network-access,
+      env-vars, and known-vulnerability.
+  - term: Alert Type
+    definition: A normalized category for alerts. Socket publishes the full alert-type catalog at
+      GET /alert-types.
+  - term: Triage
+    definition: The workflow for deciding what to do with an alert — ignore, acknowledge, escalate,
+      or allow — and recording the decision in the audit log.
+  - term: Security Policy
+    definition: Per-organization configuration that decides which alert types block, warn, or are
+      ignored across all scans.
+  - term: License Policy
+    definition: Per-organization configuration that allows or denies dependencies by SPDX license
+      identifier.
+  - term: Repo Label
+    definition: A tag applied to one or more repositories that scopes policy overrides — for example,
+      stricter rules for repos labelled `pci` or relaxed rules for repos labelled `playground`.
+  - term: Threat Feed
+    definition: A real-time stream of newly discovered malicious or suspicious packages across npm,
+      PyPI, Go, RubyGems, and other ecosystems.
+  - term: Fix
+    definition: A version bump, patch, or package override that resolves a specific alert. Socket can
+      open pull requests applying fixes automatically.
+  - term: Socket Firewall (sfw)
+    definition: A wrapper around the package manager (npm/pnpm/yarn/pip/uv/cargo) that intercepts
+      installs and blocks malicious packages before they hit disk.
+  - term: Socket Basics
+    definition: Bundled SAST, secrets, and container scanning offered as part of the Socket platform
+      for organizations standardizing on a single tool.
+  - term: Socket Optimize
+    definition: Drop-in npm/pnpm/yarn package overrides that replace vulnerable transitive
+      dependencies with safer alternatives, published through the socket-registry repository.
+  - term: depscore
+    definition: A 0-100 score representing the aggregate supply-chain risk of a package version,
+      combining quality, maintenance, vulnerability, license, and supplyChain sub-scores.
+  - term: Capabilities (package capabilities)
+    definition: Behaviours a package can exhibit (network access, file system access, process spawn,
+      env-var reads, etc.) detected by Socket's static analysis.
+  - term: SBOM
+    definition: Software Bill of Materials. Socket exports SBOMs in CycloneDX (CDX), SPDX, and
+      OpenVEX formats from any Full Scan.
+ecosystems:
+  - npm
+  - PyPI
+  - Go
+  - Maven
+  - Cargo
+  - NuGet
+  - RubyGems
+  - Composer
+  - Pub
+  - Hex
+  - Chrome Web Store
+alertCategoriesPartial:
+  - supply-chain
+  - quality
+  - maintenance
+  - vulnerability
+  - license
+  - security
+  - malware
+  - typo-squat

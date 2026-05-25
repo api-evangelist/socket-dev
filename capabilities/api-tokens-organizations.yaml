@@ -1,0 +1,75 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Socket Api Tokens Organizations
+  description: Socket api tokens organizations business capability. Self-contained Naftiko capability covering one Socket business surface.
+  tags:
+  - Socket
+  - Supply Chain Security
+  - Api
+  - Tokens
+  - Organizations
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SOCKET_API_KEY: SOCKET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: api-tokens-organizations
+    baseUri: https://api.socket.dev/v0
+    description: Socket api tokens organizations business capability. Self-contained, no shared references.
+    resources:
+    - name: organizations
+      path: /organizations
+      operations:
+      - name: get-organizations
+        method: GET
+        description: List organizations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters: []
+    authentication:
+      type: basic
+      username: '{{env.SOCKET_API_KEY}}'
+      password: ''
+      description: Socket authenticates via HTTP Basic with the API key as the username and empty password.
+  exposes:
+  - type: rest
+    namespace: api-tokens-organizations-rest
+    port: 8080
+    description: REST adapter for Socket api tokens organizations.
+    resources:
+    - path: /v1/organizations
+      name: organizations
+      description: REST surface for organizations.
+      operations:
+      - method: GET
+        name: get-organizations
+        description: List organizations
+        call: api-tokens-organizations.get-organizations
+        with: {}
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: api-tokens-organizations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Socket api tokens organizations.
+    tools:
+    - name: socket-get-organizations
+      description: List organizations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: api-tokens-organizations.get-organizations
+      with: {}
+      outputParameters:
+      - type: object
+        mapping: $.

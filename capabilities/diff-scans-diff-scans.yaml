@@ -1,0 +1,512 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Socket Diff Scans Diff Scans
+  description: Socket diff scans diff scans business capability. Self-contained Naftiko capability covering one Socket business surface.
+  tags:
+  - Socket
+  - Supply Chain Security
+  - Diff
+  - Scans
+  - Diff
+  - Scans
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SOCKET_API_KEY: SOCKET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: diff-scans-diff-scans
+    baseUri: https://api.socket.dev/v0
+    description: Socket diff scans diff scans business capability. Self-contained, no shared references.
+    resources:
+    - name: orgs-org-slug-diff-scans
+      path: /orgs/{org_slug}/diff-scans
+      operations:
+      - name: get-orgs-org-slug-diff-scans
+        method: GET
+        description: List diff scans
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: sort
+          in: query
+          type: string
+          description: Specify sort field.
+          required: false
+        - name: direction
+          in: query
+          type: string
+          description: Specify sort direction.
+          required: false
+        - name: per_page
+          in: query
+          type: integer
+          description: Specify the maximum number of results to return per page.
+          required: false
+        - name: cursor
+          in: query
+          type: string
+          description: Cursor for pagination. Use the next_cursor or prev_cursor from previous responses.
+          required: false
+        - name: repository_id
+          in: query
+          type: string
+          description: Filter by repository ID.
+          required: false
+        - name: before_full_scan_id
+          in: query
+          type: string
+          description: Filter by before full scan ID.
+          required: false
+        - name: after_full_scan_id
+          in: query
+          type: string
+          description: Filter by after full scan ID.
+          required: false
+    - name: orgs-org-slug-diff-scans-diff-scan-id
+      path: /orgs/{org_slug}/diff-scans/{diff_scan_id}
+      operations:
+      - name: get-orgs-org-slug-diff-scans-diff-scan-id
+        method: GET
+        description: Get diff scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: diff_scan_id
+          in: path
+          type: string
+          description: The ID of the diff scan
+          required: true
+        - name: omit_license_details
+          in: query
+          type: boolean
+          description: Omit license details in the response. This can reduce the size of the response significantly, but will not include license information for the artifacts.
+          required: false
+        - name: omit_unchanged
+          in: query
+          type: boolean
+          description: Omit unchanged artifacts from the response. When set to true, the unchanged field will be set to null.
+          required: false
+        - name: cached
+          in: query
+          type: boolean
+          description: 'Return cached immutable scan results. When enabled and results are cached, returns the pre-computed scan. When results are not yet cached, returns 202 Accepted and enqueues a background
+            job. Note: Whe'
+          required: false
+      - name: delete-orgs-org-slug-diff-scans-diff-scan-id
+        method: DELETE
+        description: Delete diff scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: diff_scan_id
+          in: path
+          type: string
+          description: The ID of the diff scan
+          required: true
+    - name: orgs-org-slug-diff-scans-diff-scan-id-gfm
+      path: /orgs/{org_slug}/diff-scans/{diff_scan_id}/gfm
+      operations:
+      - name: get-orgs-org-slug-diff-scans-diff-scan-id-gfm
+        method: GET
+        description: SCM Comment for Diff Scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: diff_scan_id
+          in: path
+          type: string
+          description: The ID of the diff scan
+          required: true
+        - name: github_installation_id
+          in: query
+          type: string
+          description: The ID of the GitHub installation. This will be used to get the GitHub installation settings. If not provided, the default GitHub installation settings will be used.
+          required: false
+    - name: orgs-org-slug-diff-scans-from-repo-repo-slug
+      path: /orgs/{org_slug}/diff-scans/from-repo/{repo_slug}
+      operations:
+      - name: post-orgs-org-slug-diff-scans-from-repo-repo-slug
+        method: POST
+        description: Create diff scan from repository HEAD full-scan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: repo_slug
+          in: path
+          type: string
+          description: The slug of the repository
+          required: true
+        - name: description
+          in: query
+          type: string
+          description: A description of the diff scan. This will be used in the diff report and can be used to provide context for the changes made.
+          required: false
+        - name: external_href
+          in: query
+          type: string
+          description: An external URL to associate with the diff scan. This can be a link to a pull request, issue, or any other relevant resource.
+          required: false
+        - name: branch
+          in: query
+          type: string
+          description: 'The branch name to associate the new full-scan with. Branch names must follow Git branch name rules: be 1–255 characters long; cannot be exactly @;  cannot begin or end with /, .,
+            or .lock; cannot con'
+          required: false
+        - name: commit_message
+          in: query
+          type: string
+          description: The commit message to associate the new full-scan with.
+          required: false
+        - name: commit_hash
+          in: query
+          type: string
+          description: The commit hash to associate the full-scan with.
+          required: false
+        - name: pull_request
+          in: query
+          type: integer
+          description: The pull request number to associate the new full-scan with.
+          required: false
+        - name: committers
+          in: query
+          type: string
+          description: The committers to associate the new full-scan with. Set query more than once to set multiple committers.
+          required: false
+        - name: integration_type
+          in: query
+          type: string
+          description: The integration type to associate the new full-scan with. Defaults to "api" if omitted.
+          required: false
+        - name: integration_org_slug
+          in: query
+          type: string
+          description: The integration org slug to associate the new full-scan with. If omitted, the Socket org name will be used. This is used to generate links and badges.
+          required: false
+        - name: merge
+          in: query
+          type: boolean
+          description: Set to true when running a diff between a merged commit and its parent commit in the same branch. Set to false when running diffs in an open PR between unmerged commits.
+          required: false
+        - name: workspace
+          in: query
+          type: string
+          description: The workspace of the repository.
+          required: false
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: orgs-org-slug-diff-scans-from-ids
+      path: /orgs/{org_slug}/diff-scans/from-ids
+      operations:
+      - name: post-orgs-org-slug-diff-scans-from-ids
+        method: POST
+        description: Create diff scan from full scan IDs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: before
+          in: query
+          type: string
+          description: The ID of the before/base full scan (older)
+          required: true
+        - name: after
+          in: query
+          type: string
+          description: The ID of the after/head full scan (newer)
+          required: true
+        - name: description
+          in: query
+          type: string
+          description: A description of the diff scan. This will be used in the diff report and can be used to provide context for the changes made.
+          required: false
+        - name: external_href
+          in: query
+          type: string
+          description: An external URL to associate with the diff scan. This can be a link to a pull request, issue, or any other relevant resource.
+          required: false
+        - name: merge
+          in: query
+          type: boolean
+          description: Set to true when running a diff between a merged commit and its parent commit in the same branch. Set to false when running diffs in an open PR between unmerged commits.
+          required: false
+    authentication:
+      type: basic
+      username: '{{env.SOCKET_API_KEY}}'
+      password: ''
+      description: Socket authenticates via HTTP Basic with the API key as the username and empty password.
+  exposes:
+  - type: rest
+    namespace: diff-scans-diff-scans-rest
+    port: 8080
+    description: REST adapter for Socket diff scans diff scans.
+    resources:
+    - path: /v1/orgs/{org_slug}/diff-scans
+      name: orgs-org-slug-diff-scans
+      description: REST surface for orgs-org-slug-diff-scans.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-diff-scans
+        description: List diff scans
+        call: diff-scans-diff-scans.get-orgs-org-slug-diff-scans
+        with:
+          org_slug: rest.path.org_slug
+          sort: rest.query.sort
+          direction: rest.query.direction
+          per_page: rest.query.per_page
+          cursor: rest.query.cursor
+          repository_id: rest.query.repository_id
+          before_full_scan_id: rest.query.before_full_scan_id
+          after_full_scan_id: rest.query.after_full_scan_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/diff-scans/{diff_scan_id}
+      name: orgs-org-slug-diff-scans-diff-scan-id
+      description: REST surface for orgs-org-slug-diff-scans-diff-scan-id.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-diff-scans-diff-scan-id
+        description: Get diff scan
+        call: diff-scans-diff-scans.get-orgs-org-slug-diff-scans-diff-scan-id
+        with:
+          org_slug: rest.path.org_slug
+          diff_scan_id: rest.path.diff_scan_id
+          omit_license_details: rest.query.omit_license_details
+          omit_unchanged: rest.query.omit_unchanged
+          cached: rest.query.cached
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-orgs-org-slug-diff-scans-diff-scan-id
+        description: Delete diff scan
+        call: diff-scans-diff-scans.delete-orgs-org-slug-diff-scans-diff-scan-id
+        with:
+          org_slug: rest.path.org_slug
+          diff_scan_id: rest.path.diff_scan_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/diff-scans/{diff_scan_id}/gfm
+      name: orgs-org-slug-diff-scans-diff-scan-id-gfm
+      description: REST surface for orgs-org-slug-diff-scans-diff-scan-id-gfm.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-diff-scans-diff-scan-id-gfm
+        description: SCM Comment for Diff Scan
+        call: diff-scans-diff-scans.get-orgs-org-slug-diff-scans-diff-scan-id-gfm
+        with:
+          org_slug: rest.path.org_slug
+          diff_scan_id: rest.path.diff_scan_id
+          github_installation_id: rest.query.github_installation_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/diff-scans/from-repo/{repo_slug}
+      name: orgs-org-slug-diff-scans-from-repo-repo-slug
+      description: REST surface for orgs-org-slug-diff-scans-from-repo-repo-slug.
+      operations:
+      - method: POST
+        name: post-orgs-org-slug-diff-scans-from-repo-repo-slug
+        description: Create diff scan from repository HEAD full-scan
+        call: diff-scans-diff-scans.post-orgs-org-slug-diff-scans-from-repo-repo-slug
+        with:
+          org_slug: rest.path.org_slug
+          repo_slug: rest.path.repo_slug
+          description: rest.query.description
+          external_href: rest.query.external_href
+          branch: rest.query.branch
+          commit_message: rest.query.commit_message
+          commit_hash: rest.query.commit_hash
+          pull_request: rest.query.pull_request
+          committers: rest.query.committers
+          integration_type: rest.query.integration_type
+          integration_org_slug: rest.query.integration_org_slug
+          merge: rest.query.merge
+          workspace: rest.query.workspace
+          body: rest.body.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orgs/{org_slug}/diff-scans/from-ids
+      name: orgs-org-slug-diff-scans-from-ids
+      description: REST surface for orgs-org-slug-diff-scans-from-ids.
+      operations:
+      - method: POST
+        name: post-orgs-org-slug-diff-scans-from-ids
+        description: Create diff scan from full scan IDs
+        call: diff-scans-diff-scans.post-orgs-org-slug-diff-scans-from-ids
+        with:
+          org_slug: rest.path.org_slug
+          before: rest.query.before
+          after: rest.query.after
+          description: rest.query.description
+          external_href: rest.query.external_href
+          merge: rest.query.merge
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: diff-scans-diff-scans-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Socket diff scans diff scans.
+    tools:
+    - name: socket-get-orgs-org-slug-diff-scans
+      description: List diff scans
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: diff-scans-diff-scans.get-orgs-org-slug-diff-scans
+      with:
+        org_slug: tools.org_slug
+        sort: tools.sort
+        direction: tools.direction
+        per_page: tools.per_page
+        cursor: tools.cursor
+        repository_id: tools.repository_id
+        before_full_scan_id: tools.before_full_scan_id
+        after_full_scan_id: tools.after_full_scan_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-diff-scans-diff-scan-id
+      description: Get diff scan
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: diff-scans-diff-scans.get-orgs-org-slug-diff-scans-diff-scan-id
+      with:
+        org_slug: tools.org_slug
+        diff_scan_id: tools.diff_scan_id
+        omit_license_details: tools.omit_license_details
+        omit_unchanged: tools.omit_unchanged
+        cached: tools.cached
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-delete-orgs-org-slug-diff-scans-diff-scan-id
+      description: Delete diff scan
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: diff-scans-diff-scans.delete-orgs-org-slug-diff-scans-diff-scan-id
+      with:
+        org_slug: tools.org_slug
+        diff_scan_id: tools.diff_scan_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-get-orgs-org-slug-diff-scans-diff-scan-id-gfm
+      description: SCM Comment for Diff Scan
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: diff-scans-diff-scans.get-orgs-org-slug-diff-scans-diff-scan-id-gfm
+      with:
+        org_slug: tools.org_slug
+        diff_scan_id: tools.diff_scan_id
+        github_installation_id: tools.github_installation_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-post-orgs-org-slug-diff-scans-from-repo-repo-slug
+      description: Create diff scan from repository HEAD full-scan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: diff-scans-diff-scans.post-orgs-org-slug-diff-scans-from-repo-repo-slug
+      with:
+        org_slug: tools.org_slug
+        repo_slug: tools.repo_slug
+        description: tools.description
+        external_href: tools.external_href
+        branch: tools.branch
+        commit_message: tools.commit_message
+        commit_hash: tools.commit_hash
+        pull_request: tools.pull_request
+        committers: tools.committers
+        integration_type: tools.integration_type
+        integration_org_slug: tools.integration_org_slug
+        merge: tools.merge
+        workspace: tools.workspace
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: socket-post-orgs-org-slug-diff-scans-from-ids
+      description: Create diff scan from full scan IDs
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: diff-scans-diff-scans.post-orgs-org-slug-diff-scans-from-ids
+      with:
+        org_slug: tools.org_slug
+        before: tools.before
+        after: tools.after
+        description: tools.description
+        external_href: tools.external_href
+        merge: tools.merge
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,83 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Socket Org Settings License Policy
+  description: Socket org settings license policy business capability. Self-contained Naftiko capability covering one Socket business surface.
+  tags:
+  - Socket
+  - Supply Chain Security
+  - Org
+  - Settings
+  - License
+  - Policy
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SOCKET_API_KEY: SOCKET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: org-settings-license-policy
+    baseUri: https://api.socket.dev/v0
+    description: Socket org settings license policy business capability. Self-contained, no shared references.
+    resources:
+    - name: orgs-org-slug-settings-license-policy-view
+      path: /orgs/{org_slug}/settings/license-policy/view
+      operations:
+      - name: get-orgs-org-slug-settings-license-policy-view
+        method: GET
+        description: Get License Policy (Beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.SOCKET_API_KEY}}'
+      password: ''
+      description: Socket authenticates via HTTP Basic with the API key as the username and empty password.
+  exposes:
+  - type: rest
+    namespace: org-settings-license-policy-rest
+    port: 8080
+    description: REST adapter for Socket org settings license policy.
+    resources:
+    - path: /v1/orgs/{org_slug}/settings/license-policy/view
+      name: orgs-org-slug-settings-license-policy-view
+      description: REST surface for orgs-org-slug-settings-license-policy-view.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-settings-license-policy-view
+        description: Get License Policy (Beta)
+        call: org-settings-license-policy.get-orgs-org-slug-settings-license-policy-view
+        with:
+          org_slug: rest.path.org_slug
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: org-settings-license-policy-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Socket org settings license policy.
+    tools:
+    - name: socket-get-orgs-org-slug-settings-license-policy-view
+      description: Get License Policy (Beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: org-settings-license-policy.get-orgs-org-slug-settings-license-policy-view
+      with:
+        org_slug: tools.org_slug
+      outputParameters:
+      - type: object
+        mapping: $.

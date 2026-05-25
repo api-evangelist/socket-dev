@@ -1,0 +1,161 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Socket Threat Feed Threat Feed
+  description: Socket threat feed threat feed business capability. Self-contained Naftiko capability covering one Socket business surface.
+  tags:
+  - Socket
+  - Supply Chain Security
+  - Threat
+  - Feed
+  - Threat
+  - Feed
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    SOCKET_API_KEY: SOCKET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: threat-feed-threat-feed
+    baseUri: https://api.socket.dev/v0
+    description: Socket threat feed threat feed business capability. Self-contained, no shared references.
+    resources:
+    - name: orgs-org-slug-threat-feed
+      path: /orgs/{org_slug}/threat-feed
+      operations:
+      - name: get-orgs-org-slug-threat-feed
+        method: GET
+        description: Get Threat Feed Items (Beta)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: org_slug
+          in: path
+          type: string
+          description: The slug of the organization
+          required: true
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of threats per page
+          required: false
+        - name: page_cursor
+          in: query
+          type: string
+          description: Page cursor token. Pass the returned nextPageCursor to this query string to fetch the next page of the threat feed.
+          required: false
+        - name: sort
+          in: query
+          type: string
+          description: Set the sort order for the threat feed items. Default is descending order by updated_at, which includes all new and updated threat feed items.
+          required: false
+        - name: updated_after
+          in: query
+          type: string
+          description: A Unix timestamp in seconds that filters results to items only updated after the timestamp.
+          required: false
+        - name: created_after
+          in: query
+          type: string
+          description: A Unix timestamp in seconds that filters results to items only created after the date.
+          required: false
+        - name: direction
+          in: query
+          type: string
+          description: Order direction of the provided sort field.
+          required: false
+        - name: filter
+          in: query
+          type: string
+          description: 'Filter by threat classification. Supported values: `mal` (malware, including possible malware), `vuln` (vulnerability), `typo` (typosquat, including possible typosquat), `anom` (anomaly),
+            `spy` (telem'
+          required: false
+        - name: name
+          in: query
+          type: string
+          description: Filter threats by package name
+          required: false
+        - name: version
+          in: query
+          type: string
+          description: Filter threats by package version.
+          required: false
+        - name: is_human_reviewed
+          in: query
+          type: boolean
+          description: Only return threats which have been human-reviewed
+          required: false
+        - name: ecosystem
+          in: query
+          type: string
+          description: Filter threats by package ecosystem.
+          required: false
+    authentication:
+      type: basic
+      username: '{{env.SOCKET_API_KEY}}'
+      password: ''
+      description: Socket authenticates via HTTP Basic with the API key as the username and empty password.
+  exposes:
+  - type: rest
+    namespace: threat-feed-threat-feed-rest
+    port: 8080
+    description: REST adapter for Socket threat feed threat feed.
+    resources:
+    - path: /v1/orgs/{org_slug}/threat-feed
+      name: orgs-org-slug-threat-feed
+      description: REST surface for orgs-org-slug-threat-feed.
+      operations:
+      - method: GET
+        name: get-orgs-org-slug-threat-feed
+        description: Get Threat Feed Items (Beta)
+        call: threat-feed-threat-feed.get-orgs-org-slug-threat-feed
+        with:
+          org_slug: rest.path.org_slug
+          per_page: rest.query.per_page
+          page_cursor: rest.query.page_cursor
+          sort: rest.query.sort
+          updated_after: rest.query.updated_after
+          created_after: rest.query.created_after
+          direction: rest.query.direction
+          filter: rest.query.filter
+          name: rest.query.name
+          version: rest.query.version
+          is_human_reviewed: rest.query.is_human_reviewed
+          ecosystem: rest.query.ecosystem
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: threat-feed-threat-feed-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Socket threat feed threat feed.
+    tools:
+    - name: socket-get-orgs-org-slug-threat-feed
+      description: Get Threat Feed Items (Beta)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: threat-feed-threat-feed.get-orgs-org-slug-threat-feed
+      with:
+        org_slug: tools.org_slug
+        per_page: tools.per_page
+        page_cursor: tools.page_cursor
+        sort: tools.sort
+        updated_after: tools.updated_after
+        created_after: tools.created_after
+        direction: tools.direction
+        filter: tools.filter
+        name: tools.name
+        version: tools.version
+        is_human_reviewed: tools.is_human_reviewed
+        ecosystem: tools.ecosystem
+      outputParameters:
+      - type: object
+        mapping: $.

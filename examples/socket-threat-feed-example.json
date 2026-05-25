@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.socket.dev/v0/orgs/api-evangelist/threat-feed?ecosystem=npm&page=1&page_size=25",
+    "headers": {
+      "Authorization": "Basic c29ja2V0X3lvdXJfYXBpX2tleTo="
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "page": 1,
+      "page_size": 25,
+      "results": [
+        {
+          "ecosystem": "npm",
+          "name": "lib-malicious-typo-squat",
+          "version": "1.0.0",
+          "alert_type": "malware",
+          "category": "supply-chain",
+          "severity": "critical",
+          "discovered_at": "2026-05-24T22:31:00Z",
+          "description": "Typo-squat targeting popular logger libraries; ships obfuscated install-script payload."
+        },
+        {
+          "ecosystem": "npm",
+          "name": "another-bad-pkg",
+          "version": "2.4.1",
+          "alert_type": "installScript",
+          "category": "supply-chain",
+          "severity": "high",
+          "discovered_at": "2026-05-24T19:02:00Z",
+          "description": "Postinstall hook downloads remote binary from attacker-controlled host."
+        }
+      ]
+    }
+  }
+}
