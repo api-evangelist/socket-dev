@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Socket Fix Vulnerabilities in a Repository
+  summary: Confirm a repository and its HEAD scan, then fetch the available fixes for its vulnerabilities.
+  description: >-
+    A remediation flow. It reads the repository to confirm it exists and to
+    capture its current HEAD full scan, then asks the fixes endpoint for
+    available package upgrades that resolve the requested vulnerabilities on the
+    latest default-branch scan, including advisory details and the responsible
+    direct dependencies. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: reposApi
+  url: ../openapi/socket-repos-api-openapi.yml
+  type: openapi
+- name: fixesApi
+  url: ../openapi/socket-fixes-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: fix-repo-vulnerabilities
+  summary: Confirm a repo, then fetch available fixes for its vulnerabilities.
+  description: >-
+    Reads the repository to confirm it exists and capture its HEAD scan, then
+    fetches available fixes for the requested vulnerability ids.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - repoSlug
+    - vulnerabilityIds
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      repoSlug:
+        type: string
+        description: The repository slug to fetch fixes for.
+      vulnerabilityIds:
+        type: string
+        description: Comma-separated GHSA or CVE IDs, or "*" for all vulnerabilities.
+      allowMajorUpdates:
+        type: boolean
+        description: Whether to allow major version updates in proposed fixes.
+  steps:
+  - stepId: getRepo
+    description: >-
+      Read the repository to confirm it exists and capture its HEAD full scan
+      id for context.
+    operationId: getOrgRepo
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: repo_slug
+      in: path
+      value: $inputs.repoSlug
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      headFullScanId: $response.body#/head_full_scan_id
+  - stepId: fetchFixes
+    description: >-
+      Fetch available fixes for the requested vulnerabilities on the latest
+      default-branch scan of the repository, including advisory details and the
+      responsible direct dependencies.
+    operationId: fetch-fixes
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: repo_slug
+      in: query
+      value: $inputs.repoSlug
+    - name: vulnerability_ids
+      in: query
+      value: $inputs.vulnerabilityIds
+    - name: allow_major_updates
+      in: query
+      value: $inputs.allowMajorUpdates
+    - name: include_details
+      in: query
+      value: true
+    - name: include_responsible_direct_dependencies
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      fixDetails: $response.body#/fixDetails
+  outputs:
+    headFullScanId: $steps.getRepo.outputs.headFullScanId
+    fixDetails: $steps.fetchFixes.outputs.fixDetails

@@ -1,0 +1,123 @@
+arazzo: 1.0.1
+info:
+  title: Socket Rescan and Report a Full Scan
+  summary: Rescan an existing full scan to apply the latest policies, poll the new scan to completion, then export its alert CSV.
+  description: >-
+    A policy-refresh reporting flow. It rescans an existing full scan (shallow
+    by default, re-applying the latest security policies to cached results, or
+    deep to re-resolve dependencies), producing a new full scan. Because the
+    new scan processes asynchronously, the workflow polls its metadata until
+    the scan_state leaves the processing states, then exports a CSV of every
+    alert in the refreshed scan. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: fullScansApi
+  url: ../openapi/socket-full-scans-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: rescan-and-report
+  summary: Rescan an existing full scan, wait for completion, and export its alert CSV.
+  description: >-
+    Rescans a full scan to apply the latest policies, polls the resulting scan
+    metadata until processing completes, then exports the alerts CSV.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - fullScanId
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      fullScanId:
+        type: string
+        description: The ID of the existing full scan to rescan.
+      mode:
+        type: string
+        description: The rescan mode, shallow (re-apply policies) or deep (re-resolve dependencies).
+  steps:
+  - stepId: rescan
+    description: >-
+      Rescan the existing full scan, producing a new full scan that reflects
+      the latest policies.
+    operationId: rescanOrgFullScan
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: full_scan_id
+      in: path
+      value: $inputs.fullScanId
+    - name: mode
+      in: query
+      value: $inputs.mode
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      newScanId: $response.body#/id
+  - stepId: pollScanState
+    description: >-
+      Read the new scan's metadata and branch on scan_state, looping while it
+      is still resolving or scanning and continuing once processing completes.
+    operationId: getOrgFullScanMetadata
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: full_scan_id
+      in: path
+      value: $steps.rescan.outputs.newScanId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      scanState: $response.body#/scan_state
+    onSuccess:
+    - name: stillResolving
+      type: goto
+      stepId: pollScanState
+      criteria:
+      - context: $response.body
+        condition: $.scan_state == 'resolve'
+        type: jsonpath
+    - name: stillScanning
+      type: goto
+      stepId: pollScanState
+      criteria:
+      - context: $response.body
+        condition: $.scan_state == 'scan'
+        type: jsonpath
+    - name: scanComplete
+      type: goto
+      stepId: exportCsv
+      criteria:
+      - context: $response.body
+        condition: $.scan_state != 'resolve' && $.scan_state != 'scan'
+        type: jsonpath
+  - stepId: exportCsv
+    description: >-
+      Export a CSV of all alerts detected in the refreshed full scan, including
+      license details.
+    operationId: getOrgFullScanCsv
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: full_scan_id
+      in: path
+      value: $steps.rescan.outputs.newScanId
+    - name: include_license_details
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload: {}
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      csv: $response.body
+  outputs:
+    newScanId: $steps.rescan.outputs.newScanId
+    finalScanState: $steps.pollScanState.outputs.scanState
+    alertsCsv: $steps.exportCsv.outputs.csv

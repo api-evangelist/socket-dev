@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: Socket Package Issues and Available Fixes
+  summary: Look up alert metadata for a batch of packages by PURL, then fetch available fixes for the discovered vulnerabilities.
+  description: >-
+    A package-triage flow for software supply chain review. It performs an
+    org-scoped batch PURL lookup with alert metadata enabled to surface issues
+    for a set of packages, then asks the fixes endpoint for available upgrades
+    that resolve the relevant vulnerabilities. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: packagesApi
+  url: ../openapi/socket-packages-api-openapi.yml
+  type: openapi
+- name: fixesApi
+  url: ../openapi/socket-fixes-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: package-issues-and-fixes
+  summary: Batch-fetch package alerts by PURL, then fetch available fixes for vulnerabilities.
+  description: >-
+    Submits a batch of PURLs for org-scoped alert lookup, then requests
+    available fixes for the supplied vulnerability identifiers in the same
+    repository context.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - components
+    - vulnerabilityIds
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      components:
+        type: array
+        description: Array of component objects, each carrying a purl string to look up.
+        items:
+          type: object
+          properties:
+            purl:
+              type: string
+              description: The package URL (PURL) to look up.
+      repoSlug:
+        type: string
+        description: Optional repository slug to scope the fixes lookup to.
+      vulnerabilityIds:
+        type: string
+        description: Comma-separated GHSA or CVE IDs, or "*" for all vulnerabilities.
+  steps:
+  - stepId: fetchPackageAlerts
+    description: >-
+      Submit the batch of PURLs for org-scoped lookup with alert metadata
+      enabled, returning a streamed list of package issues and scores.
+    operationId: batchPackageFetchByOrg
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: alerts
+      in: query
+      value: true
+    - name: compact
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload:
+        components: $inputs.components
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      stream: $response.body
+  - stepId: fetchFixes
+    description: >-
+      Fetch available fixes for the supplied vulnerability identifiers in the
+      target repository, including advisory details.
+    operationId: fetch-fixes
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: repo_slug
+      in: query
+      value: $inputs.repoSlug
+    - name: vulnerability_ids
+      in: query
+      value: $inputs.vulnerabilityIds
+    - name: allow_major_updates
+      in: query
+      value: false
+    - name: include_details
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      fixDetails: $response.body#/fixDetails
+  outputs:
+    packageAlerts: $steps.fetchPackageAlerts.outputs.stream
+    fixDetails: $steps.fetchFixes.outputs.fixDetails

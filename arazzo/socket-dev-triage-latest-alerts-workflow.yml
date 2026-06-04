@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: Socket Triage Latest Alerts
+  summary: List the latest organization alerts and, when any are present, apply a triage state to one of them.
+  description: >-
+    An alert-triage flow. It lists the latest alerts for an organization,
+    filtered to a chosen action, and branches: when at least one alert is
+    returned it records a triage decision (for example ignore or block) keyed
+    to the first alert, and when no alerts are returned it ends without making
+    changes. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: alertsApi
+  url: ../openapi/socket-alerts-api-openapi.yml
+  type: openapi
+- name: triageApi
+  url: ../openapi/socket-triage-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: triage-latest-alerts
+  summary: List latest alerts and triage the first matching alert when present.
+  description: >-
+    Lists the latest alerts filtered by action, and when at least one is
+    returned applies a triage state to that alert key; otherwise ends with no
+    triage applied.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - alertAction
+    - triageState
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      alertAction:
+        type: string
+        description: Comma-separated alert actions to include (error, warn, monitor, ignore).
+      triageState:
+        type: string
+        description: The triage state to apply (block, ignore, inherit, monitor, warn).
+      note:
+        type: string
+        description: A note recorded with the triage action.
+  steps:
+  - stepId: listAlerts
+    description: >-
+      List the latest alerts for the organization filtered by action, returning
+      a page of alert items keyed by their alert key.
+    operationId: alertsList
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: per_page
+      in: query
+      value: 100
+    - name: filters.alertAction
+      in: query
+      value: $inputs.alertAction
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstAlertKey: $response.body#/items/0/key
+      firstAlertType: $response.body#/items/0/type
+    onSuccess:
+    - name: hasAlerts
+      type: goto
+      stepId: applyTriage
+      criteria:
+      - context: $response.body
+        condition: $.items.length > 0
+        type: jsonpath
+    - name: noAlerts
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.items.length == 0
+        type: jsonpath
+  - stepId: applyTriage
+    description: >-
+      Create a triage action targeting the first alert key with the requested
+      triage state and note.
+    operationId: updateOrgAlertTriage
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    requestBody:
+      contentType: application/json
+      payload:
+        alertTriage:
+        - alertKey: $steps.listAlerts.outputs.firstAlertKey
+          alertType: $steps.listAlerts.outputs.firstAlertType
+          state: $inputs.triageState
+          note: $inputs.note
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body#/result
+  outputs:
+    triagedAlertKey: $steps.listAlerts.outputs.firstAlertKey
+    triageResult: $steps.applyTriage.outputs.result

@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Socket Investigate Alert Across Scans
+  summary: Pick the latest alert, find the full scans it appears in, then read the metadata of one of those scans.
+  description: >-
+    A drill-down investigation flow. It lists the latest organization alerts to
+    pick an alert key, asks which full scans that alert appears in, and then
+    reads the metadata of the first associated scan so the investigator can see
+    which repository, branch, and commit introduced the issue. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: alertsApi
+  url: ../openapi/socket-alerts-api-openapi.yml
+  type: openapi
+- name: fullScansApi
+  url: ../openapi/socket-full-scans-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: investigate-alert-scans
+  summary: From the latest alert, list its associated full scans and read one scan's metadata.
+  description: >-
+    Lists the latest alerts, takes the first alert key, finds full scans that
+    contain that alert, and reads the metadata of the first associated scan.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      alertAction:
+        type: string
+        description: Optional comma-separated alert actions to include (error, warn, monitor, ignore).
+      range:
+        type: string
+        description: Day offset window for associated scans (e.g. "-7d").
+  steps:
+  - stepId: listAlerts
+    description: >-
+      List the latest alerts and capture the first alert key to investigate.
+    operationId: alertsList
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: per_page
+      in: query
+      value: 50
+    - name: filters.alertAction
+      in: query
+      value: $inputs.alertAction
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      alertKey: $response.body#/items/0/key
+  - stepId: findAlertScans
+    description: >-
+      List the full scans that contain the chosen alert key within the
+      requested day window.
+    operationId: alertFullScans
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: alertKey
+      in: query
+      value: $steps.listAlerts.outputs.alertKey
+    - name: range
+      in: query
+      value: $inputs.range
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      fullScanId: $response.body#/items/0/fullScanId
+  - stepId: getScanMetadata
+    description: >-
+      Read the metadata of the first associated full scan to identify the
+      repository, branch, and commit that surfaced the alert.
+    operationId: getOrgFullScanMetadata
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: full_scan_id
+      in: path
+      value: $steps.findAlertScans.outputs.fullScanId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      repositorySlug: $response.body#/repository_slug
+      branch: $response.body#/branch
+      commitHash: $response.body#/commit_hash
+  outputs:
+    alertKey: $steps.listAlerts.outputs.alertKey
+    fullScanId: $steps.findAlertScans.outputs.fullScanId
+    repositorySlug: $steps.getScanMetadata.outputs.repositorySlug

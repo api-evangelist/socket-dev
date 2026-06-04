@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Socket Audit Organization Dependencies
+  summary: Search the organization's in-use dependencies by PURL, then pull alert metadata for those same packages.
+  description: >-
+    A dependency-hygiene flow. It first searches every dependency in use across
+    the organization, optionally filtered to a set of PURLs, to confirm which
+    of the supplied packages are actually present and in which repositories.
+    It then performs an org-scoped batch PURL lookup with alerts enabled to
+    surface supply-chain issues for those same packages. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dependenciesApi
+  url: ../openapi/socket-dependencies-api-openapi.yml
+  type: openapi
+- name: packagesApi
+  url: ../openapi/socket-packages-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: audit-dependencies
+  summary: Confirm dependencies are in use, then fetch their alert metadata.
+  description: >-
+    Searches in-use dependencies filtered by PURL, then runs an org-scoped
+    batch PURL alert lookup for the supplied components.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - purls
+    - components
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      purls:
+        type: array
+        description: PURL strings to filter the dependency search by.
+        items:
+          type: string
+      components:
+        type: array
+        description: Component objects (each with a purl) for the alert lookup.
+        items:
+          type: object
+          properties:
+            purl:
+              type: string
+              description: The package URL (PURL) to look up.
+      limit:
+        type: integer
+        description: Maximum number of dependency rows to return (1-100).
+  steps:
+  - stepId: searchDependencies
+    description: >-
+      Search the organization's in-use dependencies, filtered to the supplied
+      PURLs, to confirm which packages are present and where.
+    operationId: searchDependencies
+    requestBody:
+      contentType: application/json
+      payload:
+        limit: $inputs.limit
+        offset: 0
+        purls: $inputs.purls
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      rows: $response.body#/rows
+      validPurls: $response.body#/purlFilters/valid
+  - stepId: fetchPackageAlerts
+    description: >-
+      Run an org-scoped batch PURL lookup with alerts enabled to surface
+      supply-chain issues for the audited packages.
+    operationId: batchPackageFetchByOrg
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: alerts
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload:
+        components: $inputs.components
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      stream: $response.body
+  outputs:
+    dependencyRows: $steps.searchDependencies.outputs.rows
+    packageAlerts: $steps.fetchPackageAlerts.outputs.stream

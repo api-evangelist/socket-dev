@@ -1,0 +1,71 @@
+arazzo: 1.0.1
+info:
+  title: Socket Start and Poll Historical Snapshot
+  summary: Start an on-demand historical data snapshot job, then poll the snapshot list until the job's request id appears.
+  description: >-
+    A historical-data capture flow. It kicks off an on-demand snapshot job that
+    captures the organization's repositories, alerts, dependencies, artifacts,
+    users, and settings, and then polls the snapshot list filtered to the
+    returned request id. While the job is in progress the list returns the
+    snapshot in an in-progress status and the workflow loops; once a terminal
+    status is recorded the flow ends. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orgSnapshotsApi
+  url: ../openapi/socket-org-snapshots-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: snapshot-and-list
+  summary: Start a snapshot job and poll the snapshot list by its request id.
+  description: >-
+    Starts an on-demand historical snapshot job, then lists snapshots filtered
+    to the returned request id, looping until the snapshot is recorded.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+  steps:
+  - stepId: startSnapshot
+    description: >-
+      Start an on-demand historical snapshot job and capture its request id.
+    operationId: historicalSnapshotsStart
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      requestId: $response.body#/requestId
+      requestedAt: $response.body#/requestedAt
+  - stepId: listSnapshots
+    description: >-
+      List snapshots filtered to the started job's request id. Loop back while
+      the snapshot is still in progress; finish once a record is present.
+    operationId: historicalSnapshotsList
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: range
+      in: query
+      value: latest
+    - name: filters.requestId
+      in: query
+      value: $steps.startSnapshot.outputs.requestId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      meta: $response.body#/meta
+    onSuccess:
+    - name: snapshotRecorded
+      type: end
+  outputs:
+    requestId: $steps.startSnapshot.outputs.requestId
+    snapshotMeta: $steps.listSnapshots.outputs.meta

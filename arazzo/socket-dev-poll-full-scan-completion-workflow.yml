@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Socket Poll Full Scan to Completion
+  summary: Create a full scan and poll its metadata until the scan_state leaves the processing states.
+  description: >-
+    A focused asynchronous helper that creates a full scan from manifest files
+    and then repeatedly reads the scan metadata, branching on the scan_state
+    field. While the scan is still being resolved or scanned the workflow loops
+    back; once the scan finishes processing it ends with the final state. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: fullScansApi
+  url: ../openapi/socket-full-scans-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: poll-full-scan-completion
+  summary: Create a full scan then poll its metadata until processing completes.
+  description: >-
+    Uploads manifest files as a new full scan and polls the scan metadata,
+    looping while scan_state is resolve or scan and ending once it leaves the
+    processing states.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - repoSlug
+    - manifestFiles
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      repoSlug:
+        type: string
+        description: The repository slug to associate the full scan with.
+      manifestFiles:
+        type: object
+        description: Map of manifest file names to file contents uploaded as multipart/form-data.
+  steps:
+  - stepId: createFullScan
+    description: >-
+      Create a full scan for the repository from the supplied manifest files,
+      returning the new full scan id.
+    operationId: CreateOrgFullScan
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: repo
+      in: query
+      value: $inputs.repoSlug
+    requestBody:
+      contentType: multipart/form-data
+      payload: $inputs.manifestFiles
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      fullScanId: $response.body#/id
+      scanState: $response.body#/scan_state
+  - stepId: pollMetadata
+    description: >-
+      Read the full scan metadata and branch on scan_state. Loop back while the
+      scan is still resolving or scanning; finish once it leaves the processing
+      states.
+    operationId: getOrgFullScanMetadata
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: full_scan_id
+      in: path
+      value: $steps.createFullScan.outputs.fullScanId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      scanState: $response.body#/scan_state
+      repositorySlug: $response.body#/repository_slug
+      commitHash: $response.body#/commit_hash
+    onSuccess:
+    - name: stillResolving
+      type: goto
+      stepId: pollMetadata
+      criteria:
+      - context: $response.body
+        condition: $.scan_state == 'resolve'
+        type: jsonpath
+    - name: stillScanning
+      type: goto
+      stepId: pollMetadata
+      criteria:
+      - context: $response.body
+        condition: $.scan_state == 'scan'
+        type: jsonpath
+    - name: finished
+      type: end
+  outputs:
+    fullScanId: $steps.createFullScan.outputs.fullScanId
+    finalScanState: $steps.pollMetadata.outputs.scanState

@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: Socket Generate PDF Report for Latest Scan
+  summary: Find the most recent full scan for a repository, confirm its metadata, then generate a PDF report.
+  description: >-
+    A reporting flow that lists the organization's full scans filtered to a
+    single repository (newest first), reads the metadata of the most recent
+    scan to confirm it exists and is the intended target, and then generates a
+    downloadable PDF report of that scan's alerts. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: fullScansApi
+  url: ../openapi/socket-full-scans-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: latest-scan-pdf-report
+  summary: List the latest full scan for a repo, verify it, and generate a PDF report.
+  description: >-
+    Lists full scans for a repository sorted newest first, reads the metadata
+    of the first result, then produces a PDF report for that scan.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - repoSlug
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      repoSlug:
+        type: string
+        description: The repository slug to filter full scans by.
+  steps:
+  - stepId: listScans
+    description: >-
+      List full scans for the repository sorted by created_at descending so the
+      first result is the most recent scan.
+    operationId: getOrgFullScanList
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: repo
+      in: query
+      value: $inputs.repoSlug
+    - name: sort
+      in: query
+      value: created_at
+    - name: direction
+      in: query
+      value: desc
+    - name: per_page
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      latestScanId: $response.body#/results/0/id
+  - stepId: getMetadata
+    description: >-
+      Read the metadata of the most recent full scan to confirm the target and
+      capture its repository and commit context.
+    operationId: getOrgFullScanMetadata
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: full_scan_id
+      in: path
+      value: $steps.listScans.outputs.latestScanId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      repositorySlug: $response.body#/repository_slug
+      scanState: $response.body#/scan_state
+  - stepId: generatePdf
+    description: >-
+      Generate a PDF report of the alerts in the latest full scan, including
+      license details.
+    operationId: getOrgFullScanPdf
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: full_scan_id
+      in: path
+      value: $steps.listScans.outputs.latestScanId
+    - name: include_license_details
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload: {}
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      pdf: $response.body
+  outputs:
+    latestScanId: $steps.listScans.outputs.latestScanId
+    pdfReport: $steps.generatePdf.outputs.pdf

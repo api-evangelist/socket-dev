@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: Socket Diff a Repository Against Its HEAD Scan
+  summary: Confirm a repository, create a diff scan against its current HEAD full scan, then poll the diff until cached results are ready.
+  description: >-
+    A pull-request style change-review flow. It reads the repository to confirm
+    it exists and capture its current HEAD full scan, creates a diff scan from
+    newly uploaded manifest files against that HEAD, and then polls the diff
+    scan resource using cached mode: while the comparison is still being
+    computed the endpoint returns 202 Accepted and the workflow loops, and once
+    the cached diff is ready it returns 200. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: reposApi
+  url: ../openapi/socket-repos-api-openapi.yml
+  type: openapi
+- name: diffScansApi
+  url: ../openapi/socket-diff-scans-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: diff-repo-head
+  summary: Create a diff scan against a repo HEAD and poll until the cached diff is ready.
+  description: >-
+    Reads the repository, creates a diff scan against its HEAD full scan, then
+    polls the diff scan in cached mode until it returns a ready 200 response.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - repoSlug
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      repoSlug:
+        type: string
+        description: The repository slug to diff against its HEAD scan.
+      description:
+        type: string
+        description: Optional description used in the diff report.
+      branch:
+        type: string
+        description: Optional branch name to associate the new full scan with.
+  steps:
+  - stepId: getRepo
+    description: >-
+      Read the repository to confirm it exists and capture its current HEAD
+      full scan id.
+    operationId: getOrgRepo
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: repo_slug
+      in: path
+      value: $inputs.repoSlug
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      headFullScanId: $response.body#/head_full_scan_id
+  - stepId: createDiff
+    description: >-
+      Create a diff scan from the repository HEAD full scan. The new full scan
+      is built from the supplied manifest files and compared against HEAD.
+    operationId: createOrgRepoDiff
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: repo_slug
+      in: path
+      value: $inputs.repoSlug
+    - name: description
+      in: query
+      value: $inputs.description
+    - name: branch
+      in: query
+      value: $inputs.branch
+    requestBody:
+      contentType: multipart/form-data
+      payload: {}
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      diffScanId: $response.body#/diff_scan/id
+  - stepId: pollDiff
+    description: >-
+      Read the diff scan in cached mode. A 202 means the diff is still being
+      computed (loop back); a 200 means the cached diff is ready.
+    operationId: getDiffScanById
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: diff_scan_id
+      in: path
+      value: $steps.createDiff.outputs.diffScanId
+    - name: cached
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      diff: $response.body#/diff_scan
+    onSuccess:
+    - name: diffReady
+      type: end
+    onFailure:
+    - name: stillComputing
+      type: goto
+      stepId: pollDiff
+      criteria:
+      - condition: $statusCode == 202
+  outputs:
+    diffScanId: $steps.createDiff.outputs.diffScanId
+    diff: $steps.pollDiff.outputs.diff

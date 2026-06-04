@@ -1,0 +1,154 @@
+arazzo: 1.0.1
+info:
+  title: Socket Create and Report a Full Scan
+  summary: Ensure a repository exists, create a full scan from manifest files, poll until it finishes, then export the alert CSV.
+  description: >-
+    The core Socket supply-chain flow. It first makes sure the target
+    repository exists in the organization, then creates a full scan from a set
+    of uploaded package manifest files. Because scanning is asynchronous, the
+    workflow polls the full scan metadata until its scan_state leaves the
+    processing states, and finally exports a CSV of every alert detected in the
+    completed scan. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: reposApi
+  url: ../openapi/socket-repos-api-openapi.yml
+  type: openapi
+- name: fullScansApi
+  url: ../openapi/socket-full-scans-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-and-report-full-scan
+  summary: Create a repo-scoped full scan, wait for completion, and export its alert CSV.
+  description: >-
+    Creates the repository (idempotently via on_duplicate=redirect), uploads
+    manifest files as a new full scan, polls scan metadata until processing
+    completes, then exports the alerts CSV for the finished scan.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - repoSlug
+    - manifestFiles
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      repoSlug:
+        type: string
+        description: The repository slug to associate the full scan with.
+      branch:
+        type: string
+        description: Optional branch name to associate the full scan with.
+      manifestFiles:
+        type: object
+        description: Map of manifest file names to file contents uploaded as multipart/form-data.
+  steps:
+  - stepId: ensureRepo
+    description: >-
+      Create the repository, redirecting to the existing repo when the slug is
+      already present so the flow is safe to re-run.
+    operationId: createOrgRepo
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: on_duplicate
+      in: query
+      value: redirect
+    requestBody:
+      contentType: application/json
+      payload:
+        slug: $inputs.repoSlug
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      repositoryId: $response.body#/id
+  - stepId: createFullScan
+    description: >-
+      Create a full scan for the repository from the supplied manifest files.
+      Returns the new full scan id and its initial scan_state.
+    operationId: CreateOrgFullScan
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: repo
+      in: query
+      value: $inputs.repoSlug
+    - name: branch
+      in: query
+      value: $inputs.branch
+    requestBody:
+      contentType: multipart/form-data
+      payload: $inputs.manifestFiles
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      fullScanId: $response.body#/id
+      scanState: $response.body#/scan_state
+  - stepId: pollScanState
+    description: >-
+      Fetch the full scan metadata and inspect scan_state. While the scan is in
+      a processing state (pending, precrawl, resolve, scan) loop back; once it
+      leaves those states the scan is complete.
+    operationId: getOrgFullScanMetadata
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: full_scan_id
+      in: path
+      value: $steps.createFullScan.outputs.fullScanId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      scanState: $response.body#/scan_state
+      repositorySlug: $response.body#/repository_slug
+    onSuccess:
+    - name: stillScanning
+      type: goto
+      stepId: pollScanState
+      criteria:
+      - context: $response.body
+        condition: $.scan_state == 'scan'
+        type: jsonpath
+    - name: scanComplete
+      type: goto
+      stepId: exportCsv
+      criteria:
+      - context: $response.body
+        condition: $.scan_state != 'scan'
+        type: jsonpath
+  - stepId: exportCsv
+    description: >-
+      Export a CSV of all alerts detected in the completed full scan, including
+      license details.
+    operationId: getOrgFullScanCsv
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: full_scan_id
+      in: path
+      value: $steps.createFullScan.outputs.fullScanId
+    - name: include_license_details
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload:
+        filters:
+        - id: alert.action
+          value:
+          - error
+          - warn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      csv: $response.body
+  outputs:
+    fullScanId: $steps.createFullScan.outputs.fullScanId
+    finalScanState: $steps.pollScanState.outputs.scanState
+    alertsCsv: $steps.exportCsv.outputs.csv

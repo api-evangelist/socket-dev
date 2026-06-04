@@ -1,0 +1,121 @@
+arazzo: 1.0.1
+info:
+  title: Socket Diff Two Full Scans by ID
+  summary: List the two most recent full scans for a repository and create a diff scan comparing them, then poll the diff until ready.
+  description: >-
+    A regression-comparison flow. It lists the two most recent full scans for a
+    repository (newest first), creates a diff scan comparing the older of the
+    two against the newer, and then polls the resulting diff scan resource in
+    cached mode until the comparison is computed. The diff endpoint returns 202
+    Accepted while still working and 200 once the cached diff is ready. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: fullScansApi
+  url: ../openapi/socket-full-scans-api-openapi.yml
+  type: openapi
+- name: diffScansApi
+  url: ../openapi/socket-diff-scans-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: diff-from-scan-ids
+  summary: Diff the two latest full scans of a repo and poll the diff to completion.
+  description: >-
+    Lists the two newest full scans for a repository, creates a diff comparing
+    the older against the newer, then polls the diff in cached mode until ready.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - repoSlug
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      repoSlug:
+        type: string
+        description: The repository slug whose full scans are compared.
+      description:
+        type: string
+        description: Optional description used in the diff report.
+  steps:
+  - stepId: listScans
+    description: >-
+      List the two newest full scans for the repository so index 0 is the after
+      (newer) scan and index 1 is the before (older) scan.
+    operationId: getOrgFullScanList
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: repo
+      in: query
+      value: $inputs.repoSlug
+    - name: sort
+      in: query
+      value: created_at
+    - name: direction
+      in: query
+      value: desc
+    - name: per_page
+      in: query
+      value: 2
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      afterScanId: $response.body#/results/0/id
+      beforeScanId: $response.body#/results/1/id
+  - stepId: createDiff
+    description: >-
+      Create a diff scan comparing the older before scan against the newer
+      after scan.
+    operationId: createOrgDiffScanFromIds
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: before
+      in: query
+      value: $steps.listScans.outputs.beforeScanId
+    - name: after
+      in: query
+      value: $steps.listScans.outputs.afterScanId
+    - name: description
+      in: query
+      value: $inputs.description
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      diffScanId: $response.body#/diff_scan/id
+  - stepId: pollDiff
+    description: >-
+      Read the diff scan in cached mode. A 202 means still computing (loop
+      back); a 200 means the cached diff is ready.
+    operationId: getDiffScanById
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: diff_scan_id
+      in: path
+      value: $steps.createDiff.outputs.diffScanId
+    - name: cached
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      diff: $response.body#/diff_scan
+    onSuccess:
+    - name: diffReady
+      type: end
+    onFailure:
+    - name: stillComputing
+      type: goto
+      stepId: pollDiff
+      criteria:
+      - condition: $statusCode == 202
+  outputs:
+    diffScanId: $steps.createDiff.outputs.diffScanId
+    diff: $steps.pollDiff.outputs.diff

@@ -1,0 +1,89 @@
+arazzo: 1.0.1
+info:
+  title: Socket Provision and Verify a Webhook
+  summary: Create an organization webhook for selected events, then read it back to confirm it was registered.
+  description: >-
+    An eventing setup flow. It creates a webhook subscription that delivers the
+    chosen Socket event types to a destination URL with a signing secret, then
+    immediately reads the webhook back by id to verify the subscription was
+    persisted with the expected events and target. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: webhooksApi
+  url: ../openapi/socket-webhooks-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-webhook
+  summary: Create a webhook subscription and read it back to confirm registration.
+  description: >-
+    Creates a webhook for the supplied events and URL, then fetches it by id to
+    verify the stored configuration.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - name
+    - url
+    - secret
+    - events
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      name:
+        type: string
+        description: The display name of the webhook.
+      url:
+        type: string
+        description: The destination URL that receives webhook events.
+      secret:
+        type: string
+        description: The signing key used to sign webhook payloads.
+      events:
+        type: array
+        description: The event types to subscribe to.
+        items:
+          type: string
+  steps:
+  - stepId: createWebhook
+    description: >-
+      Create the webhook subscription for the supplied events and destination
+      URL, returning its id.
+    operationId: createOrgWebhook
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        url: $inputs.url
+        secret: $inputs.secret
+        events: $inputs.events
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      webhookId: $response.body#/id
+  - stepId: verifyWebhook
+    description: >-
+      Read the newly created webhook back by id to confirm it was registered
+      with the expected events and target URL.
+    operationId: getOrgWebhook
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    - name: webhook_id
+      in: path
+      value: $steps.createWebhook.outputs.webhookId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      url: $response.body#/url
+      events: $response.body#/events
+  outputs:
+    webhookId: $steps.createWebhook.outputs.webhookId
+    registeredUrl: $steps.verifyWebhook.outputs.url

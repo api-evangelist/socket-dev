@@ -1,0 +1,72 @@
+arazzo: 1.0.1
+info:
+  title: Socket Review and Update Org Security Policy
+  summary: Read the organization's current security policy, then write back an updated default level and rule set.
+  description: >-
+    An organization settings governance flow. It first reads the current
+    security policy rules so the existing configuration can be captured and
+    compared, and then submits an updated policy that sets a new default
+    enforcement level along with any explicit per-rule actions. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orgSettingsApi
+  url: ../openapi/socket-org-settings-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: review-update-security-policy
+  summary: Read the current security policy, then apply an updated default and rules.
+  description: >-
+    Retrieves the organization's current security policy rules, then updates
+    the policy default level and per-rule actions.
+  inputs:
+    type: object
+    required:
+    - orgSlug
+    - policyDefault
+    properties:
+      orgSlug:
+        type: string
+        description: The slug of the organization.
+      policyDefault:
+        type: string
+        description: The new default security policy level (default, low, medium, high).
+      policyRules:
+        type: object
+        description: Per-rule action overrides keyed by rule name (each value an object with an action).
+  steps:
+  - stepId: getPolicy
+    description: >-
+      Read the organization's current security policy rules to capture the
+      existing configuration before changing it.
+    operationId: getOrgSecurityPolicy
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentRules: $response.body#/securityPolicyRules
+  - stepId: updatePolicy
+    description: >-
+      Update the security policy with a new default level and the supplied
+      per-rule actions.
+    operationId: updateOrgSecurityPolicy
+    parameters:
+    - name: org_slug
+      in: path
+      value: $inputs.orgSlug
+    requestBody:
+      contentType: application/json
+      payload:
+        policyDefault: $inputs.policyDefault
+        policyRules: $inputs.policyRules
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updatedRules: $response.body#/securityPolicyRules
+  outputs:
+    previousRules: $steps.getPolicy.outputs.currentRules
+    updatedRules: $steps.updatePolicy.outputs.updatedRules
