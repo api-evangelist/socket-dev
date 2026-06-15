@@ -1,0 +1,2241 @@
+{
+  "info": {
+    "_postman_id": "01cbd948-a8df-4aae-81a7-256b35b25315",
+    "name": "Socket Webhooks API",
+    "description": "Socket webhooks API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:12.000Z",
+    "updatedAt": "2026-06-05T15:18:12.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-01cbd948-a8df-4aae-81a7-256b35b25315"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{org_slug}",
+          "item": [
+            {
+              "name": "webhooks",
+              "item": [
+                {
+                  "name": "{webhook_id}",
+                  "item": [
+                    {
+                      "name": "Get webhook",
+                      "id": "63a5a909-f3eb-46ad-bef7-bcbf6ee0650a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e44849c0-ec00-4ce3-aee7-dfb8da3b69c9",
+                              "key": "org_slug",
+                              "value": "<string>",
+                              "description": "(Required) The slug of the organization"
+                            },
+                            {
+                              "id": "f0ba3f2d-bc62-45cd-8b7a-9783b092d325",
+                              "key": "webhook_id",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the webhook"
+                            }
+                          ]
+                        },
+                        "description": "Get a webhook for the specified organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- webhooks:list"
+                      },
+                      "response": [
+                        {
+                          "id": "622887ec-c805-4f50-99a0-09aa0baa9a78",
+                          "name": "Webhook details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"created_at\": \"\",\n  \"description\": \"\",\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  },\n  \"headers\": null,\n  \"id\": \"\",\n  \"name\": \"\",\n  \"secret\": \"\",\n  \"updated_at\": \"\",\n  \"url\": \"\"\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-622887ec-c805-4f50-99a0-09aa0baa9a78"
+                        },
+                        {
+                          "id": "166eea6f-747e-4840-942a-bdbef0554b13",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-166eea6f-747e-4840-942a-bdbef0554b13"
+                        },
+                        {
+                          "id": "03fc26c0-a017-4388-a27d-c16aba7f1768",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-03fc26c0-a017-4388-a27d-c16aba7f1768"
+                        },
+                        {
+                          "id": "1ff31604-9dac-4471-abbc-2ab581891f5b",
+                          "name": "Insufficient max_quota for API method",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-1ff31604-9dac-4471-abbc-2ab581891f5b"
+                        },
+                        {
+                          "id": "3bc237ec-369d-468b-a254-9990f7a79893",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-3bc237ec-369d-468b-a254-9990f7a79893"
+                        },
+                        {
+                          "id": "89076638-9c22-49f5-9c99-e3acd034ec44",
+                          "name": "Insufficient quota for API route",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                "type": "text/plain"
+                              },
+                              "key": "Retry-After",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-89076638-9c22-49f5-9c99-e3acd034ec44"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-63a5a909-f3eb-46ad-bef7-bcbf6ee0650a"
+                    },
+                    {
+                      "name": "Update webhook",
+                      "id": "69f192d9-7396-42d9-9a5f-321797c44a9a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"\",\n  \"description\": \"\",\n  \"url\": \"\",\n  \"secret\": \"\",\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a9cbd465-1c4b-437a-b048-e3eb78135476",
+                              "key": "org_slug",
+                              "value": "<string>",
+                              "description": "(Required) The slug of the organization"
+                            },
+                            {
+                              "id": "908fccbe-adba-4523-b4d7-c5ee44f8e68a",
+                              "key": "webhook_id",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the webhook"
+                            }
+                          ]
+                        },
+                        "description": "Update details of an existing webhook.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- webhooks:update"
+                      },
+                      "response": [
+                        {
+                          "id": "1dbd72ee-6f15-4e32-b247-1d65bd208d07",
+                          "name": "Updated webhook details",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"\",\n  \"description\": \"\",\n  \"url\": \"\",\n  \"secret\": \"\",\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"created_at\": \"\",\n  \"description\": \"\",\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  },\n  \"headers\": null,\n  \"id\": \"\",\n  \"name\": \"\",\n  \"secret\": \"\",\n  \"updated_at\": \"\",\n  \"url\": \"\"\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-1dbd72ee-6f15-4e32-b247-1d65bd208d07"
+                        },
+                        {
+                          "id": "9e5f069c-1e4b-48d9-a9f5-6def01763f84",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"\",\n  \"description\": \"\",\n  \"url\": \"\",\n  \"secret\": \"\",\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-9e5f069c-1e4b-48d9-a9f5-6def01763f84"
+                        },
+                        {
+                          "id": "635af5e1-16e6-4a6c-b341-5b8fd67de37e",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"\",\n  \"description\": \"\",\n  \"url\": \"\",\n  \"secret\": \"\",\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-635af5e1-16e6-4a6c-b341-5b8fd67de37e"
+                        },
+                        {
+                          "id": "6950470d-6b00-482f-b935-4cb70a956d39",
+                          "name": "Insufficient max_quota for API method",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"\",\n  \"description\": \"\",\n  \"url\": \"\",\n  \"secret\": \"\",\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-6950470d-6b00-482f-b935-4cb70a956d39"
+                        },
+                        {
+                          "id": "ed147279-8f29-487d-81f9-76800b56b367",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"\",\n  \"description\": \"\",\n  \"url\": \"\",\n  \"secret\": \"\",\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-ed147279-8f29-487d-81f9-76800b56b367"
+                        },
+                        {
+                          "id": "7bcaee10-bedd-4970-ba52-a2e15a3eeab6",
+                          "name": "Insufficient quota for API route",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"\",\n  \"description\": \"\",\n  \"url\": \"\",\n  \"secret\": \"\",\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                "type": "text/plain"
+                              },
+                              "key": "Retry-After",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-7bcaee10-bedd-4970-ba52-a2e15a3eeab6"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-69f192d9-7396-42d9-9a5f-321797c44a9a"
+                    },
+                    {
+                      "name": "Delete webhook",
+                      "id": "5893e205-2549-431e-92f6-584914cb2a30",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a6f5dfe7-a6d0-48bf-aeb9-eacce0606bcb",
+                              "key": "org_slug",
+                              "value": "<string>",
+                              "description": "(Required) The slug of the organization"
+                            },
+                            {
+                              "id": "e1ad37be-e707-4581-a587-e00a7020759a",
+                              "key": "webhook_id",
+                              "value": "<string>",
+                              "description": "(Required) The ID of the webhook"
+                            }
+                          ]
+                        },
+                        "description": "Delete a webhook. This will stop all future webhook deliveries to the webhook URL.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- webhooks:delete"
+                      },
+                      "response": [
+                        {
+                          "id": "57d0fd46-64ba-49bf-b421-de72c40511ff",
+                          "name": "Success",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"ok\"\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-57d0fd46-64ba-49bf-b421-de72c40511ff"
+                        },
+                        {
+                          "id": "63ee6fc0-096e-42ee-98aa-5ed1b3b34b4c",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-63ee6fc0-096e-42ee-98aa-5ed1b3b34b4c"
+                        },
+                        {
+                          "id": "61bf3aa3-4cc2-448d-97e8-61ccb3051755",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-61bf3aa3-4cc2-448d-97e8-61ccb3051755"
+                        },
+                        {
+                          "id": "6692749e-0caa-4f40-8ed4-e7ab92c24824",
+                          "name": "Insufficient max_quota for API method",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-6692749e-0caa-4f40-8ed4-e7ab92c24824"
+                        },
+                        {
+                          "id": "ee0dee4f-627c-431d-b69d-19dc00652021",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-ee0dee4f-627c-431d-b69d-19dc00652021"
+                        },
+                        {
+                          "id": "9137bdb1-48fd-4529-acae-36f2d7b1cfe7",
+                          "name": "Insufficient quota for API route",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/webhooks/:webhook_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "webhooks",
+                                ":webhook_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                "type": "text/plain"
+                              },
+                              "key": "Retry-After",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:13.000Z",
+                          "updatedAt": "2026-06-05T15:18:13.000Z",
+                          "uid": "35240-9137bdb1-48fd-4529-acae-36f2d7b1cfe7"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-5893e205-2549-431e-92f6-584914cb2a30"
+                    }
+                  ],
+                  "id": "b5e40a4f-0740-445b-aa58-37ff98ee7dce",
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-b5e40a4f-0740-445b-aa58-37ff98ee7dce"
+                },
+                {
+                  "name": "List all webhooks",
+                  "id": "976c9d20-ebd6-401a-bc00-9fedd1234309",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:org_slug/webhooks?sort=created_at&direction=desc&per_page=30&page=1",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":org_slug",
+                        "webhooks"
+                      ],
+                      "query": [
+                        {
+                          "key": "sort",
+                          "value": "created_at"
+                        },
+                        {
+                          "key": "direction",
+                          "value": "desc"
+                        },
+                        {
+                          "key": "per_page",
+                          "value": "30"
+                        },
+                        {
+                          "key": "page",
+                          "value": "1"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "ae3c81be-97c5-49eb-ab01-3fc0052a6f38",
+                          "key": "org_slug",
+                          "value": "<string>",
+                          "description": "(Required) The slug of the organization"
+                        }
+                      ]
+                    },
+                    "description": "List all webhooks in the specified organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- webhooks:list"
+                  },
+                  "response": [
+                    {
+                      "id": "c1fd2e4f-adec-495a-ad92-2425a728cb8c",
+                      "name": "List of webhooks",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks?sort=created_at&direction=desc&per_page=30&page=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "query": [
+                            {
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "key": "page",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"nextPage\": 0,\n  \"results\": [\n    {\n      \"created_at\": \"\",\n      \"description\": \"\",\n      \"events\": [\n        \"\",\n        \"\"\n      ],\n      \"filters\": {\n        \"repositoryIds\": [\n          \"\",\n          \"\"\n        ]\n      },\n      \"headers\": null,\n      \"id\": \"\",\n      \"name\": \"\",\n      \"secret\": \"\",\n      \"updated_at\": \"\",\n      \"url\": \"\"\n    },\n    {\n      \"created_at\": \"\",\n      \"description\": \"\",\n      \"events\": [\n        \"\",\n        \"\"\n      ],\n      \"filters\": {\n        \"repositoryIds\": [\n          \"\",\n          \"\"\n        ]\n      },\n      \"headers\": null,\n      \"id\": \"\",\n      \"name\": \"\",\n      \"secret\": \"\",\n      \"updated_at\": \"\",\n      \"url\": \"\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-c1fd2e4f-adec-495a-ad92-2425a728cb8c"
+                    },
+                    {
+                      "id": "87fff320-616d-4b72-ba5d-b4ff3b2cc927",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks?sort=created_at&direction=desc&per_page=30&page=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "query": [
+                            {
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "key": "page",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-87fff320-616d-4b72-ba5d-b4ff3b2cc927"
+                    },
+                    {
+                      "id": "a8d7ea3b-d88e-417d-b8af-1e0810193bae",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks?sort=created_at&direction=desc&per_page=30&page=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "query": [
+                            {
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "key": "page",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-a8d7ea3b-d88e-417d-b8af-1e0810193bae"
+                    },
+                    {
+                      "id": "239e6fd1-a75d-4e3d-8ab6-63b40c4aa64c",
+                      "name": "Insufficient max_quota for API method",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks?sort=created_at&direction=desc&per_page=30&page=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "query": [
+                            {
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "key": "page",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-239e6fd1-a75d-4e3d-8ab6-63b40c4aa64c"
+                    },
+                    {
+                      "id": "0819f98d-a1c6-487c-bf8d-2e3118864ab0",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks?sort=created_at&direction=desc&per_page=30&page=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "query": [
+                            {
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "key": "page",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-0819f98d-a1c6-487c-bf8d-2e3118864ab0"
+                    },
+                    {
+                      "id": "15eac939-726d-4e22-bd81-70099dc4fcf0",
+                      "name": "Insufficient quota for API route",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks?sort=created_at&direction=desc&per_page=30&page=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "query": [
+                            {
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "key": "page",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                            "type": "text/plain"
+                          },
+                          "key": "Retry-After",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-15eac939-726d-4e22-bd81-70099dc4fcf0"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-976c9d20-ebd6-401a-bc00-9fedd1234309"
+                },
+                {
+                  "name": "Create a webhook",
+                  "id": "8faddbee-120b-453d-8526-6e3a17f36a35",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"name\": \"\",\n  \"secret\": \"\",\n  \"url\": \"\",\n  \"description\": \"\",\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:org_slug/webhooks",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":org_slug",
+                        "webhooks"
+                      ],
+                      "variable": [
+                        {
+                          "id": "313bfef0-c38a-4eac-877d-d9f42f2578ce",
+                          "key": "org_slug",
+                          "value": "<string>",
+                          "description": "(Required) The slug of the organization"
+                        }
+                      ]
+                    },
+                    "description": "Create a new webhook. Returns the created webhook details.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- webhooks:create"
+                  },
+                  "response": [
+                    {
+                      "id": "73127fa0-8e84-41f7-9da3-60ae711c0693",
+                      "name": "The created webhook",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"name\": \"\",\n  \"secret\": \"\",\n  \"url\": \"\",\n  \"description\": \"\",\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"created_at\": \"\",\n  \"description\": \"\",\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  },\n  \"headers\": null,\n  \"id\": \"\",\n  \"name\": \"\",\n  \"secret\": \"\",\n  \"updated_at\": \"\",\n  \"url\": \"\"\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-73127fa0-8e84-41f7-9da3-60ae711c0693"
+                    },
+                    {
+                      "id": "238b1a63-fbaf-4ad7-93eb-a3d3e748f61c",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"name\": \"\",\n  \"secret\": \"\",\n  \"url\": \"\",\n  \"description\": \"\",\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-238b1a63-fbaf-4ad7-93eb-a3d3e748f61c"
+                    },
+                    {
+                      "id": "85c8b775-5373-4d71-9517-7dbeaa376447",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"name\": \"\",\n  \"secret\": \"\",\n  \"url\": \"\",\n  \"description\": \"\",\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-85c8b775-5373-4d71-9517-7dbeaa376447"
+                    },
+                    {
+                      "id": "ec640242-0f30-46e9-b2b1-37e6387f7079",
+                      "name": "Insufficient max_quota for API method",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"name\": \"\",\n  \"secret\": \"\",\n  \"url\": \"\",\n  \"description\": \"\",\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-ec640242-0f30-46e9-b2b1-37e6387f7079"
+                    },
+                    {
+                      "id": "a2c9afd8-57bf-4170-a189-64cb933f8723",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"name\": \"\",\n  \"secret\": \"\",\n  \"url\": \"\",\n  \"description\": \"\",\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-a2c9afd8-57bf-4170-a189-64cb933f8723"
+                    },
+                    {
+                      "id": "2037960d-4035-4d1a-9782-a5a6fbe37cef",
+                      "name": "Insufficient quota for API route",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"events\": [\n    \"\",\n    \"\"\n  ],\n  \"name\": \"\",\n  \"secret\": \"\",\n  \"url\": \"\",\n  \"description\": \"\",\n  \"headers\": null,\n  \"filters\": {\n    \"repositoryIds\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/webhooks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "webhooks"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                            "type": "text/plain"
+                          },
+                          "key": "Retry-After",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:13.000Z",
+                      "updatedAt": "2026-06-05T15:18:13.000Z",
+                      "uid": "35240-2037960d-4035-4d1a-9782-a5a6fbe37cef"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:13.000Z",
+                  "updatedAt": "2026-06-05T15:18:13.000Z",
+                  "uid": "35240-8faddbee-120b-453d-8526-6e3a17f36a35"
+                }
+              ],
+              "id": "e4487215-78c0-40f6-ade7-563586951065",
+              "createdAt": "2026-06-05T15:18:13.000Z",
+              "updatedAt": "2026-06-05T15:18:13.000Z",
+              "uid": "35240-e4487215-78c0-40f6-ade7-563586951065"
+            }
+          ],
+          "id": "84ba401c-a8b7-4b68-a791-3830b3774461",
+          "createdAt": "2026-06-05T15:18:13.000Z",
+          "updatedAt": "2026-06-05T15:18:13.000Z",
+          "uid": "35240-84ba401c-a8b7-4b68-a791-3830b3774461"
+        }
+      ],
+      "id": "35204916-87b9-488b-86cd-9937945264c6",
+      "createdAt": "2026-06-05T15:18:13.000Z",
+      "updatedAt": "2026-06-05T15:18:13.000Z",
+      "uid": "35240-35204916-87b9-488b-86cd-9937945264c6"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.socket.dev/v0"
+    }
+  ]
+}

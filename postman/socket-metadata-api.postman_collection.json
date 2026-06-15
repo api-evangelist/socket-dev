@@ -1,0 +1,903 @@
+{
+  "info": {
+    "_postman_id": "57411f56-b281-4c4f-8ab1-dfe5de8c9e76",
+    "name": "Socket Metadata API",
+    "description": "Socket metadata API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:33.000Z",
+    "updatedAt": "2026-06-05T15:18:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-57411f56-b281-4c4f-8ab1-dfe5de8c9e76"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{org_slug}",
+          "item": [
+            {
+              "name": "supported-files",
+              "item": [
+                {
+                  "name": "Get supported file types",
+                  "id": "2576461a-2c33-4587-9aba-b470941d2cc8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:org_slug/supported-files",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":org_slug",
+                        "supported-files"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fdbacb5a-b54f-41e6-a390-a8a8155ff0c7",
+                          "key": "org_slug",
+                          "value": "<string>",
+                          "description": "(Required) The slug of the organization"
+                        }
+                      ]
+                    },
+                    "description": "Get a list of supported files for full scan generation.\nFiles are categorized first by environment (e.g. NPM or PyPI), then by name.\n\nFiles whose names match the patterns returned by this endpoint can be uploaded for report generation.\nExamples of supported filenames include `package.json`, `package-lock.json`, and `yarn.lock`.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- No Scopes Required, but authentication is required"
+                  },
+                  "response": [
+                    {
+                      "id": "788bfcac-1108-4444-b7b3-80427ff399a0",
+                      "name": "Glob patterns used to match supported files",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/supported-files",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "supported-files"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"labore_6\": {\n    \"ut_b79\": {\n      \"pattern\": \"\"\n    },\n    \"sed_cd\": {\n      \"pattern\": \"\"\n    },\n    \"Ut1b4\": {\n      \"pattern\": \"\"\n    }\n  },\n  \"aliquip__\": {\n    \"minim_6\": {\n      \"pattern\": \"\"\n    },\n    \"consectetur_cd\": {\n      \"pattern\": \"\"\n    },\n    \"qui_1\": {\n      \"pattern\": \"\"\n    },\n    \"et_a\": {\n      \"pattern\": \"\"\n    }\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:33.000Z",
+                      "updatedAt": "2026-06-05T15:18:33.000Z",
+                      "uid": "35240-788bfcac-1108-4444-b7b3-80427ff399a0"
+                    },
+                    {
+                      "id": "85b1b1eb-0633-4560-9445-c238125449af",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/supported-files",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "supported-files"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:33.000Z",
+                      "updatedAt": "2026-06-05T15:18:33.000Z",
+                      "uid": "35240-85b1b1eb-0633-4560-9445-c238125449af"
+                    },
+                    {
+                      "id": "03cc2f0b-c9be-4e1e-b260-e4df22bdf6e2",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/supported-files",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "supported-files"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:33.000Z",
+                      "updatedAt": "2026-06-05T15:18:33.000Z",
+                      "uid": "35240-03cc2f0b-c9be-4e1e-b260-e4df22bdf6e2"
+                    },
+                    {
+                      "id": "6c960a48-080a-4f47-a216-157abb809e2c",
+                      "name": "Insufficient quota for API route",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/supported-files",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "supported-files"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                            "type": "text/plain"
+                          },
+                          "key": "Retry-After",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:33.000Z",
+                      "updatedAt": "2026-06-05T15:18:33.000Z",
+                      "uid": "35240-6c960a48-080a-4f47-a216-157abb809e2c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:33.000Z",
+                  "updatedAt": "2026-06-05T15:18:33.000Z",
+                  "uid": "35240-2576461a-2c33-4587-9aba-b470941d2cc8"
+                }
+              ],
+              "id": "efb4a6db-9eea-49c1-ad68-958bb4eb1484",
+              "createdAt": "2026-06-05T15:18:33.000Z",
+              "updatedAt": "2026-06-05T15:18:33.000Z",
+              "uid": "35240-efb4a6db-9eea-49c1-ad68-958bb4eb1484"
+            }
+          ],
+          "id": "ba0c6850-568d-4844-b2bb-0c7cb1815de2",
+          "createdAt": "2026-06-05T15:18:33.000Z",
+          "updatedAt": "2026-06-05T15:18:33.000Z",
+          "uid": "35240-ba0c6850-568d-4844-b2bb-0c7cb1815de2"
+        }
+      ],
+      "id": "0fbcf90e-25a8-497e-adcf-470104e8b591",
+      "createdAt": "2026-06-05T15:18:33.000Z",
+      "updatedAt": "2026-06-05T15:18:33.000Z",
+      "uid": "35240-0fbcf90e-25a8-497e-adcf-470104e8b591"
+    },
+    {
+      "name": "license-metadata",
+      "item": [
+        {
+          "name": "License Metadata",
+          "id": "b7f52583-f727-467a-ae6c-c619ba7556ba",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "null",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/license-metadata?includetext=false",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "license-metadata"
+              ],
+              "query": [
+                {
+                  "description": "If `true`, the response will include the full text of the requested licenses",
+                  "key": "includetext",
+                  "value": "false"
+                }
+              ]
+            },
+            "description": "For an array of license identifiers or names (short form SPDX identifiers, or long form license names),\n    returns an array of metadata for the corresponding license, if the license is recognized. If the query\n    parameter `includetext=true` is set, the returned metadata will also include the license text.\n\n\n    ## Example request body:\n\n    ```json\n    [\n      \"Apache-2.0\",\n      \"BSD Zero Clause License\"\n    ]\n    ```\n\n\n    ## Return value\n\n    ```json\n    // Response schema:\n    Array<{\n      licenseId: string,\n      name?: string,\n      deprecated?: string,\n      crossref?: string\n      classes: Array<string>\n      text?: string\n    }>\n\n    // Example response:\n    [\n      {\n        \"licenseId\": \"Apache-2.0\",\n        \"name\": \"Apache License 2.0\",\n        \"deprecated\": false,\n        \"crossref\": \"https://spdx.org/licenses/Apache-2.0.html\",\n        \"classes\": [\n          \"fsf libre\",\n          \"osi approved\",\n          \"permissive (silver)\"\n        ]\n      },\n      {\n        \"licenseId\": \"0BSD\",\n        \"name\": \"BSD Zero Clause License\",\n        \"deprecated\": false,\n        \"crossref\": \"https://spdx.org/licenses/0BSD.html\",\n        \"classes\": [\n          \"osi approved\",\n          \"permissive (bronze)\"\n        ]\n      }\n    ]\n    ```\n\n    ## License policy schema\n\n```json\n{\n  allow?: Array<string>\n  warn?: Array<string>\n  options?: Array<string>\n}\n```\n\nElements of the `allow` and `warn` arrays strings representing items which should be allowed, or which should trigger a warning; license data found in package which not present in either array will produce a license violation (effectively a \"hard\" error). For example, to allow Apache-2.0 and MIT to the allow list, simply add the strings \"Apache-2.0\" and \"MIT\" to the `allow` array. Strings appearing in these arrays are generally \"what you see is what you get\", with two important exceptions: strings which are recognized as license classes and strings which are recognized as PURLs are handled differently to allow for more flexible license policy creation.\n\n## License Classes\n\nStrings which are license classes will expand to a list of licenses known to be in that particular license class. Recognized license classes are:\n  'permissive',\n  'permissive (model)',\n  'permissive (gold)',\n  'permissive (silver)',\n  'permissive (bronze)',\n  'permissive (lead)',\n  'copyleft',\n  'maximal copyleft',\n  'network copyleft',\n  'strong copyleft',\n  'weak copyleft',\n  'contributor license agreement',\n  'public domain',\n  'proprietary free',\n  'source available',\n  'proprietary',\n  'commercial',\n  'patent'\n\nUsers can learn more about [copyleft tiers](https://blueoakcouncil.org/copyleft) and [permissive tiers](https://blueoakcouncil.org/list) by reading the linked resources.\n\n\n## PURLs\n\nUsers may also modify their license policy's allow and warn lists by using [package URLs](https://github.com/package-url/purl-spec) (aka PURLs), which support glob patterns to allow a range of versions, files and directories, etc.\n\npurl qualifiers which support globs are `filename`, `version_glob`, `artifact_id` and `license_provenance` (primarily used for allowing data from registry metadata).\n\n### Examples:\nAllow all license data found in a specific version of a package 4.14.1: `pkg:npm/lodash@4.14.1`\nAllow all license data found in a version range of a package: `pkg:npm/lodash?version_glob=15.*`\nAllow all license data in the test directory of a given package for certain version ranges: `pkg:npm/lodash@15.*.*?file_name=lodash/test/*`\nAllow all license data taken from the package registry for a package and version range: `pkg:npm/lodash?version_glob=*&license_provenance=registry_metadata`\n\n## Available options\n\n`toplevelOnly`: only apply the license policy to \"top level\" license data in a package, which includes registry metadata, LICENSE files, and manifest files which are closest to the root of the package.\n\n`applyToUnidentified`: Apply license policy to found but unidentified license data. If enabled, the license policy will be applied to license data which could not be affirmatively identified as a known license (this will effectively merge the license policy violation and unidentified license alerts). If disabled, license policy alerts will only be shown for license data which is positively identified as something not allowed or set to warn by the license policy.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:"
+          },
+          "response": [
+            {
+              "id": "20d93c19-5257-4282-b3d8-eed1577a4774",
+              "name": "Metadata for the requested licenses",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "null",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/license-metadata?includetext=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "license-metadata"
+                  ],
+                  "query": [
+                    {
+                      "description": "If `true`, the response will include the full text of the requested licenses",
+                      "key": "includetext",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "null",
+              "createdAt": "2026-06-05T15:18:33.000Z",
+              "updatedAt": "2026-06-05T15:18:33.000Z",
+              "uid": "35240-20d93c19-5257-4282-b3d8-eed1577a4774"
+            },
+            {
+              "id": "c561ad85-760c-44f1-b052-42d19e44b638",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "null",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/license-metadata?includetext=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "license-metadata"
+                  ],
+                  "query": [
+                    {
+                      "description": "If `true`, the response will include the full text of the requested licenses",
+                      "key": "includetext",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:33.000Z",
+              "updatedAt": "2026-06-05T15:18:33.000Z",
+              "uid": "35240-c561ad85-760c-44f1-b052-42d19e44b638"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:33.000Z",
+          "updatedAt": "2026-06-05T15:18:33.000Z",
+          "uid": "35240-b7f52583-f727-467a-ae6c-c619ba7556ba"
+        }
+      ],
+      "id": "4523b932-cb37-40a0-9303-4872502e6a29",
+      "createdAt": "2026-06-05T15:18:33.000Z",
+      "updatedAt": "2026-06-05T15:18:33.000Z",
+      "uid": "35240-4523b932-cb37-40a0-9303-4872502e6a29"
+    },
+    {
+      "name": "alert-types",
+      "item": [
+        {
+          "name": "Alert Types Metadata",
+          "id": "8b4c598e-6a4a-42c6-a01a-0f784043ba78",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"\",\n  \"\"\n]",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/alert-types?language=en-US",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "alert-types"
+              ],
+              "query": [
+                {
+                  "description": "Language for alert metadata",
+                  "key": "language",
+                  "value": "en-US"
+                }
+              ]
+            },
+            "description": "For an array of alert type identifiers, returns metadata for each alert type. Optionally, specify a language via the 'language' query parameter.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:"
+          },
+          "response": [
+            {
+              "id": "b63dde4d-ba82-4176-a26c-4311fc1580d4",
+              "name": "Metadata for the requested alert types",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"\",\n  \"\"\n]",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/alert-types?language=en-US",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alert-types"
+                  ],
+                  "query": [
+                    {
+                      "description": "Language for alert metadata",
+                      "key": "language",
+                      "value": "en-US"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"description\": \"\",\n    \"emoji\": \"\",\n    \"nextStepTitle\": \"\",\n    \"props\": {\n      \"dolor4\": \"\",\n      \"dolor_29\": \"\",\n      \"magnade\": \"\"\n    },\n    \"suggestion\": \"\",\n    \"title\": \"\",\n    \"type\": \"\"\n  },\n  {\n    \"description\": \"\",\n    \"emoji\": \"\",\n    \"nextStepTitle\": \"\",\n    \"props\": {\n      \"ipsum_81\": \"\",\n      \"nullae\": \"\"\n    },\n    \"suggestion\": \"\",\n    \"title\": \"\",\n    \"type\": \"\"\n  }\n]",
+              "createdAt": "2026-06-05T15:18:33.000Z",
+              "updatedAt": "2026-06-05T15:18:33.000Z",
+              "uid": "35240-b63dde4d-ba82-4176-a26c-4311fc1580d4"
+            },
+            {
+              "id": "ea3ba58e-8a5b-4ef4-b849-cf1b040e5f9e",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"\",\n  \"\"\n]",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/alert-types?language=en-US",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "alert-types"
+                  ],
+                  "query": [
+                    {
+                      "description": "Language for alert metadata",
+                      "key": "language",
+                      "value": "en-US"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:33.000Z",
+              "updatedAt": "2026-06-05T15:18:33.000Z",
+              "uid": "35240-ea3ba58e-8a5b-4ef4-b849-cf1b040e5f9e"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:33.000Z",
+          "updatedAt": "2026-06-05T15:18:33.000Z",
+          "uid": "35240-8b4c598e-6a4a-42c6-a01a-0f784043ba78"
+        }
+      ],
+      "id": "a2172e5a-5f2f-40a9-a424-41bda3ccbf28",
+      "createdAt": "2026-06-05T15:18:33.000Z",
+      "updatedAt": "2026-06-05T15:18:33.000Z",
+      "uid": "35240-a2172e5a-5f2f-40a9-a424-41bda3ccbf28"
+    },
+    {
+      "name": "openapi",
+      "item": [
+        {
+          "name": "Returns the OpenAPI definition",
+          "id": "8a5958f0-1d71-47b0-b8d1-069292b01704",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/openapi",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "openapi"
+              ]
+            },
+            "description": "Retrieve the API specification in an Openapi JSON format.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:"
+          },
+          "response": [
+            {
+              "id": "dda3cb31-ef58-48c1-b85d-7ef903fcee41",
+              "name": "OpenAPI specification",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/openapi",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "openapi"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "",
+              "createdAt": "2026-06-05T15:18:33.000Z",
+              "updatedAt": "2026-06-05T15:18:33.000Z",
+              "uid": "35240-dda3cb31-ef58-48c1-b85d-7ef903fcee41"
+            },
+            {
+              "id": "36867297-6d2e-41c9-9763-f5d21df4b480",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/openapi",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "openapi"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "<integer>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:33.000Z",
+              "updatedAt": "2026-06-05T15:18:33.000Z",
+              "uid": "35240-36867297-6d2e-41c9-9763-f5d21df4b480"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:33.000Z",
+          "updatedAt": "2026-06-05T15:18:33.000Z",
+          "uid": "35240-8a5958f0-1d71-47b0-b8d1-069292b01704"
+        }
+      ],
+      "id": "054c8b27-52c0-41a7-8b3e-865af99b621d",
+      "createdAt": "2026-06-05T15:18:33.000Z",
+      "updatedAt": "2026-06-05T15:18:33.000Z",
+      "uid": "35240-054c8b27-52c0-41a7-8b3e-865af99b621d"
+    },
+    {
+      "name": "openapi.json",
+      "item": [
+        {
+          "name": "Returns the OpenAPI definition",
+          "id": "4376cbc9-5050-4db1-b04c-714a07421ec7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/openapi.json",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "openapi.json"
+              ]
+            },
+            "description": "Retrieve the API specification in an Openapi JSON format.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:"
+          },
+          "response": [
+            {
+              "id": "ef250d78-44f7-4c91-b903-01b91f3ae3f0",
+              "name": "OpenAPI specification",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/openapi.json",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "openapi.json"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "",
+              "createdAt": "2026-06-05T15:18:33.000Z",
+              "updatedAt": "2026-06-05T15:18:33.000Z",
+              "uid": "35240-ef250d78-44f7-4c91-b903-01b91f3ae3f0"
+            },
+            {
+              "id": "60109bd3-c24b-4df6-92a6-7ba760e65972",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/openapi.json",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "openapi.json"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "<integer>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:33.000Z",
+              "updatedAt": "2026-06-05T15:18:33.000Z",
+              "uid": "35240-60109bd3-c24b-4df6-92a6-7ba760e65972"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:33.000Z",
+          "updatedAt": "2026-06-05T15:18:33.000Z",
+          "uid": "35240-4376cbc9-5050-4db1-b04c-714a07421ec7"
+        }
+      ],
+      "id": "4057cc48-967f-48e0-ba2d-ca088cfb144f",
+      "createdAt": "2026-06-05T15:18:33.000Z",
+      "updatedAt": "2026-06-05T15:18:33.000Z",
+      "uid": "35240-4057cc48-967f-48e0-ba2d-ca088cfb144f"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.socket.dev/v0"
+    }
+  ]
+}

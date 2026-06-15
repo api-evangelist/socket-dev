@@ -1,0 +1,1480 @@
+{
+  "info": {
+    "_postman_id": "b1212aa1-ad35-48ab-b228-090b51af4aa0",
+    "name": "Socket Triage API",
+    "description": "Socket triage API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:48.000Z",
+    "updatedAt": "2026-06-05T15:17:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b1212aa1-ad35-48ab-b228-090b51af4aa0"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{org_slug}",
+          "item": [
+            {
+              "name": "triage",
+              "item": [
+                {
+                  "name": "alerts",
+                  "item": [
+                    {
+                      "name": "{uuid}",
+                      "item": [
+                        {
+                          "name": "Delete Org Alert Triage",
+                          "id": "78635e06-15d6-4653-9ffc-9c4ee052b32f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts/:uuid",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts",
+                                ":uuid"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "7cbf8e40-448c-4e6f-bf54-933b279a2afa",
+                                  "key": "org_slug",
+                                  "value": "<string>",
+                                  "description": "(Required) The slug of the organization"
+                                },
+                                {
+                                  "id": "928170d6-2433-4dae-9b19-deeca6ad2565",
+                                  "key": "uuid",
+                                  "value": "<string>",
+                                  "description": "(Required) The UUID of the alert triage entry to delete"
+                                }
+                              ]
+                            },
+                            "description": "Delete a specific triage rule by UUID.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- triage:alerts-update"
+                          },
+                          "response": [
+                            {
+                              "id": "0ceba23a-0bef-44f3-b233-0463aa52c23e",
+                              "name": "Deleted Alert Triage",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts/:uuid",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "triage",
+                                    "alerts",
+                                    ":uuid"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    },
+                                    {
+                                      "key": "uuid"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"result\": \"\"\n}",
+                              "createdAt": "2026-06-05T15:17:48.000Z",
+                              "updatedAt": "2026-06-05T15:17:48.000Z",
+                              "uid": "35240-0ceba23a-0bef-44f3-b233-0463aa52c23e"
+                            },
+                            {
+                              "id": "b45b0c3d-5b0c-4e61-a05c-d4d6e2e8428a",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts/:uuid",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "triage",
+                                    "alerts",
+                                    ":uuid"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    },
+                                    {
+                                      "key": "uuid"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:17:48.000Z",
+                              "updatedAt": "2026-06-05T15:17:48.000Z",
+                              "uid": "35240-b45b0c3d-5b0c-4e61-a05c-d4d6e2e8428a"
+                            },
+                            {
+                              "id": "fe453896-733b-4d26-97e5-4e14b06c6998",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts/:uuid",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "triage",
+                                    "alerts",
+                                    ":uuid"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    },
+                                    {
+                                      "key": "uuid"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:17:48.000Z",
+                              "updatedAt": "2026-06-05T15:17:48.000Z",
+                              "uid": "35240-fe453896-733b-4d26-97e5-4e14b06c6998"
+                            },
+                            {
+                              "id": "1352869d-b1ea-4926-8818-330490810a6b",
+                              "name": "Insufficient max_quota for API method",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts/:uuid",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "triage",
+                                    "alerts",
+                                    ":uuid"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    },
+                                    {
+                                      "key": "uuid"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:17:48.000Z",
+                              "updatedAt": "2026-06-05T15:17:48.000Z",
+                              "uid": "35240-1352869d-b1ea-4926-8818-330490810a6b"
+                            },
+                            {
+                              "id": "d249c721-4cfd-4c4b-a407-593cffdaafc1",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts/:uuid",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "triage",
+                                    "alerts",
+                                    ":uuid"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    },
+                                    {
+                                      "key": "uuid"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:17:48.000Z",
+                              "updatedAt": "2026-06-05T15:17:48.000Z",
+                              "uid": "35240-d249c721-4cfd-4c4b-a407-593cffdaafc1"
+                            },
+                            {
+                              "id": "d6947974-46b8-4db7-8943-e6a102302b8c",
+                              "name": "Insufficient quota for API route",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts/:uuid",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "triage",
+                                    "alerts",
+                                    ":uuid"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    },
+                                    {
+                                      "key": "uuid"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                },
+                                {
+                                  "disabled": false,
+                                  "description": {
+                                    "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                    "type": "text/plain"
+                                  },
+                                  "key": "Retry-After",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:17:48.000Z",
+                              "updatedAt": "2026-06-05T15:17:48.000Z",
+                              "uid": "35240-d6947974-46b8-4db7-8943-e6a102302b8c"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-78635e06-15d6-4653-9ffc-9c4ee052b32f"
+                        }
+                      ],
+                      "id": "61519e89-b2f0-4093-b7f1-f2ce73802c67",
+                      "createdAt": "2026-06-05T15:17:48.000Z",
+                      "updatedAt": "2026-06-05T15:17:48.000Z",
+                      "uid": "35240-61519e89-b2f0-4093-b7f1-f2ce73802c67"
+                    },
+                    {
+                      "name": "List Org Alert Triage",
+                      "id": "91381258-bbab-4345-be77-e690f259ea31",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?sort=created_at&direction=desc&per_page=30&page=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "triage",
+                            "alerts"
+                          ],
+                          "query": [
+                            {
+                              "description": "Field to sort by. One of: created_at, updated_at.",
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "description": "Sort direction. One of: asc, desc.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Number of results per page (1\u2013100, default 30).",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page number (1-based).",
+                              "key": "page",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "6f274b91-4bf4-4b7d-bcfb-7cecdd6911ed",
+                              "key": "org_slug",
+                              "value": "<string>",
+                              "description": "(Required) The slug of the organization"
+                            }
+                          ]
+                        },
+                        "description": "List triage actions for an organization. Results are paginated and can be sorted by created_at or updated_at.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- triage:alerts-list"
+                      },
+                      "response": [
+                        {
+                          "id": "8f7d4878-4683-4dbd-a24f-b84f0765e8c0",
+                          "name": "Lists triage actions for the specified organization.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?sort=created_at&direction=desc&per_page=30&page=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Field to sort by. One of: created_at, updated_at.",
+                                  "key": "sort",
+                                  "value": "created_at"
+                                },
+                                {
+                                  "description": "Sort direction. One of: asc, desc.",
+                                  "key": "direction",
+                                  "value": "desc"
+                                },
+                                {
+                                  "description": "Number of results per page (1\u2013100, default 30).",
+                                  "key": "per_page",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "Page number (1-based).",
+                                  "key": "page",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"nextPage\": 0,\n  \"results\": [\n    {\n      \"uuid\": \"\",\n      \"package_type\": \"\",\n      \"package_namespace\": \"\",\n      \"package_name\": \"\",\n      \"package_version\": \"\",\n      \"alert_key\": \"\",\n      \"alert_type\": \"\",\n      \"fix_available\": \"*\",\n      \"patch_available\": \"*\",\n      \"cvss_score_cmp\": \"\",\n      \"created_at\": \"\",\n      \"updated_at\": \"\",\n      \"note\": \"\",\n      \"organization_id\": \"\",\n      \"state\": \"inherit\",\n      \"cve_or_ghsa_id\": \"\",\n      \"reachability\": \"*\",\n      \"kevs\": \"*\"\n    },\n    {\n      \"uuid\": \"\",\n      \"package_type\": \"\",\n      \"package_namespace\": \"\",\n      \"package_name\": \"\",\n      \"package_version\": \"\",\n      \"alert_key\": \"\",\n      \"alert_type\": \"\",\n      \"fix_available\": \"*\",\n      \"patch_available\": \"*\",\n      \"cvss_score_cmp\": \"\",\n      \"created_at\": \"\",\n      \"updated_at\": \"\",\n      \"note\": \"\",\n      \"organization_id\": \"\",\n      \"state\": \"inherit\",\n      \"cve_or_ghsa_id\": \"\",\n      \"reachability\": \"*\",\n      \"kevs\": \"*\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-8f7d4878-4683-4dbd-a24f-b84f0765e8c0"
+                        },
+                        {
+                          "id": "0348ff2f-60ee-40ad-9c75-8237b1ec2f59",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?sort=created_at&direction=desc&per_page=30&page=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Field to sort by. One of: created_at, updated_at.",
+                                  "key": "sort",
+                                  "value": "created_at"
+                                },
+                                {
+                                  "description": "Sort direction. One of: asc, desc.",
+                                  "key": "direction",
+                                  "value": "desc"
+                                },
+                                {
+                                  "description": "Number of results per page (1\u2013100, default 30).",
+                                  "key": "per_page",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "Page number (1-based).",
+                                  "key": "page",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-0348ff2f-60ee-40ad-9c75-8237b1ec2f59"
+                        },
+                        {
+                          "id": "3868c519-f303-4616-854d-dca7a6ebddc9",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?sort=created_at&direction=desc&per_page=30&page=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Field to sort by. One of: created_at, updated_at.",
+                                  "key": "sort",
+                                  "value": "created_at"
+                                },
+                                {
+                                  "description": "Sort direction. One of: asc, desc.",
+                                  "key": "direction",
+                                  "value": "desc"
+                                },
+                                {
+                                  "description": "Number of results per page (1\u2013100, default 30).",
+                                  "key": "per_page",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "Page number (1-based).",
+                                  "key": "page",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-3868c519-f303-4616-854d-dca7a6ebddc9"
+                        },
+                        {
+                          "id": "3d920136-bbbc-4d1a-995b-7c1be93b9549",
+                          "name": "Insufficient max_quota for API method",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?sort=created_at&direction=desc&per_page=30&page=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Field to sort by. One of: created_at, updated_at.",
+                                  "key": "sort",
+                                  "value": "created_at"
+                                },
+                                {
+                                  "description": "Sort direction. One of: asc, desc.",
+                                  "key": "direction",
+                                  "value": "desc"
+                                },
+                                {
+                                  "description": "Number of results per page (1\u2013100, default 30).",
+                                  "key": "per_page",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "Page number (1-based).",
+                                  "key": "page",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-3d920136-bbbc-4d1a-995b-7c1be93b9549"
+                        },
+                        {
+                          "id": "e764d825-d1ea-4241-97dc-0d0abff52711",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?sort=created_at&direction=desc&per_page=30&page=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Field to sort by. One of: created_at, updated_at.",
+                                  "key": "sort",
+                                  "value": "created_at"
+                                },
+                                {
+                                  "description": "Sort direction. One of: asc, desc.",
+                                  "key": "direction",
+                                  "value": "desc"
+                                },
+                                {
+                                  "description": "Number of results per page (1\u2013100, default 30).",
+                                  "key": "per_page",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "Page number (1-based).",
+                                  "key": "page",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-e764d825-d1ea-4241-97dc-0d0abff52711"
+                        },
+                        {
+                          "id": "da8dd51d-2fd2-4d57-9acf-83a734578218",
+                          "name": "Insufficient quota for API route",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?sort=created_at&direction=desc&per_page=30&page=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Field to sort by. One of: created_at, updated_at.",
+                                  "key": "sort",
+                                  "value": "created_at"
+                                },
+                                {
+                                  "description": "Sort direction. One of: asc, desc.",
+                                  "key": "direction",
+                                  "value": "desc"
+                                },
+                                {
+                                  "description": "Number of results per page (1\u2013100, default 30).",
+                                  "key": "per_page",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "Page number (1-based).",
+                                  "key": "page",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                "type": "text/plain"
+                              },
+                              "key": "Retry-After",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-da8dd51d-2fd2-4d57-9acf-83a734578218"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:48.000Z",
+                      "updatedAt": "2026-06-05T15:17:48.000Z",
+                      "uid": "35240-91381258-bbab-4345-be77-e690f259ea31"
+                    },
+                    {
+                      "name": "Create/Update Org Alert Triage",
+                      "id": "a7e8fa4a-73bd-4353-b540-8a5949e95edb",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"alertTriage\": [\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"available\",\n      \"patchAvailable\": \"unavailable\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"*\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"ignore\"\n    },\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"*\",\n      \"patchAvailable\": \"*\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"reachable\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"block\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?force=false",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "triage",
+                            "alerts"
+                          ],
+                          "query": [
+                            {
+                              "description": "Set to true to force broad triage updates, these are triages lacking a specific alertKey or granular artifact information which may have limited introspection to see what they apply to.",
+                              "key": "force",
+                              "value": "false"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "ee729c8b-919c-4413-81cf-39fad78f74a6",
+                              "key": "org_slug",
+                              "value": "<string>",
+                              "description": "(Required) The slug of the organization"
+                            }
+                          ]
+                        },
+                        "description": "Create or update triage actions on organization alerts. Accepts a batch of triage entries. Omit `uuid` to create a new entry; provide an existing `uuid` to update it. Use `?force=true` for broad triages that lack a specific `alertKey` or granular package information.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- triage:alerts-update"
+                      },
+                      "response": [
+                        {
+                          "id": "41d731b8-6f71-47cf-beed-cae30eb48809",
+                          "name": "Updated Alert Triage",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alertTriage\": [\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"available\",\n      \"patchAvailable\": \"unavailable\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"*\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"ignore\"\n    },\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"*\",\n      \"patchAvailable\": \"*\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"reachable\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"block\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?force=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Set to true to force broad triage updates, these are triages lacking a specific alertKey or granular artifact information which may have limited introspection to see what they apply to.",
+                                  "key": "force",
+                                  "value": "false"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"result\": \"\"\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-41d731b8-6f71-47cf-beed-cae30eb48809"
+                        },
+                        {
+                          "id": "ee3b5a05-3a6d-4fe1-a2e3-378a12a07973",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alertTriage\": [\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"available\",\n      \"patchAvailable\": \"unavailable\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"*\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"ignore\"\n    },\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"*\",\n      \"patchAvailable\": \"*\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"reachable\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"block\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?force=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Set to true to force broad triage updates, these are triages lacking a specific alertKey or granular artifact information which may have limited introspection to see what they apply to.",
+                                  "key": "force",
+                                  "value": "false"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-ee3b5a05-3a6d-4fe1-a2e3-378a12a07973"
+                        },
+                        {
+                          "id": "02d8c9f9-0307-47ad-a326-94dfb04c2e5b",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alertTriage\": [\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"available\",\n      \"patchAvailable\": \"unavailable\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"*\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"ignore\"\n    },\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"*\",\n      \"patchAvailable\": \"*\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"reachable\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"block\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?force=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Set to true to force broad triage updates, these are triages lacking a specific alertKey or granular artifact information which may have limited introspection to see what they apply to.",
+                                  "key": "force",
+                                  "value": "false"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-02d8c9f9-0307-47ad-a326-94dfb04c2e5b"
+                        },
+                        {
+                          "id": "1b325ed1-4122-4aa9-b949-1a8c2a190688",
+                          "name": "Insufficient max_quota for API method",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alertTriage\": [\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"available\",\n      \"patchAvailable\": \"unavailable\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"*\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"ignore\"\n    },\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"*\",\n      \"patchAvailable\": \"*\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"reachable\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"block\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?force=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Set to true to force broad triage updates, these are triages lacking a specific alertKey or granular artifact information which may have limited introspection to see what they apply to.",
+                                  "key": "force",
+                                  "value": "false"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-1b325ed1-4122-4aa9-b949-1a8c2a190688"
+                        },
+                        {
+                          "id": "63df9e7b-1551-46ab-9566-20d2cd53a01d",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alertTriage\": [\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"available\",\n      \"patchAvailable\": \"unavailable\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"*\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"ignore\"\n    },\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"*\",\n      \"patchAvailable\": \"*\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"reachable\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"block\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?force=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Set to true to force broad triage updates, these are triages lacking a specific alertKey or granular artifact information which may have limited introspection to see what they apply to.",
+                                  "key": "force",
+                                  "value": "false"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-63df9e7b-1551-46ab-9566-20d2cd53a01d"
+                        },
+                        {
+                          "id": "6e2344ea-575f-4684-aec2-11dae30410c8",
+                          "name": "Insufficient quota for API route",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"alertTriage\": [\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"available\",\n      \"patchAvailable\": \"unavailable\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"*\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"ignore\"\n    },\n    {\n      \"uuid\": \"\",\n      \"packageType\": \"\",\n      \"packageNamespace\": \"\",\n      \"packageName\": \"\",\n      \"packageVersion\": \"\",\n      \"alertKey\": \"\",\n      \"alertType\": \"\",\n      \"fixAvailable\": \"*\",\n      \"patchAvailable\": \"*\",\n      \"kevs\": \"none\",\n      \"cveOrGhsaId\": \"\",\n      \"reachability\": \"reachable\",\n      \"cvssScoreCmp\": \"\",\n      \"note\": \"\",\n      \"state\": \"block\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/triage/alerts?force=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "triage",
+                                "alerts"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Set to true to force broad triage updates, these are triages lacking a specific alertKey or granular artifact information which may have limited introspection to see what they apply to.",
+                                  "key": "force",
+                                  "value": "false"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                "type": "text/plain"
+                              },
+                              "key": "Retry-After",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:17:48.000Z",
+                          "updatedAt": "2026-06-05T15:17:48.000Z",
+                          "uid": "35240-6e2344ea-575f-4684-aec2-11dae30410c8"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:17:48.000Z",
+                      "updatedAt": "2026-06-05T15:17:48.000Z",
+                      "uid": "35240-a7e8fa4a-73bd-4353-b540-8a5949e95edb"
+                    }
+                  ],
+                  "id": "0f603c0f-9831-49ac-8f90-3cedb2efb0ef",
+                  "createdAt": "2026-06-05T15:17:48.000Z",
+                  "updatedAt": "2026-06-05T15:17:48.000Z",
+                  "uid": "35240-0f603c0f-9831-49ac-8f90-3cedb2efb0ef"
+                }
+              ],
+              "id": "d236bddd-57a2-4acc-a4de-3f55ab5d6f43",
+              "createdAt": "2026-06-05T15:17:48.000Z",
+              "updatedAt": "2026-06-05T15:17:48.000Z",
+              "uid": "35240-d236bddd-57a2-4acc-a4de-3f55ab5d6f43"
+            }
+          ],
+          "id": "bc1f9916-1cba-40b2-ab0f-fa1b71a91e0a",
+          "createdAt": "2026-06-05T15:17:48.000Z",
+          "updatedAt": "2026-06-05T15:17:48.000Z",
+          "uid": "35240-bc1f9916-1cba-40b2-ab0f-fa1b71a91e0a"
+        }
+      ],
+      "id": "c628a74a-7150-422c-851b-8afd7c4b4a13",
+      "createdAt": "2026-06-05T15:17:48.000Z",
+      "updatedAt": "2026-06-05T15:17:48.000Z",
+      "uid": "35240-c628a74a-7150-422c-851b-8afd7c4b4a13"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.socket.dev/v0"
+    }
+  ]
+}

@@ -1,0 +1,1187 @@
+{
+  "info": {
+    "_postman_id": "555159b1-106e-46a4-ad43-97219d155ed0",
+    "name": "Socket Dependencies API",
+    "description": "Socket dependencies API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:27.000Z",
+    "updatedAt": "2026-06-05T15:18:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-555159b1-106e-46a4-ad43-97219d155ed0"
+  },
+  "item": [
+    {
+      "name": "dependencies",
+      "item": [
+        {
+          "name": "search",
+          "item": [
+            {
+              "name": "Search dependencies",
+              "id": "66893b1a-f1b4-439d-8e51-e4268d6f0908",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"limit\": 50,\n  \"offset\": 0,\n  \"purls\": [\n    \"\",\n    \"\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dependencies/search",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dependencies",
+                    "search"
+                  ]
+                },
+                "description": "Search for any dependency that is being used in your organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- No Scopes Required, but authentication is required"
+              },
+              "response": [
+                {
+                  "id": "913f5c33-c659-4699-807b-9fe5246839ac",
+                  "name": "Search dependencies response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"limit\": 50,\n  \"offset\": 0,\n  \"purls\": [\n    \"\",\n    \"\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dependencies/search",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dependencies",
+                        "search"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"end\": false,\n  \"limit\": 1000,\n  \"offset\": 0,\n  \"purlFilters\": {\n    \"invalid\": [\n      \"\",\n      \"\"\n    ],\n    \"valid\": [\n      \"\",\n      \"\"\n    ]\n  },\n  \"rows\": [\n    {\n      \"branch\": \"\",\n      \"direct\": false,\n      \"id\": \"\",\n      \"name\": \"\",\n      \"repository\": \"\",\n      \"type\": \"\",\n      \"namespace\": \"\",\n      \"version\": \"\",\n      \"release\": \"\",\n      \"workspace\": \"\"\n    },\n    {\n      \"branch\": \"\",\n      \"direct\": false,\n      \"id\": \"\",\n      \"name\": \"\",\n      \"repository\": \"\",\n      \"type\": \"\",\n      \"namespace\": \"\",\n      \"version\": \"\",\n      \"release\": \"\",\n      \"workspace\": \"\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-913f5c33-c659-4699-807b-9fe5246839ac"
+                },
+                {
+                  "id": "f2cae5b4-449d-4748-b7ee-681f344bad8e",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"limit\": 50,\n  \"offset\": 0,\n  \"purls\": [\n    \"\",\n    \"\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dependencies/search",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dependencies",
+                        "search"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-f2cae5b4-449d-4748-b7ee-681f344bad8e"
+                },
+                {
+                  "id": "5ab01dac-e4e9-4ee7-a137-95d8ec896632",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"limit\": 50,\n  \"offset\": 0,\n  \"purls\": [\n    \"\",\n    \"\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dependencies/search",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dependencies",
+                        "search"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-5ab01dac-e4e9-4ee7-a137-95d8ec896632"
+                },
+                {
+                  "id": "2834ba69-cda5-469e-be46-0397ea965f0e",
+                  "name": "Insufficient max_quota for API method",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"limit\": 50,\n  \"offset\": 0,\n  \"purls\": [\n    \"\",\n    \"\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dependencies/search",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dependencies",
+                        "search"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-2834ba69-cda5-469e-be46-0397ea965f0e"
+                },
+                {
+                  "id": "790818f5-7960-4080-8842-56d9e18d1c29",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"limit\": 50,\n  \"offset\": 0,\n  \"purls\": [\n    \"\",\n    \"\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dependencies/search",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dependencies",
+                        "search"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-790818f5-7960-4080-8842-56d9e18d1c29"
+                },
+                {
+                  "id": "c32eb18f-5203-4bc2-a033-56fd7a95b32c",
+                  "name": "Insufficient quota for API route",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"limit\": 50,\n  \"offset\": 0,\n  \"purls\": [\n    \"\",\n    \"\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dependencies/search",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dependencies",
+                        "search"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                        "type": "text/plain"
+                      },
+                      "key": "Retry-After",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-c32eb18f-5203-4bc2-a033-56fd7a95b32c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:18:27.000Z",
+              "updatedAt": "2026-06-05T15:18:27.000Z",
+              "uid": "35240-66893b1a-f1b4-439d-8e51-e4268d6f0908"
+            }
+          ],
+          "id": "ccbefca3-8575-4226-8713-3b9caf14c8ba",
+          "createdAt": "2026-06-05T15:18:27.000Z",
+          "updatedAt": "2026-06-05T15:18:27.000Z",
+          "uid": "35240-ccbefca3-8575-4226-8713-3b9caf14c8ba"
+        }
+      ],
+      "id": "e15d7695-f58c-4f47-8cba-4bacfd841dbf",
+      "createdAt": "2026-06-05T15:18:27.000Z",
+      "updatedAt": "2026-06-05T15:18:27.000Z",
+      "uid": "35240-e15d7695-f58c-4f47-8cba-4bacfd841dbf"
+    },
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{org_slug}",
+          "item": [
+            {
+              "name": "historical",
+              "item": [
+                {
+                  "name": "dependencies",
+                  "item": [
+                    {
+                      "name": "trend",
+                      "item": [
+                        {
+                          "name": "Trend of historical dependencies (Beta)",
+                          "id": "2a193db0-1471-476b-afba-d1daacd12fe1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/dependencies/trend?date=CURRENT_DATE&range=-7d&repoFullName=<string>&repoSlug=<string>&repoLabels=<string>&artifactType=<string>&dependencyDirect=false&dependencyDev=false&dependencyDead=false",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "dependencies",
+                                "trend"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The UTC date in YYYY-MM-DD format for which to fetch dependencies",
+                                  "key": "date",
+                                  "value": "CURRENT_DATE"
+                                },
+                                {
+                                  "description": "The number of days of data to fetch as an offset from input date",
+                                  "key": "range",
+                                  "value": "-7d"
+                                },
+                                {
+                                  "description": "Comma-separated list of repo full names that should be included",
+                                  "key": "repoFullName",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Comma-separated list of repo slugs that should be included",
+                                  "key": "repoSlug",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Comma-separated list of repo labels that should be included",
+                                  "key": "repoLabels",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be included",
+                                  "key": "artifactType",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Direct/transitive dependency filter flag",
+                                  "key": "dependencyDirect",
+                                  "value": "false"
+                                },
+                                {
+                                  "description": "Development/production dependency filter flag",
+                                  "key": "dependencyDev",
+                                  "value": "false"
+                                },
+                                {
+                                  "description": "Dead/reachable dependency filter flag",
+                                  "key": "dependencyDead",
+                                  "value": "false"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3d036111-204d-475d-b6b8-dc9c0c1997c2",
+                                  "key": "org_slug",
+                                  "value": "<string>",
+                                  "description": "(Required) The slug of the organization"
+                                }
+                              ]
+                            },
+                            "description": "Trend analytics of historical dependencies.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- historical:dependencies-trend"
+                          },
+                          "response": [
+                            {
+                              "id": "2fe93b0e-5243-42ef-ab9b-c39207f5b7fc",
+                              "name": "The trend data",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/historical/dependencies/trend?date=CURRENT_DATE&range=-7d&repoFullName=<string>&repoSlug=<string>&repoLabels=<string>&artifactType=<string>&dependencyDirect=false&dependencyDev=false&dependencyDead=false",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "historical",
+                                    "dependencies",
+                                    "trend"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The UTC date in YYYY-MM-DD format for which to fetch dependencies",
+                                      "key": "date",
+                                      "value": "CURRENT_DATE"
+                                    },
+                                    {
+                                      "description": "The number of days of data to fetch as an offset from input date",
+                                      "key": "range",
+                                      "value": "-7d"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo full names that should be included",
+                                      "key": "repoFullName",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo slugs that should be included",
+                                      "key": "repoSlug",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo labels that should be included",
+                                      "key": "repoLabels",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be included",
+                                      "key": "artifactType",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Direct/transitive dependency filter flag",
+                                      "key": "dependencyDirect",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Development/production dependency filter flag",
+                                      "key": "dependencyDev",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Dead/reachable dependency filter flag",
+                                      "key": "dependencyDead",
+                                      "value": "false"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"items\": [\n    {\n      \"dataPoints\": [\n        {\n          \"aggregationGroup\": [\n            \"\",\n            \"\"\n          ],\n          \"count\": 0,\n          \"countDelta\": 0,\n          \"countDirect\": 0,\n          \"countDirectDelta\": 0,\n          \"countIndirect\": 0,\n          \"countIndirectDelta\": 0,\n          \"countsBySeverity\": {\n            \"critical\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"high\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"low\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"medium\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            }\n          }\n        },\n        {\n          \"aggregationGroup\": [\n            \"\",\n            \"\"\n          ],\n          \"count\": 0,\n          \"countDelta\": 0,\n          \"countDirect\": 0,\n          \"countDirectDelta\": 0,\n          \"countIndirect\": 0,\n          \"countIndirectDelta\": 0,\n          \"countsBySeverity\": {\n            \"critical\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"high\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"low\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"medium\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            }\n          }\n        }\n      ],\n      \"date\": \"\",\n      \"startOfDayTimestamp\": 0\n    },\n    {\n      \"dataPoints\": [\n        {\n          \"aggregationGroup\": [\n            \"\",\n            \"\"\n          ],\n          \"count\": 0,\n          \"countDelta\": 0,\n          \"countDirect\": 0,\n          \"countDirectDelta\": 0,\n          \"countIndirect\": 0,\n          \"countIndirectDelta\": 0,\n          \"countsBySeverity\": {\n            \"critical\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"high\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"low\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"medium\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            }\n          }\n        },\n        {\n          \"aggregationGroup\": [\n            \"\",\n            \"\"\n          ],\n          \"count\": 0,\n          \"countDelta\": 0,\n          \"countDirect\": 0,\n          \"countDirectDelta\": 0,\n          \"countIndirect\": 0,\n          \"countIndirectDelta\": 0,\n          \"countsBySeverity\": {\n            \"critical\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"high\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"low\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            },\n            \"medium\": {\n              \"count\": 0,\n              \"countDelta\": 0,\n              \"countDirect\": 0,\n              \"countDirectDelta\": 0,\n              \"countIndirect\": 0,\n              \"countIndirectDelta\": 0\n            }\n          }\n        }\n      ],\n      \"date\": \"\",\n      \"startOfDayTimestamp\": 0\n    }\n  ],\n  \"meta\": {\n    \"aggregation\": {\n      \"fields\": [\n        \"\",\n        \"\"\n      ],\n      \"groups\": [\n        [\n          \"\",\n          \"\"\n        ],\n        [\n          \"\",\n          \"\"\n        ]\n      ]\n    },\n    \"endDateInclusive\": \"\",\n    \"filters\": {\n      \"repoFullName\": [\n        \"\",\n        \"\"\n      ],\n      \"repoSlug\": [\n        \"\",\n        \"\"\n      ],\n      \"repoLabels\": [\n        \"\",\n        \"\"\n      ],\n      \"artifactType\": [\n        \"\",\n        \"\"\n      ],\n      \"dependencyDirect\": [\n        false,\n        false\n      ],\n      \"dependencyDev\": [\n        false,\n        false\n      ],\n      \"dependencyDead\": [\n        false,\n        false\n      ]\n    },\n    \"interval\": \"\",\n    \"organizationId\": \"\",\n    \"startDateInclusive\": \"\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:18:27.000Z",
+                              "updatedAt": "2026-06-05T15:18:27.000Z",
+                              "uid": "35240-2fe93b0e-5243-42ef-ab9b-c39207f5b7fc"
+                            },
+                            {
+                              "id": "f6162012-2aa0-4181-b272-7242fa623518",
+                              "name": "Bad request",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/historical/dependencies/trend?date=CURRENT_DATE&range=-7d&repoFullName=<string>&repoSlug=<string>&repoLabels=<string>&artifactType=<string>&dependencyDirect=false&dependencyDev=false&dependencyDead=false",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "historical",
+                                    "dependencies",
+                                    "trend"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The UTC date in YYYY-MM-DD format for which to fetch dependencies",
+                                      "key": "date",
+                                      "value": "CURRENT_DATE"
+                                    },
+                                    {
+                                      "description": "The number of days of data to fetch as an offset from input date",
+                                      "key": "range",
+                                      "value": "-7d"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo full names that should be included",
+                                      "key": "repoFullName",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo slugs that should be included",
+                                      "key": "repoSlug",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo labels that should be included",
+                                      "key": "repoLabels",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be included",
+                                      "key": "artifactType",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Direct/transitive dependency filter flag",
+                                      "key": "dependencyDirect",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Development/production dependency filter flag",
+                                      "key": "dependencyDev",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Dead/reachable dependency filter flag",
+                                      "key": "dependencyDead",
+                                      "value": "false"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:18:27.000Z",
+                              "updatedAt": "2026-06-05T15:18:27.000Z",
+                              "uid": "35240-f6162012-2aa0-4181-b272-7242fa623518"
+                            },
+                            {
+                              "id": "47d05a38-7503-428b-a5e5-a71c93ef9422",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/historical/dependencies/trend?date=CURRENT_DATE&range=-7d&repoFullName=<string>&repoSlug=<string>&repoLabels=<string>&artifactType=<string>&dependencyDirect=false&dependencyDev=false&dependencyDead=false",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "historical",
+                                    "dependencies",
+                                    "trend"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The UTC date in YYYY-MM-DD format for which to fetch dependencies",
+                                      "key": "date",
+                                      "value": "CURRENT_DATE"
+                                    },
+                                    {
+                                      "description": "The number of days of data to fetch as an offset from input date",
+                                      "key": "range",
+                                      "value": "-7d"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo full names that should be included",
+                                      "key": "repoFullName",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo slugs that should be included",
+                                      "key": "repoSlug",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo labels that should be included",
+                                      "key": "repoLabels",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be included",
+                                      "key": "artifactType",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Direct/transitive dependency filter flag",
+                                      "key": "dependencyDirect",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Development/production dependency filter flag",
+                                      "key": "dependencyDev",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Dead/reachable dependency filter flag",
+                                      "key": "dependencyDead",
+                                      "value": "false"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:18:27.000Z",
+                              "updatedAt": "2026-06-05T15:18:27.000Z",
+                              "uid": "35240-47d05a38-7503-428b-a5e5-a71c93ef9422"
+                            },
+                            {
+                              "id": "8da1d862-47a5-48d3-8d37-b4e429ee6e09",
+                              "name": "Insufficient max_quota for API method",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/historical/dependencies/trend?date=CURRENT_DATE&range=-7d&repoFullName=<string>&repoSlug=<string>&repoLabels=<string>&artifactType=<string>&dependencyDirect=false&dependencyDev=false&dependencyDead=false",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "historical",
+                                    "dependencies",
+                                    "trend"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The UTC date in YYYY-MM-DD format for which to fetch dependencies",
+                                      "key": "date",
+                                      "value": "CURRENT_DATE"
+                                    },
+                                    {
+                                      "description": "The number of days of data to fetch as an offset from input date",
+                                      "key": "range",
+                                      "value": "-7d"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo full names that should be included",
+                                      "key": "repoFullName",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo slugs that should be included",
+                                      "key": "repoSlug",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo labels that should be included",
+                                      "key": "repoLabels",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be included",
+                                      "key": "artifactType",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Direct/transitive dependency filter flag",
+                                      "key": "dependencyDirect",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Development/production dependency filter flag",
+                                      "key": "dependencyDev",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Dead/reachable dependency filter flag",
+                                      "key": "dependencyDead",
+                                      "value": "false"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:18:27.000Z",
+                              "updatedAt": "2026-06-05T15:18:27.000Z",
+                              "uid": "35240-8da1d862-47a5-48d3-8d37-b4e429ee6e09"
+                            },
+                            {
+                              "id": "5cb1fce2-be6b-4df2-97d1-7da38b052cec",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/historical/dependencies/trend?date=CURRENT_DATE&range=-7d&repoFullName=<string>&repoSlug=<string>&repoLabels=<string>&artifactType=<string>&dependencyDirect=false&dependencyDev=false&dependencyDead=false",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "historical",
+                                    "dependencies",
+                                    "trend"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The UTC date in YYYY-MM-DD format for which to fetch dependencies",
+                                      "key": "date",
+                                      "value": "CURRENT_DATE"
+                                    },
+                                    {
+                                      "description": "The number of days of data to fetch as an offset from input date",
+                                      "key": "range",
+                                      "value": "-7d"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo full names that should be included",
+                                      "key": "repoFullName",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo slugs that should be included",
+                                      "key": "repoSlug",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo labels that should be included",
+                                      "key": "repoLabels",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be included",
+                                      "key": "artifactType",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Direct/transitive dependency filter flag",
+                                      "key": "dependencyDirect",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Development/production dependency filter flag",
+                                      "key": "dependencyDev",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Dead/reachable dependency filter flag",
+                                      "key": "dependencyDead",
+                                      "value": "false"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:18:27.000Z",
+                              "updatedAt": "2026-06-05T15:18:27.000Z",
+                              "uid": "35240-5cb1fce2-be6b-4df2-97d1-7da38b052cec"
+                            },
+                            {
+                              "id": "5564447f-050e-49bf-ab61-d6b9cb65d0d8",
+                              "name": "Insufficient quota for API route",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:org_slug/historical/dependencies/trend?date=CURRENT_DATE&range=-7d&repoFullName=<string>&repoSlug=<string>&repoLabels=<string>&artifactType=<string>&dependencyDirect=false&dependencyDev=false&dependencyDead=false",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":org_slug",
+                                    "historical",
+                                    "dependencies",
+                                    "trend"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The UTC date in YYYY-MM-DD format for which to fetch dependencies",
+                                      "key": "date",
+                                      "value": "CURRENT_DATE"
+                                    },
+                                    {
+                                      "description": "The number of days of data to fetch as an offset from input date",
+                                      "key": "range",
+                                      "value": "-7d"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo full names that should be included",
+                                      "key": "repoFullName",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo slugs that should be included",
+                                      "key": "repoSlug",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of repo labels that should be included",
+                                      "key": "repoLabels",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Comma-separated list of artifact types (e.g. \"npm\", \"pypi\", \"gem\", \"maven\", \"golang\", etc.) that should be included",
+                                      "key": "artifactType",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Direct/transitive dependency filter flag",
+                                      "key": "dependencyDirect",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Development/production dependency filter flag",
+                                      "key": "dependencyDev",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Dead/reachable dependency filter flag",
+                                      "key": "dependencyDead",
+                                      "value": "false"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "org_slug"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                },
+                                {
+                                  "disabled": false,
+                                  "description": {
+                                    "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                    "type": "text/plain"
+                                  },
+                                  "key": "Retry-After",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                              "createdAt": "2026-06-05T15:18:27.000Z",
+                              "updatedAt": "2026-06-05T15:18:27.000Z",
+                              "uid": "35240-5564447f-050e-49bf-ab61-d6b9cb65d0d8"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:18:27.000Z",
+                          "updatedAt": "2026-06-05T15:18:27.000Z",
+                          "uid": "35240-2a193db0-1471-476b-afba-d1daacd12fe1"
+                        }
+                      ],
+                      "id": "efb64c75-8558-42dc-a8fe-f15f5bd97cf3",
+                      "createdAt": "2026-06-05T15:18:27.000Z",
+                      "updatedAt": "2026-06-05T15:18:27.000Z",
+                      "uid": "35240-efb64c75-8558-42dc-a8fe-f15f5bd97cf3"
+                    }
+                  ],
+                  "id": "9499d7ab-2da4-4657-a3ae-02f2bfb148ae",
+                  "createdAt": "2026-06-05T15:18:27.000Z",
+                  "updatedAt": "2026-06-05T15:18:27.000Z",
+                  "uid": "35240-9499d7ab-2da4-4657-a3ae-02f2bfb148ae"
+                }
+              ],
+              "id": "689b52ff-dd5e-40fc-af22-4ce008b66bd0",
+              "createdAt": "2026-06-05T15:18:27.000Z",
+              "updatedAt": "2026-06-05T15:18:27.000Z",
+              "uid": "35240-689b52ff-dd5e-40fc-af22-4ce008b66bd0"
+            }
+          ],
+          "id": "1e09b922-5999-4a5b-b5f2-a2ac564cb1a6",
+          "createdAt": "2026-06-05T15:18:27.000Z",
+          "updatedAt": "2026-06-05T15:18:27.000Z",
+          "uid": "35240-1e09b922-5999-4a5b-b5f2-a2ac564cb1a6"
+        }
+      ],
+      "id": "cf2c4327-a35d-4cc8-8213-89e9dea6c484",
+      "createdAt": "2026-06-05T15:18:27.000Z",
+      "updatedAt": "2026-06-05T15:18:27.000Z",
+      "uid": "35240-cf2c4327-a35d-4cc8-8213-89e9dea6c484"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.socket.dev/v0"
+    }
+  ]
+}

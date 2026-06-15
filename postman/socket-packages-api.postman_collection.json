@@ -1,0 +1,1741 @@
+{
+  "info": {
+    "_postman_id": "e99bc4d9-aec1-42a5-b706-3c3e093caed7",
+    "name": "Socket Packages API",
+    "description": "Socket packages API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:17:40.000Z",
+    "updatedAt": "2026-06-05T15:17:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e99bc4d9-aec1-42a5-b706-3c3e093caed7"
+  },
+  "item": [
+    {
+      "name": "purl",
+      "item": [
+        {
+          "name": "Get Packages by PURL",
+          "id": "c442cc58-796e-410b-9dac-9fadaf5ac184",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/x-ndjson"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/purl?alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "purl"
+              ],
+              "query": [
+                {
+                  "description": "Include alert metadata.",
+                  "key": "alerts",
+                  "value": "false"
+                },
+                {
+                  "description": "Include only alerts with comma separated actions defined by security policy.",
+                  "key": "actions",
+                  "value": "monitor,error"
+                },
+                {
+                  "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                  "key": "compact",
+                  "value": "false"
+                },
+                {
+                  "description": "Include only fixable alerts.",
+                  "key": "fixable",
+                  "value": "false"
+                },
+                {
+                  "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                  "key": "licenseattrib",
+                  "value": "false"
+                },
+                {
+                  "description": "Include detailed license information, including location and match strength, for each license datum.",
+                  "key": "licensedetails",
+                  "value": "false"
+                },
+                {
+                  "description": "Return errors found with handling PURLs as error objects in the stream.",
+                  "key": "purlErrors",
+                  "value": "false"
+                },
+                {
+                  "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                  "key": "poll",
+                  "value": "false"
+                },
+                {
+                  "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                  "key": "cachedResultsOnly",
+                  "value": "false"
+                },
+                {
+                  "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                  "key": "summary",
+                  "value": "false"
+                },
+                {
+                  "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                  "key": "timeoutSec",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "**This endpoint is deprecated.** Deprecated since 2026-01-05.\n\nBatch retrieval of package metadata and alerts by PURL strings. Compatible with CycloneDX reports.\n\nPackage URLs (PURLs) are an ecosystem agnostic way to identify packages.\nCycloneDX SBOMs use the purl format to identify components.\nThis endpoint supports fetching metadata and alerts for multiple packages at once by passing an array of purl strings, or by passing an entire CycloneDX report.\n\n**Note:** This endpoint has a batch size limit (default: 1024 PURLs per request). Requests exceeding this limit will return a 400 Bad Request error.\n\nMore information on purl and CycloneDX:\n\n- [`purl` Spec](https://github.com/package-url/purl-spec)\n- [CycloneDX Spec](https://cyclonedx.org/specification/overview/#components)\n\nThis endpoint returns the latest available alert data for artifacts in the batch (stale while revalidate).\nActively running analysis will be returned when available on subsequent runs.\n\nWhen `alerts=true`, Socket may synthesize two alert types to make partial\nresults actionable:\n\n- `pendingScan`: the package is known but analysis has not completed yet\n- `notFound`: Socket could not resolve the package/version metadata\n\nWhen `purlErrors=true`, unresolved `notFound` inputs keep the legacy\n`purlError` stream shape instead of emitting synthetic `notFound`\nartifacts.\n\nUse `poll=false` (default) to fail open and return the current known state\nquickly. Use `poll=true` to fail closed and wait up to `timeoutSec` for\npending analysis before returning.\n\n## Examples:\n\n### Looking up an npm package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    }\n  ]\n}\n```\n\n### Looking up an PyPi package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    }\n  ]\n}\n```\n\n### Looking up a Maven package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\n### Batch lookup\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    },\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    },\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\nThis endpoint consumes 100 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- packages:list"
+          },
+          "response": [
+            {
+              "id": "6406e765-d6be-4c9d-b437-f602a5da2323",
+              "name": "Socket issue lists and scores for all packages, and optional metadata objects",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/x-ndjson"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/purl?alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "purl"
+                  ],
+                  "query": [
+                    {
+                      "description": "Include alert metadata.",
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only alerts with comma separated actions defined by security policy.",
+                      "key": "actions",
+                      "value": "monitor,error"
+                    },
+                    {
+                      "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only fixable alerts.",
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include detailed license information, including location and match strength, for each license datum.",
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Return errors found with handling PURLs as error objects in the stream.",
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/x-ndjson"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"unknown\",\n  \"namespace\": \"\",\n  \"name\": \"\",\n  \"version\": \"\",\n  \"subpath\": \"\",\n  \"release\": \"\",\n  \"direct\": false,\n  \"dev\": false,\n  \"dead\": false,\n  \"manifestFiles\": [\n    {\n      \"file\": \"\",\n      \"start\": 0,\n      \"end\": 0\n    },\n    {\n      \"file\": \"\",\n      \"start\": 0,\n      \"end\": 0\n    }\n  ],\n  \"topLevelAncestors\": [\n    \"\",\n    \"\"\n  ],\n  \"dependencies\": [\n    \"\",\n    \"\"\n  ],\n  \"alertPriorities\": {\n    \"occaecat2c\": {\n      \"result\": 0,\n      \"components\": {\n        \"isFixable\": {\n          \"result\": 0,\n          \"value\": false\n        },\n        \"isReachable\": {\n          \"result\": 0,\n          \"specificValue\": \"\",\n          \"value\": false\n        },\n        \"severity\": {\n          \"result\": 0,\n          \"value\": 0\n        }\n      },\n      \"formula\": \"\"\n    },\n    \"sed_33e\": {\n      \"result\": 0,\n      \"components\": {\n        \"isFixable\": {\n          \"result\": 0,\n          \"value\": false\n        },\n        \"isReachable\": {\n          \"result\": 0,\n          \"specificValue\": \"\",\n          \"value\": false\n        },\n        \"severity\": {\n          \"result\": 0,\n          \"value\": 0\n        }\n      },\n      \"formula\": \"\"\n    },\n    \"Lorem_5e\": {\n      \"result\": 0,\n      \"components\": {\n        \"isFixable\": {\n          \"result\": 0,\n          \"value\": false\n        },\n        \"isReachable\": {\n          \"result\": 0,\n          \"specificValue\": \"\",\n          \"value\": false\n        },\n        \"severity\": {\n          \"result\": 0,\n          \"value\": 0\n        }\n      },\n      \"formula\": \"\"\n    },\n    \"reprehenderit_836\": {\n      \"result\": 0,\n      \"components\": {\n        \"isFixable\": {\n          \"result\": 0,\n          \"value\": false\n        },\n        \"isReachable\": {\n          \"result\": 0,\n          \"specificValue\": \"\",\n          \"value\": false\n        },\n        \"severity\": {\n          \"result\": 0,\n          \"value\": 0\n        }\n      },\n      \"formula\": \"\"\n    }\n  },\n  \"artifact\": {\n    \"id\": \"\",\n    \"type\": \"unknown\",\n    \"namespace\": \"\",\n    \"name\": \"\",\n    \"version\": \"\",\n    \"subpath\": \"\",\n    \"release\": \"\"\n  },\n  \"alertKeysToReachabilityTypes\": {\n    \"deserunt_c\": [\n      \"\",\n      \"\"\n    ]\n  },\n  \"alertKeysToReachabilitySummaries\": {\n    \"dolore_af1\": [\n      {\n        \"type\": \"\"\n      },\n      {\n        \"type\": \"\"\n      }\n    ],\n    \"non_c\": [\n      {\n        \"type\": \"\"\n      },\n      {\n        \"type\": \"\"\n      }\n    ]\n  },\n  \"id\": \"\",\n  \"author\": [\n    \"\",\n    \"\"\n  ],\n  \"size\": 0,\n  \"repositoryType\": \"\",\n  \"alerts\": [\n    {\n      \"key\": \"\",\n      \"type\": \"\",\n      \"severity\": \"low\",\n      \"category\": \"other\",\n      \"file\": \"\",\n      \"start\": 0,\n      \"end\": 0,\n      \"props\": null,\n      \"action\": \"\",\n      \"actionSource\": {\n        \"candidates\": [\n          {\n            \"action\": \"\",\n            \"actionPolicyIndex\": 0,\n            \"repoLabelId\": \"\",\n            \"type\": \"\"\n          },\n          {\n            \"action\": \"\",\n            \"actionPolicyIndex\": 0,\n            \"repoLabelId\": \"\",\n            \"type\": \"\"\n          }\n        ],\n        \"type\": \"\"\n      },\n      \"actionPolicyIndex\": 0,\n      \"fix\": {\n        \"description\": \"\",\n        \"type\": \"\",\n        \"patch\": [\n          {\n            \"tier\": \"free\",\n            \"uuid\": \"\",\n            \"deprecated\": false\n          },\n          {\n            \"tier\": \"free\",\n            \"uuid\": \"\",\n            \"deprecated\": false\n          }\n        ]\n      },\n      \"patch\": {\n        \"tier\": \"free\",\n        \"uuid\": \"\",\n        \"deprecated\": false\n      },\n      \"reachability\": {\n        \"head\": {\n          \"results\": [\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            },\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            }\n          ],\n          \"type\": \"precomputed\"\n        },\n        \"base\": {\n          \"results\": [\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            },\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            }\n          ],\n          \"type\": \"precomputed\"\n        }\n      },\n      \"subType\": \"\"\n    },\n    {\n      \"key\": \"\",\n      \"type\": \"\",\n      \"severity\": \"low\",\n      \"category\": \"other\",\n      \"file\": \"\",\n      \"start\": 0,\n      \"end\": 0,\n      \"props\": null,\n      \"action\": \"\",\n      \"actionSource\": {\n        \"candidates\": [\n          {\n            \"action\": \"\",\n            \"actionPolicyIndex\": 0,\n            \"repoLabelId\": \"\",\n            \"type\": \"\"\n          },\n          {\n            \"action\": \"\",\n            \"actionPolicyIndex\": 0,\n            \"repoLabelId\": \"\",\n            \"type\": \"\"\n          }\n        ],\n        \"type\": \"\"\n      },\n      \"actionPolicyIndex\": 0,\n      \"fix\": {\n        \"description\": \"\",\n        \"type\": \"\",\n        \"patch\": [\n          {\n            \"tier\": \"free\",\n            \"uuid\": \"\",\n            \"deprecated\": false\n          },\n          {\n            \"tier\": \"free\",\n            \"uuid\": \"\",\n            \"deprecated\": false\n          }\n        ]\n      },\n      \"patch\": {\n        \"tier\": \"free\",\n        \"uuid\": \"\",\n        \"deprecated\": false\n      },\n      \"reachability\": {\n        \"head\": {\n          \"results\": [\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            },\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            }\n          ],\n          \"type\": \"precomputed\"\n        },\n        \"base\": {\n          \"results\": [\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            },\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            }\n          ],\n          \"type\": \"precomputed\"\n        }\n      },\n      \"subType\": \"\"\n    }\n  ],\n  \"score\": {\n    \"license\": 0,\n    \"maintenance\": 0,\n    \"overall\": 0,\n    \"quality\": 0,\n    \"supplyChain\": 0,\n    \"vulnerability\": 0\n  },\n  \"patch\": {\n    \"appliedPatch\": {\n      \"tier\": \"free\",\n      \"uuid\": \"\",\n      \"deprecated\": false\n    },\n    \"availablePatches\": [\n      {\n        \"tier\": \"free\",\n        \"uuid\": \"\",\n        \"deprecated\": false\n      },\n      {\n        \"tier\": \"free\",\n        \"uuid\": \"\",\n        \"deprecated\": false\n      }\n    ]\n  },\n  \"inputPurl\": \"\",\n  \"batchIndex\": 0,\n  \"license\": \"\",\n  \"licenseDetails\": [\n    {\n      \"authors\": [\n        \"\",\n        \"\"\n      ],\n      \"errorData\": \"\",\n      \"filepath\": \"\",\n      \"match_strength\": 0,\n      \"provenance\": \"\",\n      \"spdxDisj\": \"\"\n    },\n    {\n      \"authors\": [\n        \"\",\n        \"\"\n      ],\n      \"errorData\": \"\",\n      \"filepath\": \"\",\n      \"match_strength\": 0,\n      \"provenance\": \"\",\n      \"spdxDisj\": \"\"\n    }\n  ],\n  \"licenseAttrib\": [\n    {\n      \"attribData\": [\n        {\n          \"foundAuthors\": [\n            \"\",\n            \"\"\n          ],\n          \"foundInFilepath\": \"\",\n          \"purl\": \"\",\n          \"spdxExpr\": \"\"\n        },\n        {\n          \"foundAuthors\": [\n            \"\",\n            \"\"\n          ],\n          \"foundInFilepath\": \"\",\n          \"purl\": \"\",\n          \"spdxExpr\": \"\"\n        }\n      ],\n      \"attribText\": \"\"\n    },\n    {\n      \"attribData\": [\n        {\n          \"foundAuthors\": [\n            \"\",\n            \"\"\n          ],\n          \"foundInFilepath\": \"\",\n          \"purl\": \"\",\n          \"spdxExpr\": \"\"\n        },\n        {\n          \"foundAuthors\": [\n            \"\",\n            \"\"\n          ],\n          \"foundInFilepath\": \"\",\n          \"purl\": \"\",\n          \"spdxExpr\": \"\"\n        }\n      ],\n      \"attribText\": \"\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:17:41.000Z",
+              "updatedAt": "2026-06-05T15:17:41.000Z",
+              "uid": "35240-6406e765-d6be-4c9d-b437-f602a5da2323"
+            },
+            {
+              "id": "eab17b08-003e-4850-ae54-d5ea2cf5bf18",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/purl?alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "purl"
+                  ],
+                  "query": [
+                    {
+                      "description": "Include alert metadata.",
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only alerts with comma separated actions defined by security policy.",
+                      "key": "actions",
+                      "value": "monitor,error"
+                    },
+                    {
+                      "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only fixable alerts.",
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include detailed license information, including location and match strength, for each license datum.",
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Return errors found with handling PURLs as error objects in the stream.",
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:17:41.000Z",
+              "updatedAt": "2026-06-05T15:17:41.000Z",
+              "uid": "35240-eab17b08-003e-4850-ae54-d5ea2cf5bf18"
+            },
+            {
+              "id": "9217d577-445e-4d29-813c-4cdf9a8b4462",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/purl?alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "purl"
+                  ],
+                  "query": [
+                    {
+                      "description": "Include alert metadata.",
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only alerts with comma separated actions defined by security policy.",
+                      "key": "actions",
+                      "value": "monitor,error"
+                    },
+                    {
+                      "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only fixable alerts.",
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include detailed license information, including location and match strength, for each license datum.",
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Return errors found with handling PURLs as error objects in the stream.",
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:17:41.000Z",
+              "updatedAt": "2026-06-05T15:17:41.000Z",
+              "uid": "35240-9217d577-445e-4d29-813c-4cdf9a8b4462"
+            },
+            {
+              "id": "62b1d4d2-2a96-4420-b9c4-a3f5ffcb8f83",
+              "name": "Insufficient max_quota for API method",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/purl?alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "purl"
+                  ],
+                  "query": [
+                    {
+                      "description": "Include alert metadata.",
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only alerts with comma separated actions defined by security policy.",
+                      "key": "actions",
+                      "value": "monitor,error"
+                    },
+                    {
+                      "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only fixable alerts.",
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include detailed license information, including location and match strength, for each license datum.",
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Return errors found with handling PURLs as error objects in the stream.",
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:17:41.000Z",
+              "updatedAt": "2026-06-05T15:17:41.000Z",
+              "uid": "35240-62b1d4d2-2a96-4420-b9c4-a3f5ffcb8f83"
+            },
+            {
+              "id": "78201c7d-66da-4042-9171-033faa78ab1d",
+              "name": "Resource not found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/purl?alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "purl"
+                  ],
+                  "query": [
+                    {
+                      "description": "Include alert metadata.",
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only alerts with comma separated actions defined by security policy.",
+                      "key": "actions",
+                      "value": "monitor,error"
+                    },
+                    {
+                      "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only fixable alerts.",
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include detailed license information, including location and match strength, for each license datum.",
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Return errors found with handling PURLs as error objects in the stream.",
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:17:41.000Z",
+              "updatedAt": "2026-06-05T15:17:41.000Z",
+              "uid": "35240-78201c7d-66da-4042-9171-033faa78ab1d"
+            },
+            {
+              "id": "61a0f325-86a1-4aff-bd98-e07b5c834139",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/purl?alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "purl"
+                  ],
+                  "query": [
+                    {
+                      "description": "Include alert metadata.",
+                      "key": "alerts",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only alerts with comma separated actions defined by security policy.",
+                      "key": "actions",
+                      "value": "monitor,error"
+                    },
+                    {
+                      "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                      "key": "compact",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include only fixable alerts.",
+                      "key": "fixable",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                      "key": "licenseattrib",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include detailed license information, including location and match strength, for each license datum.",
+                      "key": "licensedetails",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Return errors found with handling PURLs as error objects in the stream.",
+                      "key": "purlErrors",
+                      "value": "false"
+                    },
+                    {
+                      "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                      "key": "poll",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                      "key": "cachedResultsOnly",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                      "key": "summary",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                      "key": "timeoutSec",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "<integer>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:17:41.000Z",
+              "updatedAt": "2026-06-05T15:17:41.000Z",
+              "uid": "35240-61a0f325-86a1-4aff-bd98-e07b5c834139"
+            }
+          ],
+          "createdAt": "2026-06-05T15:17:41.000Z",
+          "updatedAt": "2026-06-05T15:17:41.000Z",
+          "uid": "35240-c442cc58-796e-410b-9dac-9fadaf5ac184"
+        }
+      ],
+      "id": "e8789cd5-4f52-43a3-b21f-0328349cafbd",
+      "createdAt": "2026-06-05T15:17:41.000Z",
+      "updatedAt": "2026-06-05T15:17:41.000Z",
+      "uid": "35240-e8789cd5-4f52-43a3-b21f-0328349cafbd"
+    },
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{org_slug}",
+          "item": [
+            {
+              "name": "purl",
+              "item": [
+                {
+                  "name": "Get Packages by PURL (Org Scoped)",
+                  "id": "bbd5c56e-8633-49e1-b576-d411cceddede",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/x-ndjson"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:org_slug/purl?labels=<string>,<string>&alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":org_slug",
+                        "purl"
+                      ],
+                      "query": [
+                        {
+                          "description": "Repository label slugs to apply policies. Only one label is supported currently; the parameter is an array to allow future support for multiple labels.",
+                          "key": "labels",
+                          "value": "<string>,<string>"
+                        },
+                        {
+                          "description": "Include alert metadata.",
+                          "key": "alerts",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Include only alerts with comma separated actions defined by security policy.",
+                          "key": "actions",
+                          "value": "monitor,error"
+                        },
+                        {
+                          "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                          "key": "compact",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Include only fixable alerts.",
+                          "key": "fixable",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                          "key": "licenseattrib",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Include detailed license information, including location and match strength, for each license datum.",
+                          "key": "licensedetails",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Return errors found with handling PURLs as error objects in the stream.",
+                          "key": "purlErrors",
+                          "value": "false"
+                        },
+                        {
+                          "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                          "key": "poll",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                          "key": "cachedResultsOnly",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                          "key": "summary",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                          "key": "timeoutSec",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "db9aa0a8-61d4-44b9-8613-632fa9e54f58",
+                          "key": "org_slug",
+                          "value": "<string>",
+                          "description": "(Required) The slug of the organization"
+                        }
+                      ]
+                    },
+                    "description": "Batch retrieval of package metadata and alerts by PURL strings for a specific organization. Compatible with CycloneDX reports.\n\nPackage URLs (PURLs) are an ecosystem agnostic way to identify packages.\nCycloneDX SBOMs use the purl format to identify components.\nThis endpoint supports fetching metadata and alerts for multiple packages at once by passing an array of purl strings, or by passing an entire CycloneDX report.\n\n**Note:** This endpoint has a batch size limit (default: 1024 PURLs per request). Requests exceeding this limit will return a 400 Bad Request error.\n\nMore information on purl and CycloneDX:\n\n- [`purl` Spec](https://github.com/package-url/purl-spec)\n- [CycloneDX Spec](https://cyclonedx.org/specification/overview/#components)\n\nThis endpoint returns the latest available alert data for artifacts in the batch (stale while revalidate).\nActively running analysis will be returned when available on subsequent runs.\n\nWhen `alerts=true`, Socket may synthesize two alert types to make partial\nresults actionable:\n\n- `pendingScan`: the package is known but analysis has not completed yet\n- `notFound`: Socket could not resolve the package/version metadata\n\nWhen `purlErrors=true`, unresolved `notFound` inputs keep the legacy\n`purlError` stream shape instead of emitting synthetic `notFound`\nartifacts.\n\nUse `poll=false` (default) to fail open and return the current known state\nquickly. Use `poll=true` to fail closed and wait up to `timeoutSec` for\npending analysis before returning.\n\n## Query Parameters\n\nThis endpoint supports all query parameters from `POST /v0/purl` including: `alerts`, `actions`, `compact`, `fixable`, `licenseattrib`, `licensedetails`, `purlErrors`, `poll`, `cachedResultsOnly`, and `summary`.\n\nAdditionally, you may provide a `labels` query parameter to apply a repository label's security policies. Pass the label slug as the value (e.g., `?labels=production`). Only one label is currently supported.\n\n## Examples:\n\n### Looking up an npm package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    }\n  ]\n}\n```\n\n### Looking up a PyPi package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    }\n  ]\n}\n```\n\n### Looking up a Maven package:\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\n### Batch lookup\n\n```json\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    },\n    {\n      \"purl\": \"pkg:pypi/django@5.0.6\"\n    },\n    {\n      \"purl\": \"pkg:maven/log4j/log4j@1.2.17\"\n    }\n  ]\n}\n```\n\n### With label and options (query parameters):\n\n```\nPOST /v0/orgs/{org_slug}/purl?labels=production&alerts=true&compact=true\n{\n  \"components\": [\n    {\n      \"purl\": \"pkg:npm/express@4.19.2\"\n    }\n  ]\n}\n```\n\nThis endpoint consumes 100 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- packages:list"
+                  },
+                  "response": [
+                    {
+                      "id": "e0333f1f-f803-43bb-a324-b93275a07e0c",
+                      "name": "Socket issue lists and scores for all packages, and optional metadata objects",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/x-ndjson"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/purl?labels=<string>,<string>&alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "purl"
+                          ],
+                          "query": [
+                            {
+                              "description": "Repository label slugs to apply policies. Only one label is supported currently; the parameter is an array to allow future support for multiple labels.",
+                              "key": "labels",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Include alert metadata.",
+                              "key": "alerts",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only alerts with comma separated actions defined by security policy.",
+                              "key": "actions",
+                              "value": "monitor,error"
+                            },
+                            {
+                              "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                              "key": "compact",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only fixable alerts.",
+                              "key": "fixable",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                              "key": "licenseattrib",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include detailed license information, including location and match strength, for each license datum.",
+                              "key": "licensedetails",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Return errors found with handling PURLs as error objects in the stream.",
+                              "key": "purlErrors",
+                              "value": "false"
+                            },
+                            {
+                              "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                              "key": "poll",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                              "key": "cachedResultsOnly",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                              "key": "summary",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                              "key": "timeoutSec",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/x-ndjson"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"unknown\",\n  \"namespace\": \"\",\n  \"name\": \"\",\n  \"version\": \"\",\n  \"subpath\": \"\",\n  \"release\": \"\",\n  \"direct\": false,\n  \"dev\": false,\n  \"dead\": false,\n  \"manifestFiles\": [\n    {\n      \"file\": \"\",\n      \"start\": 0,\n      \"end\": 0\n    },\n    {\n      \"file\": \"\",\n      \"start\": 0,\n      \"end\": 0\n    }\n  ],\n  \"topLevelAncestors\": [\n    \"\",\n    \"\"\n  ],\n  \"dependencies\": [\n    \"\",\n    \"\"\n  ],\n  \"alertPriorities\": {\n    \"occaecat2c\": {\n      \"result\": 0,\n      \"components\": {\n        \"isFixable\": {\n          \"result\": 0,\n          \"value\": false\n        },\n        \"isReachable\": {\n          \"result\": 0,\n          \"specificValue\": \"\",\n          \"value\": false\n        },\n        \"severity\": {\n          \"result\": 0,\n          \"value\": 0\n        }\n      },\n      \"formula\": \"\"\n    },\n    \"sed_33e\": {\n      \"result\": 0,\n      \"components\": {\n        \"isFixable\": {\n          \"result\": 0,\n          \"value\": false\n        },\n        \"isReachable\": {\n          \"result\": 0,\n          \"specificValue\": \"\",\n          \"value\": false\n        },\n        \"severity\": {\n          \"result\": 0,\n          \"value\": 0\n        }\n      },\n      \"formula\": \"\"\n    },\n    \"Lorem_5e\": {\n      \"result\": 0,\n      \"components\": {\n        \"isFixable\": {\n          \"result\": 0,\n          \"value\": false\n        },\n        \"isReachable\": {\n          \"result\": 0,\n          \"specificValue\": \"\",\n          \"value\": false\n        },\n        \"severity\": {\n          \"result\": 0,\n          \"value\": 0\n        }\n      },\n      \"formula\": \"\"\n    },\n    \"reprehenderit_836\": {\n      \"result\": 0,\n      \"components\": {\n        \"isFixable\": {\n          \"result\": 0,\n          \"value\": false\n        },\n        \"isReachable\": {\n          \"result\": 0,\n          \"specificValue\": \"\",\n          \"value\": false\n        },\n        \"severity\": {\n          \"result\": 0,\n          \"value\": 0\n        }\n      },\n      \"formula\": \"\"\n    }\n  },\n  \"artifact\": {\n    \"id\": \"\",\n    \"type\": \"unknown\",\n    \"namespace\": \"\",\n    \"name\": \"\",\n    \"version\": \"\",\n    \"subpath\": \"\",\n    \"release\": \"\"\n  },\n  \"alertKeysToReachabilityTypes\": {\n    \"deserunt_c\": [\n      \"\",\n      \"\"\n    ]\n  },\n  \"alertKeysToReachabilitySummaries\": {\n    \"dolore_af1\": [\n      {\n        \"type\": \"\"\n      },\n      {\n        \"type\": \"\"\n      }\n    ],\n    \"non_c\": [\n      {\n        \"type\": \"\"\n      },\n      {\n        \"type\": \"\"\n      }\n    ]\n  },\n  \"id\": \"\",\n  \"author\": [\n    \"\",\n    \"\"\n  ],\n  \"size\": 0,\n  \"repositoryType\": \"\",\n  \"alerts\": [\n    {\n      \"key\": \"\",\n      \"type\": \"\",\n      \"severity\": \"low\",\n      \"category\": \"other\",\n      \"file\": \"\",\n      \"start\": 0,\n      \"end\": 0,\n      \"props\": null,\n      \"action\": \"\",\n      \"actionSource\": {\n        \"candidates\": [\n          {\n            \"action\": \"\",\n            \"actionPolicyIndex\": 0,\n            \"repoLabelId\": \"\",\n            \"type\": \"\"\n          },\n          {\n            \"action\": \"\",\n            \"actionPolicyIndex\": 0,\n            \"repoLabelId\": \"\",\n            \"type\": \"\"\n          }\n        ],\n        \"type\": \"\"\n      },\n      \"actionPolicyIndex\": 0,\n      \"fix\": {\n        \"description\": \"\",\n        \"type\": \"\",\n        \"patch\": [\n          {\n            \"tier\": \"free\",\n            \"uuid\": \"\",\n            \"deprecated\": false\n          },\n          {\n            \"tier\": \"free\",\n            \"uuid\": \"\",\n            \"deprecated\": false\n          }\n        ]\n      },\n      \"patch\": {\n        \"tier\": \"free\",\n        \"uuid\": \"\",\n        \"deprecated\": false\n      },\n      \"reachability\": {\n        \"head\": {\n          \"results\": [\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            },\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            }\n          ],\n          \"type\": \"precomputed\"\n        },\n        \"base\": {\n          \"results\": [\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            },\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            }\n          ],\n          \"type\": \"precomputed\"\n        }\n      },\n      \"subType\": \"\"\n    },\n    {\n      \"key\": \"\",\n      \"type\": \"\",\n      \"severity\": \"low\",\n      \"category\": \"other\",\n      \"file\": \"\",\n      \"start\": 0,\n      \"end\": 0,\n      \"props\": null,\n      \"action\": \"\",\n      \"actionSource\": {\n        \"candidates\": [\n          {\n            \"action\": \"\",\n            \"actionPolicyIndex\": 0,\n            \"repoLabelId\": \"\",\n            \"type\": \"\"\n          },\n          {\n            \"action\": \"\",\n            \"actionPolicyIndex\": 0,\n            \"repoLabelId\": \"\",\n            \"type\": \"\"\n          }\n        ],\n        \"type\": \"\"\n      },\n      \"actionPolicyIndex\": 0,\n      \"fix\": {\n        \"description\": \"\",\n        \"type\": \"\",\n        \"patch\": [\n          {\n            \"tier\": \"free\",\n            \"uuid\": \"\",\n            \"deprecated\": false\n          },\n          {\n            \"tier\": \"free\",\n            \"uuid\": \"\",\n            \"deprecated\": false\n          }\n        ]\n      },\n      \"patch\": {\n        \"tier\": \"free\",\n        \"uuid\": \"\",\n        \"deprecated\": false\n      },\n      \"reachability\": {\n        \"head\": {\n          \"results\": [\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            },\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            }\n          ],\n          \"type\": \"precomputed\"\n        },\n        \"base\": {\n          \"results\": [\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            },\n            {\n              \"type\": \"unknown\",\n              \"truncated\": false,\n              \"error\": \"\",\n              \"matches\": {\n                \"type\": \"function-level\",\n                \"value\": [\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ],\n                  [\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    },\n                    {\n                      \"purl\": \"\",\n                      \"sourceLocation\": {\n                        \"end\": {\n                          \"line\": 0,\n                          \"column\": 0,\n                          \"byteOffset\": 0\n                        },\n                        \"fileHash\": \"\",\n                        \"filename\": \"\",\n                        \"start\": {\n                          \"byteOffset\": 0,\n                          \"column\": 0,\n                          \"line\": 0\n                        }\n                      },\n                      \"confidence\": 0\n                    }\n                  ]\n                ]\n              },\n              \"workspacePath\": \"\",\n              \"subprojectPath\": \"\"\n            }\n          ],\n          \"type\": \"precomputed\"\n        }\n      },\n      \"subType\": \"\"\n    }\n  ],\n  \"score\": {\n    \"license\": 0,\n    \"maintenance\": 0,\n    \"overall\": 0,\n    \"quality\": 0,\n    \"supplyChain\": 0,\n    \"vulnerability\": 0\n  },\n  \"patch\": {\n    \"appliedPatch\": {\n      \"tier\": \"free\",\n      \"uuid\": \"\",\n      \"deprecated\": false\n    },\n    \"availablePatches\": [\n      {\n        \"tier\": \"free\",\n        \"uuid\": \"\",\n        \"deprecated\": false\n      },\n      {\n        \"tier\": \"free\",\n        \"uuid\": \"\",\n        \"deprecated\": false\n      }\n    ]\n  },\n  \"inputPurl\": \"\",\n  \"batchIndex\": 0,\n  \"license\": \"\",\n  \"licenseDetails\": [\n    {\n      \"authors\": [\n        \"\",\n        \"\"\n      ],\n      \"errorData\": \"\",\n      \"filepath\": \"\",\n      \"match_strength\": 0,\n      \"provenance\": \"\",\n      \"spdxDisj\": \"\"\n    },\n    {\n      \"authors\": [\n        \"\",\n        \"\"\n      ],\n      \"errorData\": \"\",\n      \"filepath\": \"\",\n      \"match_strength\": 0,\n      \"provenance\": \"\",\n      \"spdxDisj\": \"\"\n    }\n  ],\n  \"licenseAttrib\": [\n    {\n      \"attribData\": [\n        {\n          \"foundAuthors\": [\n            \"\",\n            \"\"\n          ],\n          \"foundInFilepath\": \"\",\n          \"purl\": \"\",\n          \"spdxExpr\": \"\"\n        },\n        {\n          \"foundAuthors\": [\n            \"\",\n            \"\"\n          ],\n          \"foundInFilepath\": \"\",\n          \"purl\": \"\",\n          \"spdxExpr\": \"\"\n        }\n      ],\n      \"attribText\": \"\"\n    },\n    {\n      \"attribData\": [\n        {\n          \"foundAuthors\": [\n            \"\",\n            \"\"\n          ],\n          \"foundInFilepath\": \"\",\n          \"purl\": \"\",\n          \"spdxExpr\": \"\"\n        },\n        {\n          \"foundAuthors\": [\n            \"\",\n            \"\"\n          ],\n          \"foundInFilepath\": \"\",\n          \"purl\": \"\",\n          \"spdxExpr\": \"\"\n        }\n      ],\n      \"attribText\": \"\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-e0333f1f-f803-43bb-a324-b93275a07e0c"
+                    },
+                    {
+                      "id": "acc8658f-e74e-474f-9c04-55f2f4f194e1",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/purl?labels=<string>,<string>&alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "purl"
+                          ],
+                          "query": [
+                            {
+                              "description": "Repository label slugs to apply policies. Only one label is supported currently; the parameter is an array to allow future support for multiple labels.",
+                              "key": "labels",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Include alert metadata.",
+                              "key": "alerts",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only alerts with comma separated actions defined by security policy.",
+                              "key": "actions",
+                              "value": "monitor,error"
+                            },
+                            {
+                              "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                              "key": "compact",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only fixable alerts.",
+                              "key": "fixable",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                              "key": "licenseattrib",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include detailed license information, including location and match strength, for each license datum.",
+                              "key": "licensedetails",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Return errors found with handling PURLs as error objects in the stream.",
+                              "key": "purlErrors",
+                              "value": "false"
+                            },
+                            {
+                              "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                              "key": "poll",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                              "key": "cachedResultsOnly",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                              "key": "summary",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                              "key": "timeoutSec",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-acc8658f-e74e-474f-9c04-55f2f4f194e1"
+                    },
+                    {
+                      "id": "05117b4b-a93e-4213-8360-26df693416ef",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/purl?labels=<string>,<string>&alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "purl"
+                          ],
+                          "query": [
+                            {
+                              "description": "Repository label slugs to apply policies. Only one label is supported currently; the parameter is an array to allow future support for multiple labels.",
+                              "key": "labels",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Include alert metadata.",
+                              "key": "alerts",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only alerts with comma separated actions defined by security policy.",
+                              "key": "actions",
+                              "value": "monitor,error"
+                            },
+                            {
+                              "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                              "key": "compact",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only fixable alerts.",
+                              "key": "fixable",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                              "key": "licenseattrib",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include detailed license information, including location and match strength, for each license datum.",
+                              "key": "licensedetails",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Return errors found with handling PURLs as error objects in the stream.",
+                              "key": "purlErrors",
+                              "value": "false"
+                            },
+                            {
+                              "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                              "key": "poll",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                              "key": "cachedResultsOnly",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                              "key": "summary",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                              "key": "timeoutSec",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-05117b4b-a93e-4213-8360-26df693416ef"
+                    },
+                    {
+                      "id": "790efd1c-ee9e-44fa-85d0-f617b68636a8",
+                      "name": "Insufficient max_quota for API method",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/purl?labels=<string>,<string>&alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "purl"
+                          ],
+                          "query": [
+                            {
+                              "description": "Repository label slugs to apply policies. Only one label is supported currently; the parameter is an array to allow future support for multiple labels.",
+                              "key": "labels",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Include alert metadata.",
+                              "key": "alerts",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only alerts with comma separated actions defined by security policy.",
+                              "key": "actions",
+                              "value": "monitor,error"
+                            },
+                            {
+                              "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                              "key": "compact",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only fixable alerts.",
+                              "key": "fixable",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                              "key": "licenseattrib",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include detailed license information, including location and match strength, for each license datum.",
+                              "key": "licensedetails",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Return errors found with handling PURLs as error objects in the stream.",
+                              "key": "purlErrors",
+                              "value": "false"
+                            },
+                            {
+                              "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                              "key": "poll",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                              "key": "cachedResultsOnly",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                              "key": "summary",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                              "key": "timeoutSec",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-790efd1c-ee9e-44fa-85d0-f617b68636a8"
+                    },
+                    {
+                      "id": "c9631a69-7aea-41af-a5fe-007b788c8430",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/purl?labels=<string>,<string>&alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "purl"
+                          ],
+                          "query": [
+                            {
+                              "description": "Repository label slugs to apply policies. Only one label is supported currently; the parameter is an array to allow future support for multiple labels.",
+                              "key": "labels",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Include alert metadata.",
+                              "key": "alerts",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only alerts with comma separated actions defined by security policy.",
+                              "key": "actions",
+                              "value": "monitor,error"
+                            },
+                            {
+                              "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                              "key": "compact",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only fixable alerts.",
+                              "key": "fixable",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                              "key": "licenseattrib",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include detailed license information, including location and match strength, for each license datum.",
+                              "key": "licensedetails",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Return errors found with handling PURLs as error objects in the stream.",
+                              "key": "purlErrors",
+                              "value": "false"
+                            },
+                            {
+                              "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                              "key": "poll",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                              "key": "cachedResultsOnly",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                              "key": "summary",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                              "key": "timeoutSec",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-c9631a69-7aea-41af-a5fe-007b788c8430"
+                    },
+                    {
+                      "id": "374674a5-c1dc-4a03-a95e-eead5fd815d0",
+                      "name": "Insufficient quota for API route",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"components\": [\n    {\n      \"purl\": \"\"\n    },\n    {\n      \"purl\": \"\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/purl?labels=<string>,<string>&alerts=false&actions=monitor,error&compact=false&fixable=false&licenseattrib=false&licensedetails=false&purlErrors=false&poll=false&cachedResultsOnly=false&summary=false&timeoutSec=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "purl"
+                          ],
+                          "query": [
+                            {
+                              "description": "Repository label slugs to apply policies. Only one label is supported currently; the parameter is an array to allow future support for multiple labels.",
+                              "key": "labels",
+                              "value": "<string>,<string>"
+                            },
+                            {
+                              "description": "Include alert metadata.",
+                              "key": "alerts",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only alerts with comma separated actions defined by security policy.",
+                              "key": "actions",
+                              "value": "monitor,error"
+                            },
+                            {
+                              "description": "Compact metadata. When enabled, excludes metadata fields like author, scores, size, dependencies, and manifest files. Always includes: id, type, name, version, release, namespace, subpath, alerts, and alertPriorities.",
+                              "key": "compact",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include only fixable alerts.",
+                              "key": "fixable",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include license attribution data, including license text and author information. Maps attribution/license text to a list of data objects to which that attribution info applies.",
+                              "key": "licenseattrib",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include detailed license information, including location and match strength, for each license datum.",
+                              "key": "licensedetails",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Return errors found with handling PURLs as error objects in the stream.",
+                              "key": "purlErrors",
+                              "value": "false"
+                            },
+                            {
+                              "description": "When true, wait up to timeoutSec for pending analysis to complete before returning. When false (default), return the current known state immediately, including synthesized pendingScan and notFound alerts when alerts=true unless purlErrors=true keeps legacy not-found errors.",
+                              "key": "poll",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Legacy fallback for older clients. Only used when poll is omitted: cachedResultsOnly=true behaves like poll=false, while cachedResultsOnly=false preserves the older blocking behavior.",
+                              "key": "cachedResultsOnly",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Include a summary object at the end of the stream with counts of malformed, resolved, and not found PURLs.",
+                              "key": "summary",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Maximum time in seconds to wait for package resolution and, when poll=true, pending analysis. Inputs that have not completed processing when the timeout is reached return pendingScan alerts when alerts=true, or errors when purlErrors=true.",
+                              "key": "timeoutSec",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                            "type": "text/plain"
+                          },
+                          "key": "Retry-After",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:17:41.000Z",
+                      "updatedAt": "2026-06-05T15:17:41.000Z",
+                      "uid": "35240-374674a5-c1dc-4a03-a95e-eead5fd815d0"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:17:41.000Z",
+                  "updatedAt": "2026-06-05T15:17:41.000Z",
+                  "uid": "35240-bbd5c56e-8633-49e1-b576-d411cceddede"
+                }
+              ],
+              "id": "fe394bf3-388f-4254-be26-e661cb32d2fb",
+              "createdAt": "2026-06-05T15:17:41.000Z",
+              "updatedAt": "2026-06-05T15:17:41.000Z",
+              "uid": "35240-fe394bf3-388f-4254-be26-e661cb32d2fb"
+            }
+          ],
+          "id": "5e8a73e8-94d1-4fa5-9749-258e6bd37e20",
+          "createdAt": "2026-06-05T15:17:41.000Z",
+          "updatedAt": "2026-06-05T15:17:41.000Z",
+          "uid": "35240-5e8a73e8-94d1-4fa5-9749-258e6bd37e20"
+        }
+      ],
+      "id": "37b02778-87eb-495c-9ed8-e3e28fcef767",
+      "createdAt": "2026-06-05T15:17:41.000Z",
+      "updatedAt": "2026-06-05T15:17:41.000Z",
+      "uid": "35240-37b02778-87eb-495c-9ed8-e3e28fcef767"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.socket.dev/v0"
+    }
+  ]
+}

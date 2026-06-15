@@ -1,0 +1,800 @@
+{
+  "info": {
+    "_postman_id": "7703f674-fe4f-4af7-ad65-3d146e4934ed",
+    "name": "Socket Threat Feed API",
+    "description": "Socket threat feed API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:13.000Z",
+    "updatedAt": "2026-06-05T15:18:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7703f674-fe4f-4af7-ad65-3d146e4934ed"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{org_slug}",
+          "item": [
+            {
+              "name": "threat-feed",
+              "item": [
+                {
+                  "name": "Get Threat Feed Items (Beta)",
+                  "id": "96de3f15-a217-411d-b409-aa9f7822b351",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:org_slug/threat-feed?per_page=30&page_cursor=<string>&sort=updated_at&updated_after=<string>&created_after=<string>&direction=desc&filter=mal&name=&version=&is_human_reviewed=false&ecosystem=npm",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":org_slug",
+                        "threat-feed"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of threats per page",
+                          "key": "per_page",
+                          "value": "30"
+                        },
+                        {
+                          "description": "Page cursor token. Pass the returned nextPageCursor to this query string to fetch the next page of the threat feed.",
+                          "key": "page_cursor",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Set the sort order for the threat feed items. Default is descending order by updated_at, which includes all new and updated threat feed items.",
+                          "key": "sort",
+                          "value": "updated_at"
+                        },
+                        {
+                          "description": "A Unix timestamp in seconds that filters results to items only updated after the timestamp.",
+                          "key": "updated_after",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "A Unix timestamp in seconds that filters results to items only created after the date.",
+                          "key": "created_after",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Order direction of the provided sort field.",
+                          "key": "direction",
+                          "value": "desc"
+                        },
+                        {
+                          "description": "Filter by threat classification. Supported values: `mal` (malware, including possible malware), `vuln` (vulnerability), `typo` (typosquat, including possible typosquat), `anom` (anomaly), `spy` (telemetry), `obf` (obfuscated code), `dual` (dual-use tool), `joke` (protestware or joke package), `tp` (all confirmed true positives), `fp` (false positive), `u` (unreviewed), `c` (classified, i.e. anything except unreviewed).",
+                          "key": "filter",
+                          "value": "mal"
+                        },
+                        {
+                          "description": "Filter threats by package name",
+                          "key": "name",
+                          "value": ""
+                        },
+                        {
+                          "description": "Filter threats by package version.",
+                          "key": "version",
+                          "value": ""
+                        },
+                        {
+                          "description": "Only return threats which have been human-reviewed",
+                          "key": "is_human_reviewed",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Filter threats by package ecosystem.",
+                          "key": "ecosystem",
+                          "value": "npm"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "88842acf-f557-41f7-afb9-c97e039e7f0a",
+                          "key": "org_slug",
+                          "value": "<string>",
+                          "description": "(Required) The slug of the organization"
+                        }
+                      ]
+                    },
+                    "description": "Paginated list of threats, sorted by updated_at by default. Set updated_after to the unix timestamp of your last sync while sorting by updated_at to synchronize all new or updated threats in the feed.\n\nThis endpoint requires an Enterprise Plan with Threat Feed add-on. [Contact](https://socket.dev/demo?utm_source=api-docs&utm_medium=referral&utm_campaign=tracking) our sales team for more details.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- threat-feed:list"
+                  },
+                  "response": [
+                    {
+                      "id": "85d3530e-7d6e-47b4-9ae8-ec86a3658caf",
+                      "name": "The paginated list of items in the threat feed and the next page cursor.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/threat-feed?per_page=30&page_cursor=<string>&sort=updated_at&updated_after=<string>&created_after=<string>&direction=desc&filter=mal&name=&version=&is_human_reviewed=false&ecosystem=npm",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "threat-feed"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of threats per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page cursor token. Pass the returned nextPageCursor to this query string to fetch the next page of the threat feed.",
+                              "key": "page_cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Set the sort order for the threat feed items. Default is descending order by updated_at, which includes all new and updated threat feed items.",
+                              "key": "sort",
+                              "value": "updated_at"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only updated after the timestamp.",
+                              "key": "updated_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only created after the date.",
+                              "key": "created_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Order direction of the provided sort field.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Filter by threat classification. Supported values: `mal` (malware, including possible malware), `vuln` (vulnerability), `typo` (typosquat, including possible typosquat), `anom` (anomaly), `spy` (telemetry), `obf` (obfuscated code), `dual` (dual-use tool), `joke` (protestware or joke package), `tp` (all confirmed true positives), `fp` (false positive), `u` (unreviewed), `c` (classified, i.e. anything except unreviewed).",
+                              "key": "filter",
+                              "value": "mal"
+                            },
+                            {
+                              "description": "Filter threats by package name",
+                              "key": "name",
+                              "value": ""
+                            },
+                            {
+                              "description": "Filter threats by package version.",
+                              "key": "version",
+                              "value": ""
+                            },
+                            {
+                              "description": "Only return threats which have been human-reviewed",
+                              "key": "is_human_reviewed",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Filter threats by package ecosystem.",
+                              "key": "ecosystem",
+                              "value": "npm"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"nextPageCursor\": \"\",\n  \"results\": [\n    {\n      \"createdAt\": \"\",\n      \"updatedAt\": \"\",\n      \"publishedAt\": \"\",\n      \"description\": \"\",\n      \"id\": 0,\n      \"locationHtmlUrl\": \"\",\n      \"packageHtmlUrl\": \"\",\n      \"purl\": \"\",\n      \"removedAt\": \"\",\n      \"threatType\": \"\",\n      \"needsHumanReview\": false,\n      \"threatInstanceId\": 0\n    },\n    {\n      \"createdAt\": \"\",\n      \"updatedAt\": \"\",\n      \"publishedAt\": \"\",\n      \"description\": \"\",\n      \"id\": 0,\n      \"locationHtmlUrl\": \"\",\n      \"packageHtmlUrl\": \"\",\n      \"purl\": \"\",\n      \"removedAt\": \"\",\n      \"threatType\": \"\",\n      \"needsHumanReview\": false,\n      \"threatInstanceId\": 0\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:14.000Z",
+                      "updatedAt": "2026-06-05T15:18:14.000Z",
+                      "uid": "35240-85d3530e-7d6e-47b4-9ae8-ec86a3658caf"
+                    },
+                    {
+                      "id": "b423006a-68ee-45c9-aa84-ffbbdeee2740",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/threat-feed?per_page=30&page_cursor=<string>&sort=updated_at&updated_after=<string>&created_after=<string>&direction=desc&filter=mal&name=&version=&is_human_reviewed=false&ecosystem=npm",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "threat-feed"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of threats per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page cursor token. Pass the returned nextPageCursor to this query string to fetch the next page of the threat feed.",
+                              "key": "page_cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Set the sort order for the threat feed items. Default is descending order by updated_at, which includes all new and updated threat feed items.",
+                              "key": "sort",
+                              "value": "updated_at"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only updated after the timestamp.",
+                              "key": "updated_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only created after the date.",
+                              "key": "created_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Order direction of the provided sort field.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Filter by threat classification. Supported values: `mal` (malware, including possible malware), `vuln` (vulnerability), `typo` (typosquat, including possible typosquat), `anom` (anomaly), `spy` (telemetry), `obf` (obfuscated code), `dual` (dual-use tool), `joke` (protestware or joke package), `tp` (all confirmed true positives), `fp` (false positive), `u` (unreviewed), `c` (classified, i.e. anything except unreviewed).",
+                              "key": "filter",
+                              "value": "mal"
+                            },
+                            {
+                              "description": "Filter threats by package name",
+                              "key": "name",
+                              "value": ""
+                            },
+                            {
+                              "description": "Filter threats by package version.",
+                              "key": "version",
+                              "value": ""
+                            },
+                            {
+                              "description": "Only return threats which have been human-reviewed",
+                              "key": "is_human_reviewed",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Filter threats by package ecosystem.",
+                              "key": "ecosystem",
+                              "value": "npm"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:14.000Z",
+                      "updatedAt": "2026-06-05T15:18:14.000Z",
+                      "uid": "35240-b423006a-68ee-45c9-aa84-ffbbdeee2740"
+                    },
+                    {
+                      "id": "f8c1525f-9ffa-4558-8db6-bba60d18d504",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/threat-feed?per_page=30&page_cursor=<string>&sort=updated_at&updated_after=<string>&created_after=<string>&direction=desc&filter=mal&name=&version=&is_human_reviewed=false&ecosystem=npm",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "threat-feed"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of threats per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page cursor token. Pass the returned nextPageCursor to this query string to fetch the next page of the threat feed.",
+                              "key": "page_cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Set the sort order for the threat feed items. Default is descending order by updated_at, which includes all new and updated threat feed items.",
+                              "key": "sort",
+                              "value": "updated_at"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only updated after the timestamp.",
+                              "key": "updated_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only created after the date.",
+                              "key": "created_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Order direction of the provided sort field.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Filter by threat classification. Supported values: `mal` (malware, including possible malware), `vuln` (vulnerability), `typo` (typosquat, including possible typosquat), `anom` (anomaly), `spy` (telemetry), `obf` (obfuscated code), `dual` (dual-use tool), `joke` (protestware or joke package), `tp` (all confirmed true positives), `fp` (false positive), `u` (unreviewed), `c` (classified, i.e. anything except unreviewed).",
+                              "key": "filter",
+                              "value": "mal"
+                            },
+                            {
+                              "description": "Filter threats by package name",
+                              "key": "name",
+                              "value": ""
+                            },
+                            {
+                              "description": "Filter threats by package version.",
+                              "key": "version",
+                              "value": ""
+                            },
+                            {
+                              "description": "Only return threats which have been human-reviewed",
+                              "key": "is_human_reviewed",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Filter threats by package ecosystem.",
+                              "key": "ecosystem",
+                              "value": "npm"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:14.000Z",
+                      "updatedAt": "2026-06-05T15:18:14.000Z",
+                      "uid": "35240-f8c1525f-9ffa-4558-8db6-bba60d18d504"
+                    },
+                    {
+                      "id": "2ba57044-eece-4f2d-959e-1b244549fe35",
+                      "name": "Insufficient max_quota for API method",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/threat-feed?per_page=30&page_cursor=<string>&sort=updated_at&updated_after=<string>&created_after=<string>&direction=desc&filter=mal&name=&version=&is_human_reviewed=false&ecosystem=npm",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "threat-feed"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of threats per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page cursor token. Pass the returned nextPageCursor to this query string to fetch the next page of the threat feed.",
+                              "key": "page_cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Set the sort order for the threat feed items. Default is descending order by updated_at, which includes all new and updated threat feed items.",
+                              "key": "sort",
+                              "value": "updated_at"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only updated after the timestamp.",
+                              "key": "updated_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only created after the date.",
+                              "key": "created_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Order direction of the provided sort field.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Filter by threat classification. Supported values: `mal` (malware, including possible malware), `vuln` (vulnerability), `typo` (typosquat, including possible typosquat), `anom` (anomaly), `spy` (telemetry), `obf` (obfuscated code), `dual` (dual-use tool), `joke` (protestware or joke package), `tp` (all confirmed true positives), `fp` (false positive), `u` (unreviewed), `c` (classified, i.e. anything except unreviewed).",
+                              "key": "filter",
+                              "value": "mal"
+                            },
+                            {
+                              "description": "Filter threats by package name",
+                              "key": "name",
+                              "value": ""
+                            },
+                            {
+                              "description": "Filter threats by package version.",
+                              "key": "version",
+                              "value": ""
+                            },
+                            {
+                              "description": "Only return threats which have been human-reviewed",
+                              "key": "is_human_reviewed",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Filter threats by package ecosystem.",
+                              "key": "ecosystem",
+                              "value": "npm"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:14.000Z",
+                      "updatedAt": "2026-06-05T15:18:14.000Z",
+                      "uid": "35240-2ba57044-eece-4f2d-959e-1b244549fe35"
+                    },
+                    {
+                      "id": "d81f37ae-588b-46db-b1f0-31f0a14acb79",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/threat-feed?per_page=30&page_cursor=<string>&sort=updated_at&updated_after=<string>&created_after=<string>&direction=desc&filter=mal&name=&version=&is_human_reviewed=false&ecosystem=npm",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "threat-feed"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of threats per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page cursor token. Pass the returned nextPageCursor to this query string to fetch the next page of the threat feed.",
+                              "key": "page_cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Set the sort order for the threat feed items. Default is descending order by updated_at, which includes all new and updated threat feed items.",
+                              "key": "sort",
+                              "value": "updated_at"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only updated after the timestamp.",
+                              "key": "updated_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only created after the date.",
+                              "key": "created_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Order direction of the provided sort field.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Filter by threat classification. Supported values: `mal` (malware, including possible malware), `vuln` (vulnerability), `typo` (typosquat, including possible typosquat), `anom` (anomaly), `spy` (telemetry), `obf` (obfuscated code), `dual` (dual-use tool), `joke` (protestware or joke package), `tp` (all confirmed true positives), `fp` (false positive), `u` (unreviewed), `c` (classified, i.e. anything except unreviewed).",
+                              "key": "filter",
+                              "value": "mal"
+                            },
+                            {
+                              "description": "Filter threats by package name",
+                              "key": "name",
+                              "value": ""
+                            },
+                            {
+                              "description": "Filter threats by package version.",
+                              "key": "version",
+                              "value": ""
+                            },
+                            {
+                              "description": "Only return threats which have been human-reviewed",
+                              "key": "is_human_reviewed",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Filter threats by package ecosystem.",
+                              "key": "ecosystem",
+                              "value": "npm"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:14.000Z",
+                      "updatedAt": "2026-06-05T15:18:14.000Z",
+                      "uid": "35240-d81f37ae-588b-46db-b1f0-31f0a14acb79"
+                    },
+                    {
+                      "id": "561ecbc0-1dff-4b87-8807-5710385a60f2",
+                      "name": "Insufficient quota for API route",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/threat-feed?per_page=30&page_cursor=<string>&sort=updated_at&updated_after=<string>&created_after=<string>&direction=desc&filter=mal&name=&version=&is_human_reviewed=false&ecosystem=npm",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "threat-feed"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of threats per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page cursor token. Pass the returned nextPageCursor to this query string to fetch the next page of the threat feed.",
+                              "key": "page_cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Set the sort order for the threat feed items. Default is descending order by updated_at, which includes all new and updated threat feed items.",
+                              "key": "sort",
+                              "value": "updated_at"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only updated after the timestamp.",
+                              "key": "updated_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds that filters results to items only created after the date.",
+                              "key": "created_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Order direction of the provided sort field.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Filter by threat classification. Supported values: `mal` (malware, including possible malware), `vuln` (vulnerability), `typo` (typosquat, including possible typosquat), `anom` (anomaly), `spy` (telemetry), `obf` (obfuscated code), `dual` (dual-use tool), `joke` (protestware or joke package), `tp` (all confirmed true positives), `fp` (false positive), `u` (unreviewed), `c` (classified, i.e. anything except unreviewed).",
+                              "key": "filter",
+                              "value": "mal"
+                            },
+                            {
+                              "description": "Filter threats by package name",
+                              "key": "name",
+                              "value": ""
+                            },
+                            {
+                              "description": "Filter threats by package version.",
+                              "key": "version",
+                              "value": ""
+                            },
+                            {
+                              "description": "Only return threats which have been human-reviewed",
+                              "key": "is_human_reviewed",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Filter threats by package ecosystem.",
+                              "key": "ecosystem",
+                              "value": "npm"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                            "type": "text/plain"
+                          },
+                          "key": "Retry-After",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:14.000Z",
+                      "updatedAt": "2026-06-05T15:18:14.000Z",
+                      "uid": "35240-561ecbc0-1dff-4b87-8807-5710385a60f2"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:14.000Z",
+                  "updatedAt": "2026-06-05T15:18:14.000Z",
+                  "uid": "35240-96de3f15-a217-411d-b409-aa9f7822b351"
+                }
+              ],
+              "id": "a9975f51-0c3c-48bf-a9c2-3b33588e9b6f",
+              "createdAt": "2026-06-05T15:18:14.000Z",
+              "updatedAt": "2026-06-05T15:18:14.000Z",
+              "uid": "35240-a9975f51-0c3c-48bf-a9c2-3b33588e9b6f"
+            }
+          ],
+          "id": "0c3ea056-6b4c-4a7b-991e-77d0faa80fd5",
+          "createdAt": "2026-06-05T15:18:14.000Z",
+          "updatedAt": "2026-06-05T15:18:14.000Z",
+          "uid": "35240-0c3ea056-6b4c-4a7b-991e-77d0faa80fd5"
+        }
+      ],
+      "id": "83cc57f3-a7c5-49d8-bf29-ac38fc957264",
+      "createdAt": "2026-06-05T15:18:14.000Z",
+      "updatedAt": "2026-06-05T15:18:14.000Z",
+      "uid": "35240-83cc57f3-a7c5-49d8-bf29-ac38fc957264"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.socket.dev/v0"
+    }
+  ]
+}

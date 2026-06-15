@@ -1,0 +1,312 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Socket Org Settings API",
+    "version": "0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "org-settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get integration events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/settings/integrations/:integration_id/events",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "integration_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the integration"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- integration:list"
+        },
+        {
+          "info": {
+            "name": "Get Socket Basics configuration, including toggles for the various tools it supports.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/settings/socket-basics",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Socket Basics is a CI/CD security scanning suite that runs on your source code, designed to complement Socket SCA and provide full coverage.\n\n- **SAST** - Find issues and risks with your code via static analysis using best in class Open Source tools\n- **Secret Scanning** - Detected potentially leaked secrets and credentials within your code\n- **Container Security** - Docker image and Dockerfile vulnerability scanning\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the follo"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "security-policy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Organization Security Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/settings/security-policy",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "custom_rules_only",
+                "value": "",
+                "type": "query",
+                "description": "Return only customized security policy rules."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve the security policy of an organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- security-policy:read"
+        },
+        {
+          "info": {
+            "name": "Update Security Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/settings/security-policy",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "custom_rules_only",
+                "value": "",
+                "type": "query",
+                "description": "Return only customized security policy rules in the response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the security policy of an organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- security-policy:update"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "license-policy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update License Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/settings/license-policy",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              },
+              {
+                "name": "merge_update",
+                "value": "",
+                "type": "query",
+                "description": "Merge the policy update with the existing policy. Default is true. If false, the existing policy will be replaced with the new policy."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Set the organization's license policy\n\n      ## License policy schema\n\n```json\n{\n  allow?: Array<string>\n  warn?: Array<string>\n  options?: Array<string>\n}\n```\n\nElements of the `allow` and `warn` arrays strings representing items which should be allowed, or which should trigger a warning; license data found in package which not present in either array will produce a license violation (effectively a \"hard\" error). For example, to allow Apache-2.0 and MIT to the allow list, simply add the strings "
+        },
+        {
+          "info": {
+            "name": "Get License Policy (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/settings/license-policy/view",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns an organization's license policy including allow, warn, monitor, and deny categories.\nThe deny category contains all licenses that are not explicitly categorized as allow, warn, or monitor.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- license-policy:read"
+        },
+        {
+          "info": {
+            "name": "License Policy (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/license-policy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Compare the license data found for a list of packages (given as PURL strings) with the contents of a configurable license policy,\n    returning information about license data which does not comply with the license allow list.\n\n    ## Example request body:\n\n    ```json\n    {\n      \"components\": [\n        {\n          \"purl\": \"pkg:npm/lodash@4.17.21\"\n        },\n        {\n          \"purl\": \"pkg:npm/lodash@4.14.1\"\n        }\n      ],\n      \"allow\": [\n        \"permissive\",\n        \"pkg:npm/lodash?file_"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "telemetry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Organization Telemetry Config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/telemetry/config",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve the telemetry config of an organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:"
+        },
+        {
+          "info": {
+            "name": "Update Telemetry Config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.socket.dev/v0/orgs/:org_slug/telemetry/config",
+            "params": [
+              {
+                "name": "org_slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug of the organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the telemetry config of an organization.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- telemetry-policy:update"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "License Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.socket.dev/v0/license-metadata",
+            "params": [
+              {
+                "name": "includetext",
+                "value": "",
+                "type": "query",
+                "description": "If `true`, the response will include the full text of the requested licenses"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "For an array of license identifiers or names (short form SPDX identifiers, or long form license names),\n    returns an array of metadata for the corresponding license, if the license is recognized. If the query\n    parameter `includetext=true` is set, the returned metadata will also include the license text.\n\n\n    ## Example request body:\n\n    ```json\n    [\n      \"Apache-2.0\",\n      \"BSD Zero Clause License\"\n    ]\n    ```\n\n\n    ## Return value\n\n    ```json\n    // Response schema:\n    Array<{\n   "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

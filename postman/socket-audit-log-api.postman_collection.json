@@ -1,0 +1,555 @@
+{
+  "info": {
+    "_postman_id": "7869b0ca-42f1-4ff5-8bcf-416b76a9451c",
+    "name": "Socket Audit Log API",
+    "description": "Socket audit log API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:30.000Z",
+    "updatedAt": "2026-06-05T15:18:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7869b0ca-42f1-4ff5-8bcf-416b76a9451c"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{org_slug}",
+          "item": [
+            {
+              "name": "audit-log",
+              "item": [
+                {
+                  "name": "Get Audit Log Events",
+                  "id": "1f655fe9-73e3-4f62-abd1-4fe124383292",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:org_slug/audit-log?type=UpdateAutopatchCurated&per_page=30&page=1&from=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":org_slug",
+                        "audit-log"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter audit log events by type. Omit for all types.",
+                          "key": "type",
+                          "value": "UpdateAutopatchCurated"
+                        },
+                        {
+                          "description": "Number of events per page",
+                          "key": "per_page",
+                          "value": "30"
+                        },
+                        {
+                          "description": "Page token",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "A Unix timestamp in seconds to filter results prior to this date.",
+                          "key": "from",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "d055a242-119e-418d-bd9a-4b243379498e",
+                          "key": "org_slug",
+                          "value": "<string>",
+                          "description": "(Required) The slug of the organization"
+                        }
+                      ]
+                    },
+                    "description": "Paginated list of audit log events.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- audit-log:list"
+                  },
+                  "response": [
+                    {
+                      "id": "ad8a9bfd-4b74-4d43-8661-9d6b21a0b423",
+                      "name": "The paginated list of events in an organizations audit log and the next page querystring token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/audit-log?type=UpdateAutopatchCurated&per_page=30&page=1&from=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter audit log events by type. Omit for all types.",
+                              "key": "type",
+                              "value": "UpdateAutopatchCurated"
+                            },
+                            {
+                              "description": "Number of events per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page token",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds to filter results prior to this date.",
+                              "key": "from",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"nextPage\": \"\",\n  \"results\": [\n    {\n      \"event_id\": \"\",\n      \"created_at\": \"\",\n      \"updated_at\": \"\",\n      \"country_code\": \"\",\n      \"organization_id\": \"\",\n      \"ip_address\": \"\",\n      \"payload\": null,\n      \"status_code\": 0,\n      \"type\": \"\",\n      \"user_agent\": \"\",\n      \"user_id\": \"\",\n      \"user_email\": \"\",\n      \"user_image\": \"\",\n      \"organization_name\": \"\"\n    },\n    {\n      \"event_id\": \"\",\n      \"created_at\": \"\",\n      \"updated_at\": \"\",\n      \"country_code\": \"\",\n      \"organization_id\": \"\",\n      \"ip_address\": \"\",\n      \"payload\": null,\n      \"status_code\": 0,\n      \"type\": \"\",\n      \"user_agent\": \"\",\n      \"user_id\": \"\",\n      \"user_email\": \"\",\n      \"user_image\": \"\",\n      \"organization_name\": \"\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:31.000Z",
+                      "updatedAt": "2026-06-05T15:18:31.000Z",
+                      "uid": "35240-ad8a9bfd-4b74-4d43-8661-9d6b21a0b423"
+                    },
+                    {
+                      "id": "e5246851-69d9-4e1c-95b5-115724e1158c",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/audit-log?type=UpdateAutopatchCurated&per_page=30&page=1&from=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter audit log events by type. Omit for all types.",
+                              "key": "type",
+                              "value": "UpdateAutopatchCurated"
+                            },
+                            {
+                              "description": "Number of events per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page token",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds to filter results prior to this date.",
+                              "key": "from",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:31.000Z",
+                      "updatedAt": "2026-06-05T15:18:31.000Z",
+                      "uid": "35240-e5246851-69d9-4e1c-95b5-115724e1158c"
+                    },
+                    {
+                      "id": "250605c6-c378-42b5-9baa-9a572d504a8c",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/audit-log?type=UpdateAutopatchCurated&per_page=30&page=1&from=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter audit log events by type. Omit for all types.",
+                              "key": "type",
+                              "value": "UpdateAutopatchCurated"
+                            },
+                            {
+                              "description": "Number of events per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page token",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds to filter results prior to this date.",
+                              "key": "from",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:31.000Z",
+                      "updatedAt": "2026-06-05T15:18:31.000Z",
+                      "uid": "35240-250605c6-c378-42b5-9baa-9a572d504a8c"
+                    },
+                    {
+                      "id": "2f38b43f-45ce-476a-9ce9-82e5d66e6849",
+                      "name": "Insufficient max_quota for API method",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/audit-log?type=UpdateAutopatchCurated&per_page=30&page=1&from=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter audit log events by type. Omit for all types.",
+                              "key": "type",
+                              "value": "UpdateAutopatchCurated"
+                            },
+                            {
+                              "description": "Number of events per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page token",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds to filter results prior to this date.",
+                              "key": "from",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:31.000Z",
+                      "updatedAt": "2026-06-05T15:18:31.000Z",
+                      "uid": "35240-2f38b43f-45ce-476a-9ce9-82e5d66e6849"
+                    },
+                    {
+                      "id": "3b6f2f91-1462-4327-9aee-11d2ee58c7e0",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/audit-log?type=UpdateAutopatchCurated&per_page=30&page=1&from=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter audit log events by type. Omit for all types.",
+                              "key": "type",
+                              "value": "UpdateAutopatchCurated"
+                            },
+                            {
+                              "description": "Number of events per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page token",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds to filter results prior to this date.",
+                              "key": "from",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:31.000Z",
+                      "updatedAt": "2026-06-05T15:18:31.000Z",
+                      "uid": "35240-3b6f2f91-1462-4327-9aee-11d2ee58c7e0"
+                    },
+                    {
+                      "id": "c7b70c9e-6a3d-4a7e-bd9c-83c64882973c",
+                      "name": "Insufficient quota for API route",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/audit-log?type=UpdateAutopatchCurated&per_page=30&page=1&from=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "audit-log"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter audit log events by type. Omit for all types.",
+                              "key": "type",
+                              "value": "UpdateAutopatchCurated"
+                            },
+                            {
+                              "description": "Number of events per page",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "Page token",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "A Unix timestamp in seconds to filter results prior to this date.",
+                              "key": "from",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                            "type": "text/plain"
+                          },
+                          "key": "Retry-After",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:31.000Z",
+                      "updatedAt": "2026-06-05T15:18:31.000Z",
+                      "uid": "35240-c7b70c9e-6a3d-4a7e-bd9c-83c64882973c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:31.000Z",
+                  "updatedAt": "2026-06-05T15:18:31.000Z",
+                  "uid": "35240-1f655fe9-73e3-4f62-abd1-4fe124383292"
+                }
+              ],
+              "id": "6e4d2e95-295a-4e06-bf1d-c01d84f2694f",
+              "createdAt": "2026-06-05T15:18:31.000Z",
+              "updatedAt": "2026-06-05T15:18:31.000Z",
+              "uid": "35240-6e4d2e95-295a-4e06-bf1d-c01d84f2694f"
+            }
+          ],
+          "id": "be98dacf-317e-4098-85eb-0eaafb5cdea1",
+          "createdAt": "2026-06-05T15:18:31.000Z",
+          "updatedAt": "2026-06-05T15:18:31.000Z",
+          "uid": "35240-be98dacf-317e-4098-85eb-0eaafb5cdea1"
+        }
+      ],
+      "id": "0cd03ba6-6dfd-43e7-af26-b32ad508dd8e",
+      "createdAt": "2026-06-05T15:18:31.000Z",
+      "updatedAt": "2026-06-05T15:18:31.000Z",
+      "uid": "35240-0cd03ba6-6dfd-43e7-af26-b32ad508dd8e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.socket.dev/v0"
+    }
+  ]
+}

@@ -1,0 +1,1002 @@
+{
+  "info": {
+    "_postman_id": "ec03a42c-00ba-4cc9-a304-3d2fd7fa833c",
+    "name": "Socket Org Snapshots API",
+    "description": "Socket org snapshots API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:32.000Z",
+    "updatedAt": "2026-06-05T15:18:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ec03a42c-00ba-4cc9-a304-3d2fd7fa833c"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{org_slug}",
+          "item": [
+            {
+              "name": "historical",
+              "item": [
+                {
+                  "name": "snapshots",
+                  "item": [
+                    {
+                      "name": "List details of periodic historical data snapshots (Beta)",
+                      "id": "6c3ef380-aec3-45f6-8278-be1fa4a2f69d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots?date=CURRENT_DATE&range=-7d&per_page=10000&startAfterCursor=&filters.status=&filters.requestId=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "historical",
+                            "snapshots"
+                          ],
+                          "query": [
+                            {
+                              "description": "The UTC date in YYYY-MM-DD format for which to fetch snapshots",
+                              "key": "date",
+                              "value": "CURRENT_DATE"
+                            },
+                            {
+                              "description": "The number of days of data to fetch as an offset from input date (e.g. \"-7d\" or \"7d\") or use \"latest\" to query for latest snapshots for each repo",
+                              "key": "range",
+                              "value": "-7d"
+                            },
+                            {
+                              "description": "Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)",
+                              "key": "per_page",
+                              "value": "10000"
+                            },
+                            {
+                              "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request",
+                              "key": "startAfterCursor",
+                              "value": ""
+                            },
+                            {
+                              "description": "Comma-separated list of historical snapshot statuses that should be included (allowed: \"in-progress\", \"success\", \"failure\", \"timeout\", \"skipped\")",
+                              "key": "filters.status",
+                              "value": ""
+                            },
+                            {
+                              "description": "Comma-separated list of requestId values that were used to start the historical snapshot job",
+                              "key": "filters.requestId",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "33cf89d4-c28b-435b-b503-4955f093f105",
+                              "key": "org_slug",
+                              "value": "<string>",
+                              "description": "(Required) The slug of the organization"
+                            }
+                          ]
+                        },
+                        "description": "This API endpoint is used to list the details of historical snapshots.\nSnapshots of organization data are taken periodically, and each historical snapshot record contains high-level overview metrics about the data that was collected.\nOther [Historical Data Endpoints](/reference/historical-data-endpoints) can be used to fetch the raw data associated with each snapshot.\n\nHistorical snapshots contain details and raw data for the following resources:\n\n- Repositories\n- Alerts\n- Dependencies\n- Artifacts\n- Users\n- Settings\n\nDaily snapshot data is bucketed to the nearest day which is described in more detail at: [Historical Data Endpoints](/reference/historical-data-endpoints)\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- historical:snapshots-list"
+                      },
+                      "response": [
+                        {
+                          "id": "baa81689-7347-483b-aec9-40c30f9377f4",
+                          "name": "The historical snapshots.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots?date=CURRENT_DATE&range=-7d&per_page=10000&startAfterCursor=&filters.status=&filters.requestId=",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The UTC date in YYYY-MM-DD format for which to fetch snapshots",
+                                  "key": "date",
+                                  "value": "CURRENT_DATE"
+                                },
+                                {
+                                  "description": "The number of days of data to fetch as an offset from input date (e.g. \"-7d\" or \"7d\") or use \"latest\" to query for latest snapshots for each repo",
+                                  "key": "range",
+                                  "value": "-7d"
+                                },
+                                {
+                                  "description": "Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)",
+                                  "key": "per_page",
+                                  "value": "10000"
+                                },
+                                {
+                                  "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request",
+                                  "key": "startAfterCursor",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of historical snapshot statuses that should be included (allowed: \"in-progress\", \"success\", \"failure\", \"timeout\", \"skipped\")",
+                                  "key": "filters.status",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of requestId values that were used to start the historical snapshot job",
+                                  "key": "filters.requestId",
+                                  "value": ""
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"endCursor\": \"\",\n  \"items\": [\n    {\n      \"durationMs\": 0,\n      \"finishedAt\": \"\",\n      \"id\": \"\",\n      \"numCriticalAlerts\": 0,\n      \"numHighAlerts\": 0,\n      \"numIgnoredCriticalAlerts\": 0,\n      \"numIgnoredHighAlerts\": 0,\n      \"numIgnoredLowAlerts\": 0,\n      \"numIgnoredMediumAlerts\": 0,\n      \"numLowAlerts\": 0,\n      \"numMediumAlerts\": 0,\n      \"numReposScanned\": 0,\n      \"numSbomsScanned\": 0,\n      \"requestId\": \"\",\n      \"requestedAt\": \"\",\n      \"requestedBy\": \"\",\n      \"startedAt\": \"\",\n      \"status\": \"\"\n    },\n    {\n      \"durationMs\": 0,\n      \"finishedAt\": \"\",\n      \"id\": \"\",\n      \"numCriticalAlerts\": 0,\n      \"numHighAlerts\": 0,\n      \"numIgnoredCriticalAlerts\": 0,\n      \"numIgnoredHighAlerts\": 0,\n      \"numIgnoredLowAlerts\": 0,\n      \"numIgnoredMediumAlerts\": 0,\n      \"numLowAlerts\": 0,\n      \"numMediumAlerts\": 0,\n      \"numReposScanned\": 0,\n      \"numSbomsScanned\": 0,\n      \"requestId\": \"\",\n      \"requestedAt\": \"\",\n      \"requestedBy\": \"\",\n      \"startedAt\": \"\",\n      \"status\": \"\"\n    }\n  ],\n  \"meta\": {\n    \"endDateInclusive\": \"\",\n    \"filters\": {\n      \"status\": [\n        \"\",\n        \"\"\n      ],\n      \"requestId\": [\n        \"\",\n        \"\"\n      ]\n    },\n    \"organizationId\": \"\",\n    \"queryStartTimestamp\": 0,\n    \"startDateInclusive\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-baa81689-7347-483b-aec9-40c30f9377f4"
+                        },
+                        {
+                          "id": "426f67b3-51a1-4a7b-8487-5555e343c615",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots?date=CURRENT_DATE&range=-7d&per_page=10000&startAfterCursor=&filters.status=&filters.requestId=",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The UTC date in YYYY-MM-DD format for which to fetch snapshots",
+                                  "key": "date",
+                                  "value": "CURRENT_DATE"
+                                },
+                                {
+                                  "description": "The number of days of data to fetch as an offset from input date (e.g. \"-7d\" or \"7d\") or use \"latest\" to query for latest snapshots for each repo",
+                                  "key": "range",
+                                  "value": "-7d"
+                                },
+                                {
+                                  "description": "Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)",
+                                  "key": "per_page",
+                                  "value": "10000"
+                                },
+                                {
+                                  "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request",
+                                  "key": "startAfterCursor",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of historical snapshot statuses that should be included (allowed: \"in-progress\", \"success\", \"failure\", \"timeout\", \"skipped\")",
+                                  "key": "filters.status",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of requestId values that were used to start the historical snapshot job",
+                                  "key": "filters.requestId",
+                                  "value": ""
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-426f67b3-51a1-4a7b-8487-5555e343c615"
+                        },
+                        {
+                          "id": "78582900-4c55-481a-991d-dc391a414222",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots?date=CURRENT_DATE&range=-7d&per_page=10000&startAfterCursor=&filters.status=&filters.requestId=",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The UTC date in YYYY-MM-DD format for which to fetch snapshots",
+                                  "key": "date",
+                                  "value": "CURRENT_DATE"
+                                },
+                                {
+                                  "description": "The number of days of data to fetch as an offset from input date (e.g. \"-7d\" or \"7d\") or use \"latest\" to query for latest snapshots for each repo",
+                                  "key": "range",
+                                  "value": "-7d"
+                                },
+                                {
+                                  "description": "Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)",
+                                  "key": "per_page",
+                                  "value": "10000"
+                                },
+                                {
+                                  "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request",
+                                  "key": "startAfterCursor",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of historical snapshot statuses that should be included (allowed: \"in-progress\", \"success\", \"failure\", \"timeout\", \"skipped\")",
+                                  "key": "filters.status",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of requestId values that were used to start the historical snapshot job",
+                                  "key": "filters.requestId",
+                                  "value": ""
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-78582900-4c55-481a-991d-dc391a414222"
+                        },
+                        {
+                          "id": "59034eca-f985-4627-b5c3-4b25855e8b69",
+                          "name": "Insufficient max_quota for API method",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots?date=CURRENT_DATE&range=-7d&per_page=10000&startAfterCursor=&filters.status=&filters.requestId=",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The UTC date in YYYY-MM-DD format for which to fetch snapshots",
+                                  "key": "date",
+                                  "value": "CURRENT_DATE"
+                                },
+                                {
+                                  "description": "The number of days of data to fetch as an offset from input date (e.g. \"-7d\" or \"7d\") or use \"latest\" to query for latest snapshots for each repo",
+                                  "key": "range",
+                                  "value": "-7d"
+                                },
+                                {
+                                  "description": "Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)",
+                                  "key": "per_page",
+                                  "value": "10000"
+                                },
+                                {
+                                  "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request",
+                                  "key": "startAfterCursor",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of historical snapshot statuses that should be included (allowed: \"in-progress\", \"success\", \"failure\", \"timeout\", \"skipped\")",
+                                  "key": "filters.status",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of requestId values that were used to start the historical snapshot job",
+                                  "key": "filters.requestId",
+                                  "value": ""
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-59034eca-f985-4627-b5c3-4b25855e8b69"
+                        },
+                        {
+                          "id": "8201605c-bcb8-428a-9be4-3c6e0a9c0f4d",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots?date=CURRENT_DATE&range=-7d&per_page=10000&startAfterCursor=&filters.status=&filters.requestId=",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The UTC date in YYYY-MM-DD format for which to fetch snapshots",
+                                  "key": "date",
+                                  "value": "CURRENT_DATE"
+                                },
+                                {
+                                  "description": "The number of days of data to fetch as an offset from input date (e.g. \"-7d\" or \"7d\") or use \"latest\" to query for latest snapshots for each repo",
+                                  "key": "range",
+                                  "value": "-7d"
+                                },
+                                {
+                                  "description": "Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)",
+                                  "key": "per_page",
+                                  "value": "10000"
+                                },
+                                {
+                                  "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request",
+                                  "key": "startAfterCursor",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of historical snapshot statuses that should be included (allowed: \"in-progress\", \"success\", \"failure\", \"timeout\", \"skipped\")",
+                                  "key": "filters.status",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of requestId values that were used to start the historical snapshot job",
+                                  "key": "filters.requestId",
+                                  "value": ""
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-8201605c-bcb8-428a-9be4-3c6e0a9c0f4d"
+                        },
+                        {
+                          "id": "1514d762-47a2-4dbb-a029-92f6db998c18",
+                          "name": "Insufficient quota for API route",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots?date=CURRENT_DATE&range=-7d&per_page=10000&startAfterCursor=&filters.status=&filters.requestId=",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The UTC date in YYYY-MM-DD format for which to fetch snapshots",
+                                  "key": "date",
+                                  "value": "CURRENT_DATE"
+                                },
+                                {
+                                  "description": "The number of days of data to fetch as an offset from input date (e.g. \"-7d\" or \"7d\") or use \"latest\" to query for latest snapshots for each repo",
+                                  "key": "range",
+                                  "value": "-7d"
+                                },
+                                {
+                                  "description": "Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check \"endCursor\" in response body to know if there are more pages)",
+                                  "key": "per_page",
+                                  "value": "10000"
+                                },
+                                {
+                                  "description": "The pagination cursor that was returned as the \"endCursor\" property in previous request",
+                                  "key": "startAfterCursor",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of historical snapshot statuses that should be included (allowed: \"in-progress\", \"success\", \"failure\", \"timeout\", \"skipped\")",
+                                  "key": "filters.status",
+                                  "value": ""
+                                },
+                                {
+                                  "description": "Comma-separated list of requestId values that were used to start the historical snapshot job",
+                                  "key": "filters.requestId",
+                                  "value": ""
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                "type": "text/plain"
+                              },
+                              "key": "Retry-After",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-1514d762-47a2-4dbb-a029-92f6db998c18"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:32.000Z",
+                      "updatedAt": "2026-06-05T15:18:32.000Z",
+                      "uid": "35240-6c3ef380-aec3-45f6-8278-be1fa4a2f69d"
+                    },
+                    {
+                      "name": "Start historical data snapshot job (Beta)",
+                      "id": "37d19959-7d36-4ca0-b3c2-93a7ba7938ec",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "historical",
+                            "snapshots"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5453946d-e7f4-471f-9781-3db1b8c2e83e",
+                              "key": "org_slug",
+                              "value": "<string>",
+                              "description": "(Required) The slug of the organization"
+                            }
+                          ]
+                        },
+                        "description": "This API endpoint is used to start a historical snapshot job.\nWhile snapshots are typically taken multiple times a day for paid plans and once a day for free plans, this endpoint can be used to start an \"on demand\" snapshot job to ensure the latest data is collected and stored for historical purposes.\n\nAn historical snapshot will contain details and raw data for the following resources:\n\n- Repositories\n- Alerts\n- Dependencies\n- Artifacts\n- Users\n- Settings\n\nHistorical snapshot data is bucketed to the nearest day which is described in more detail at: [Historical Data Endpoints](/reference/historical-data-endpoints)\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- historical:snapshots-start"
+                      },
+                      "response": [
+                        {
+                          "id": "8d06f0f0-ead6-45b1-82f1-3cf4ffde986b",
+                          "name": "The details of the snapshot job request.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"requestId\": \"\",\n  \"requestedAt\": \"\",\n  \"requestedBy\": \"\"\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-8d06f0f0-ead6-45b1-82f1-3cf4ffde986b"
+                        },
+                        {
+                          "id": "f7a4c631-816c-4964-93ca-d30a9bdf3651",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-f7a4c631-816c-4964-93ca-d30a9bdf3651"
+                        },
+                        {
+                          "id": "3fe30e5f-712c-41fb-a248-fa0d93319abc",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-3fe30e5f-712c-41fb-a248-fa0d93319abc"
+                        },
+                        {
+                          "id": "7b9ab775-dd2d-48ce-ae5f-1c3e75472527",
+                          "name": "Insufficient max_quota for API method",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-7b9ab775-dd2d-48ce-ae5f-1c3e75472527"
+                        },
+                        {
+                          "id": "c41c46b9-2f02-41fb-ad86-476336ef5f37",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-c41c46b9-2f02-41fb-ad86-476336ef5f37"
+                        },
+                        {
+                          "id": "8c742281-7add-41a8-95f7-8b658e2c753d",
+                          "name": "Insufficient quota for API route",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/historical/snapshots",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "historical",
+                                "snapshots"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                "type": "text/plain"
+                              },
+                              "key": "Retry-After",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:32.000Z",
+                          "updatedAt": "2026-06-05T15:18:32.000Z",
+                          "uid": "35240-8c742281-7add-41a8-95f7-8b658e2c753d"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:32.000Z",
+                      "updatedAt": "2026-06-05T15:18:32.000Z",
+                      "uid": "35240-37d19959-7d36-4ca0-b3c2-93a7ba7938ec"
+                    }
+                  ],
+                  "id": "459cd313-8fba-4331-8d4d-4b2378f3999a",
+                  "createdAt": "2026-06-05T15:18:32.000Z",
+                  "updatedAt": "2026-06-05T15:18:32.000Z",
+                  "uid": "35240-459cd313-8fba-4331-8d4d-4b2378f3999a"
+                }
+              ],
+              "id": "8a22251a-941b-456d-af79-d750da8fb34e",
+              "createdAt": "2026-06-05T15:18:32.000Z",
+              "updatedAt": "2026-06-05T15:18:32.000Z",
+              "uid": "35240-8a22251a-941b-456d-af79-d750da8fb34e"
+            }
+          ],
+          "id": "9e59235f-0835-4323-904b-473b6928f960",
+          "createdAt": "2026-06-05T15:18:32.000Z",
+          "updatedAt": "2026-06-05T15:18:32.000Z",
+          "uid": "35240-9e59235f-0835-4323-904b-473b6928f960"
+        }
+      ],
+      "id": "4ec1b2ea-7ba1-4787-89e4-007f21782ee3",
+      "createdAt": "2026-06-05T15:18:32.000Z",
+      "updatedAt": "2026-06-05T15:18:32.000Z",
+      "uid": "35240-4ec1b2ea-7ba1-4787-89e4-007f21782ee3"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.socket.dev/v0"
+    }
+  ]
+}

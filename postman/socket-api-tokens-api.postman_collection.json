@@ -1,0 +1,2569 @@
+{
+  "info": {
+    "_postman_id": "06c22c7d-8208-4d02-b4a9-581ec894a9e1",
+    "name": "Socket Api Tokens API",
+    "description": "Socket api tokens API endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:18:29.000Z",
+    "updatedAt": "2026-06-05T15:18:29.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-06c22c7d-8208-4d02-b4a9-581ec894a9e1"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{org_slug}",
+          "item": [
+            {
+              "name": "api-tokens",
+              "item": [
+                {
+                  "name": "update",
+                  "item": [
+                    {
+                      "name": "Update API Token",
+                      "id": "366fe305-2396-4c59-81f4-72d1eb90161a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"uuid\": \"\",\n  \"id\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/update",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens",
+                            "update"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0060fd01-e43b-4e00-aa81-f4e6591aa67f",
+                              "key": "org_slug",
+                              "value": "<string>",
+                              "description": "(Required) The slug of the organization"
+                            }
+                          ]
+                        },
+                        "description": "Update an API Token. The API Token created must use a subset of permissions the API token creating them.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- api-tokens:create"
+                      },
+                      "response": [
+                        {
+                          "id": "5b780698-37bb-4c3e-b5ab-e3241c3f8572",
+                          "name": "The updated token.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"uuid\": \"\",\n  \"id\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "update"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"hash\": \"\"\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-5b780698-37bb-4c3e-b5ab-e3241c3f8572"
+                        },
+                        {
+                          "id": "2e7e2690-ec38-40e0-bd16-79399407cee6",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"uuid\": \"\",\n  \"id\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "update"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-2e7e2690-ec38-40e0-bd16-79399407cee6"
+                        },
+                        {
+                          "id": "73384907-dd0e-4949-92e5-501a9fa7d3b4",
+                          "name": "Insufficient max_quota for API method",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"uuid\": \"\",\n  \"id\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "update"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-73384907-dd0e-4949-92e5-501a9fa7d3b4"
+                        },
+                        {
+                          "id": "1f5e1cea-d48e-4dde-957a-610c62ccdd9a",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"uuid\": \"\",\n  \"id\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "update"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-1f5e1cea-d48e-4dde-957a-610c62ccdd9a"
+                        },
+                        {
+                          "id": "ea59918f-10c5-4db0-aefa-f01a9bb48bbb",
+                          "name": "Insufficient quota for API route",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"uuid\": \"\",\n  \"id\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/update",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "update"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                "type": "text/plain"
+                              },
+                              "key": "Retry-After",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-ea59918f-10c5-4db0-aefa-f01a9bb48bbb"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-366fe305-2396-4c59-81f4-72d1eb90161a"
+                    }
+                  ],
+                  "id": "18abcabd-b046-4564-abce-2f6f4adc765d",
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-18abcabd-b046-4564-abce-2f6f4adc765d"
+                },
+                {
+                  "name": "rotate",
+                  "item": [
+                    {
+                      "name": "Rotate API Token",
+                      "id": "8a861353-6fa5-40e7-944d-b685dbd3abd3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/rotate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens",
+                            "rotate"
+                          ],
+                          "variable": [
+                            {
+                              "id": "27c17f22-7239-4a05-91a8-22392958f43f",
+                              "key": "org_slug",
+                              "value": "<string>",
+                              "description": "(Required) The slug of the organization"
+                            }
+                          ]
+                        },
+                        "description": "Rotate an API Token\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- api-tokens:rotate"
+                      },
+                      "response": [
+                        {
+                          "id": "da83c7ac-ab06-4b15-a228-b407c1f468cf",
+                          "name": "The replacement API Token with its stable UUID, new token value, and hash",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/rotate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "rotate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"created_by\": \"\",\n  \"group_uuid\": \"\",\n  \"hash\": \"\",\n  \"id\": \"\",\n  \"token\": \"\"\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-da83c7ac-ab06-4b15-a228-b407c1f468cf"
+                        },
+                        {
+                          "id": "d8490811-e214-4b13-a5e7-ea11d1fffeaf",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/rotate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "rotate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-d8490811-e214-4b13-a5e7-ea11d1fffeaf"
+                        },
+                        {
+                          "id": "03aaee7b-32b6-466a-8547-7232f94f83aa",
+                          "name": "Insufficient max_quota for API method",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/rotate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "rotate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-03aaee7b-32b6-466a-8547-7232f94f83aa"
+                        },
+                        {
+                          "id": "fd077450-e38e-4d67-925e-5037e234b439",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/rotate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "rotate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-fd077450-e38e-4d67-925e-5037e234b439"
+                        },
+                        {
+                          "id": "581669c6-9718-4540-a3d8-ed505f41cbbf",
+                          "name": "Insufficient quota for API route",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/rotate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "rotate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                "type": "text/plain"
+                              },
+                              "key": "Retry-After",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-581669c6-9718-4540-a3d8-ed505f41cbbf"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-8a861353-6fa5-40e7-944d-b685dbd3abd3"
+                    }
+                  ],
+                  "id": "6b55e738-30a7-46a9-b800-50e425267fe8",
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-6b55e738-30a7-46a9-b800-50e425267fe8"
+                },
+                {
+                  "name": "revoke",
+                  "item": [
+                    {
+                      "name": "Revoke API Token",
+                      "id": "03180ac3-8cbd-4de1-8124-0cda3a3c31f7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/revoke",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens",
+                            "revoke"
+                          ],
+                          "variable": [
+                            {
+                              "id": "357f37c7-5c58-43d3-a18e-417723b2c469",
+                              "key": "org_slug",
+                              "value": "<string>",
+                              "description": "(Required) The slug of the organization"
+                            }
+                          ]
+                        },
+                        "description": "Revoke an API Token\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- api-tokens:revoke"
+                      },
+                      "response": [
+                        {
+                          "id": "45d3d605-740e-4e98-bb00-745f50284c88",
+                          "name": "Response body",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/revoke",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "revoke"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"revoked\"\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-45d3d605-740e-4e98-bb00-745f50284c88"
+                        },
+                        {
+                          "id": "7cb0a295-bbe1-42d5-8fff-2c025b7ad8e9",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/revoke",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "revoke"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-7cb0a295-bbe1-42d5-8fff-2c025b7ad8e9"
+                        },
+                        {
+                          "id": "204df62a-cce8-45f7-92d7-79031f913924",
+                          "name": "Insufficient max_quota for API method",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/revoke",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "revoke"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-204df62a-cce8-45f7-92d7-79031f913924"
+                        },
+                        {
+                          "id": "c462e7a9-5b6f-494f-b51b-adff4c9586e5",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/revoke",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "revoke"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-c462e7a9-5b6f-494f-b51b-adff4c9586e5"
+                        },
+                        {
+                          "id": "5d91d9e4-8016-4dd7-994f-2afa0a487957",
+                          "name": "Insufficient quota for API route",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"uuid\": \"\",\n  \"token\": \"\",\n  \"hash\": \"\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens/revoke",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":org_slug",
+                                "api-tokens",
+                                "revoke"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "org_slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            },
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                                "type": "text/plain"
+                              },
+                              "key": "Retry-After",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:18:29.000Z",
+                          "updatedAt": "2026-06-05T15:18:29.000Z",
+                          "uid": "35240-5d91d9e4-8016-4dd7-994f-2afa0a487957"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-03180ac3-8cbd-4de1-8124-0cda3a3c31f7"
+                    }
+                  ],
+                  "id": "fc383369-fd59-4914-a517-4437cc82ab97",
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-fc383369-fd59-4914-a517-4437cc82ab97"
+                },
+                {
+                  "name": "Create API Token",
+                  "id": "5427fae9-71bb-41b7-bedf-395316d2152a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"resources\": [\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    },\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":org_slug",
+                        "api-tokens"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c9b57eee-7582-4307-9e27-743a95648824",
+                          "key": "org_slug",
+                          "value": "<string>",
+                          "description": "(Required) The slug of the organization"
+                        }
+                      ]
+                    },
+                    "description": "Create an API Token. The API Token created must use a subset of permissions the API token creating them.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- api-tokens:create"
+                  },
+                  "response": [
+                    {
+                      "id": "ca5d64a4-e2e5-42f4-9051-bbbfb9018feb",
+                      "name": "The newly created api token with its stable UUID and hash.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"resources\": [\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    },\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"created_by\": \"\",\n  \"group_uuid\": \"\",\n  \"hash\": \"\",\n  \"token\": \"\"\n}",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-ca5d64a4-e2e5-42f4-9051-bbbfb9018feb"
+                    },
+                    {
+                      "id": "7b744baa-5860-4e51-a585-3a03faa6066d",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"resources\": [\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    },\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-7b744baa-5860-4e51-a585-3a03faa6066d"
+                    },
+                    {
+                      "id": "2758b9ae-ea96-451e-9b85-23bc4ab192f5",
+                      "name": "Insufficient max_quota for API method",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"resources\": [\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    },\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-2758b9ae-ea96-451e-9b85-23bc4ab192f5"
+                    },
+                    {
+                      "id": "cd5727ac-7f80-4ff6-8866-01fcd2700a40",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"resources\": [\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    },\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-cd5727ac-7f80-4ff6-8866-01fcd2700a40"
+                    },
+                    {
+                      "id": "af7038a8-d99f-4692-987e-30714258ad72",
+                      "name": "Insufficient quota for API route",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"committer\": {\n    \"email\": \"\",\n    \"provider\": \"api\",\n    \"providerLoginName\": \"\",\n    \"providerUserId\": \"\"\n  },\n  \"max_quota\": 1000,\n  \"scopes\": [\n    \"repo:list\",\n    \"repo:list\"\n  ],\n  \"visibility\": \"organization\",\n  \"name\": \"api token\",\n  \"resources\": [\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    },\n    {\n      \"organizationSlug\": \"\",\n      \"repositorySlug\": \"\",\n      \"workspace\": \"\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                            "type": "text/plain"
+                          },
+                          "key": "Retry-After",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-af7038a8-d99f-4692-987e-30714258ad72"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-5427fae9-71bb-41b7-bedf-395316d2152a"
+                },
+                {
+                  "name": "List API Tokens",
+                  "id": "4b74675f-695e-407a-bb50-e0c63b377501",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens?sort=created_at&direction=desc&per_page=30&page=1&token_values=omit",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":org_slug",
+                        "api-tokens"
+                      ],
+                      "query": [
+                        {
+                          "description": "Specify Sort order.",
+                          "key": "sort",
+                          "value": "created_at"
+                        },
+                        {
+                          "description": "Specify sort direction.",
+                          "key": "direction",
+                          "value": "desc"
+                        },
+                        {
+                          "description": "Specify the maximum number of results to return per page.",
+                          "key": "per_page",
+                          "value": "30"
+                        },
+                        {
+                          "description": "The token specifying which page to return.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Whether to include token values in response. Use \"omit\" to exclude tokens entirely.",
+                          "key": "token_values",
+                          "value": "omit"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "a3cd0362-11e2-41ac-b8d1-69aeb61fd9c1",
+                          "key": "org_slug",
+                          "value": "<string>",
+                          "description": "(Required) The slug of the organization"
+                        }
+                      ]
+                    },
+                    "description": "List all API Tokens.\n\nThis endpoint consumes 10 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- api-tokens:list"
+                  },
+                  "response": [
+                    {
+                      "id": "1da97dbf-945f-49c5-8cb3-a88f32f08718",
+                      "name": "The paginated array of API tokens for the organization, and related metadata.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens?sort=created_at&direction=desc&per_page=30&page=1&token_values=omit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens"
+                          ],
+                          "query": [
+                            {
+                              "description": "Specify Sort order.",
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "description": "Specify sort direction.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Specify the maximum number of results to return per page.",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The token specifying which page to return.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Whether to include token values in response. Use \"omit\" to exclude tokens entirely.",
+                              "key": "token_values",
+                              "value": "omit"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"nextPage\": 0,\n  \"tokens\": [\n    {\n      \"committers\": [\n        {\n          \"email\": \"\",\n          \"provider\": \"api\",\n          \"providerLoginName\": \"\",\n          \"providerUserId\": \"\"\n        },\n        {\n          \"email\": \"\",\n          \"provider\": \"api\",\n          \"providerLoginName\": \"\",\n          \"providerUserId\": \"\"\n        }\n      ],\n      \"created_at\": \"\",\n      \"created_by\": \"\",\n      \"group_uuid\": \"\",\n      \"hash\": \"\",\n      \"id\": \"\",\n      \"last_used_at\": \"\",\n      \"max_quota\": 1000,\n      \"name\": \"api token\",\n      \"scopes\": [\n        \"repo:list\",\n        \"repo:list\"\n      ],\n      \"token\": \"\",\n      \"visibility\": \"organization\"\n    },\n    {\n      \"committers\": [\n        {\n          \"email\": \"\",\n          \"provider\": \"api\",\n          \"providerLoginName\": \"\",\n          \"providerUserId\": \"\"\n        },\n        {\n          \"email\": \"\",\n          \"provider\": \"api\",\n          \"providerLoginName\": \"\",\n          \"providerUserId\": \"\"\n        }\n      ],\n      \"created_at\": \"\",\n      \"created_by\": \"\",\n      \"group_uuid\": \"\",\n      \"hash\": \"\",\n      \"id\": \"\",\n      \"last_used_at\": \"\",\n      \"max_quota\": 1000,\n      \"name\": \"api token\",\n      \"scopes\": [\n        \"repo:list\",\n        \"repo:list\"\n      ],\n      \"token\": \"\",\n      \"visibility\": \"organization\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-1da97dbf-945f-49c5-8cb3-a88f32f08718"
+                    },
+                    {
+                      "id": "07cc7045-11bc-47d8-b73b-0998324a3103",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens?sort=created_at&direction=desc&per_page=30&page=1&token_values=omit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens"
+                          ],
+                          "query": [
+                            {
+                              "description": "Specify Sort order.",
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "description": "Specify sort direction.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Specify the maximum number of results to return per page.",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The token specifying which page to return.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Whether to include token values in response. Use \"omit\" to exclude tokens entirely.",
+                              "key": "token_values",
+                              "value": "omit"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-07cc7045-11bc-47d8-b73b-0998324a3103"
+                    },
+                    {
+                      "id": "76fa9b41-d579-48c1-97f3-a7ac21b78d35",
+                      "name": "Insufficient max_quota for API method",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens?sort=created_at&direction=desc&per_page=30&page=1&token_values=omit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens"
+                          ],
+                          "query": [
+                            {
+                              "description": "Specify Sort order.",
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "description": "Specify sort direction.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Specify the maximum number of results to return per page.",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The token specifying which page to return.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Whether to include token values in response. Use \"omit\" to exclude tokens entirely.",
+                              "key": "token_values",
+                              "value": "omit"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-76fa9b41-d579-48c1-97f3-a7ac21b78d35"
+                    },
+                    {
+                      "id": "9292e495-8817-41f3-8339-57fb56bc54f6",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens?sort=created_at&direction=desc&per_page=30&page=1&token_values=omit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens"
+                          ],
+                          "query": [
+                            {
+                              "description": "Specify Sort order.",
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "description": "Specify sort direction.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Specify the maximum number of results to return per page.",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The token specifying which page to return.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Whether to include token values in response. Use \"omit\" to exclude tokens entirely.",
+                              "key": "token_values",
+                              "value": "omit"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-9292e495-8817-41f3-8339-57fb56bc54f6"
+                    },
+                    {
+                      "id": "062c25b5-8ffd-465d-a0d6-4f82c77d2d5c",
+                      "name": "Insufficient quota for API route",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:org_slug/api-tokens?sort=created_at&direction=desc&per_page=30&page=1&token_values=omit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":org_slug",
+                            "api-tokens"
+                          ],
+                          "query": [
+                            {
+                              "description": "Specify Sort order.",
+                              "key": "sort",
+                              "value": "created_at"
+                            },
+                            {
+                              "description": "Specify sort direction.",
+                              "key": "direction",
+                              "value": "desc"
+                            },
+                            {
+                              "description": "Specify the maximum number of results to return per page.",
+                              "key": "per_page",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The token specifying which page to return.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Whether to include token values in response. Use \"omit\" to exclude tokens entirely.",
+                              "key": "token_values",
+                              "value": "omit"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "org_slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                            "type": "text/plain"
+                          },
+                          "key": "Retry-After",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+                      "createdAt": "2026-06-05T15:18:29.000Z",
+                      "updatedAt": "2026-06-05T15:18:29.000Z",
+                      "uid": "35240-062c25b5-8ffd-465d-a0d6-4f82c77d2d5c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:18:29.000Z",
+                  "updatedAt": "2026-06-05T15:18:29.000Z",
+                  "uid": "35240-4b74675f-695e-407a-bb50-e0c63b377501"
+                }
+              ],
+              "id": "88291f4d-4ab3-4c98-b862-859c58ea4c97",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-88291f4d-4ab3-4c98-b862-859c58ea4c97"
+            }
+          ],
+          "id": "561c73a1-38b2-4ecd-abc3-e027f06165a2",
+          "createdAt": "2026-06-05T15:18:29.000Z",
+          "updatedAt": "2026-06-05T15:18:29.000Z",
+          "uid": "35240-561c73a1-38b2-4ecd-abc3-e027f06165a2"
+        }
+      ],
+      "id": "e4c55b14-55cd-4de6-b1bd-7b26cc257cf7",
+      "createdAt": "2026-06-05T15:18:29.000Z",
+      "updatedAt": "2026-06-05T15:18:29.000Z",
+      "uid": "35240-e4c55b14-55cd-4de6-b1bd-7b26cc257cf7"
+    },
+    {
+      "name": "quota",
+      "item": [
+        {
+          "name": "Get quota",
+          "id": "828bff72-a23a-4a5c-800d-79967768255f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/quota",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "quota"
+              ]
+            },
+            "description": "Get your current API quota. You can use this endpoint to prevent doing requests that might spend all your quota.\n\nThis endpoint consumes 0 units of your quota.\n\nThis endpoint requires the following org token scopes:\n- No Scopes Required, but authentication is required"
+          },
+          "response": [
+            {
+              "id": "07a6e848-c5f1-4ed9-b102-63c1e7840d2c",
+              "name": "Quota information",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/quota",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "quota"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"maxQuota\": 0,\n  \"nextWindowRefresh\": \"\",\n  \"quota\": 0\n}",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-07a6e848-c5f1-4ed9-b102-63c1e7840d2c"
+            },
+            {
+              "id": "78fe3129-7894-4f0a-bff6-e3f9da81e966",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/quota",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "quota"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-78fe3129-7894-4f0a-bff6-e3f9da81e966"
+            },
+            {
+              "id": "ac4cd861-0622-4560-875a-54fd519a4243",
+              "name": "Resource not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/quota",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "quota"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-ac4cd861-0622-4560-875a-54fd519a4243"
+            },
+            {
+              "id": "26625fa6-7e03-4f15-b875-24ee98870988",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/quota",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "quota"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "<integer>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-26625fa6-7e03-4f15-b875-24ee98870988"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:29.000Z",
+          "updatedAt": "2026-06-05T15:18:29.000Z",
+          "uid": "35240-828bff72-a23a-4a5c-800d-79967768255f"
+        }
+      ],
+      "id": "20f308bd-8d30-40e9-ac98-c8c538b28515",
+      "createdAt": "2026-06-05T15:18:29.000Z",
+      "updatedAt": "2026-06-05T15:18:29.000Z",
+      "uid": "35240-20f308bd-8d30-40e9-ac98-c8c538b28515"
+    },
+    {
+      "name": "organizations",
+      "item": [
+        {
+          "name": "List organizations",
+          "id": "ca832e32-60bd-4e13-a96d-fa43b5f0035f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations"
+              ]
+            },
+            "description": "Get information on the current organizations associated with the API token.\n\nThis endpoint consumes 1 unit of your quota.\n\nThis endpoint requires the following org token scopes:\n- No Scopes Required, but authentication is required"
+          },
+          "response": [
+            {
+              "id": "fa07bd5f-738d-4dbd-83c3-582e831f3926",
+              "name": "Organizations information",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"organizations\": {\n    \"voluptate8\": {\n      \"id\": \"\",\n      \"image\": \"\",\n      \"name\": \"\",\n      \"plan\": \"\",\n      \"slug\": \"\"\n    },\n    \"irure0\": {\n      \"id\": \"\",\n      \"image\": \"\",\n      \"name\": \"\",\n      \"plan\": \"\",\n      \"slug\": \"\"\n    }\n  }\n}",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-fa07bd5f-738d-4dbd-83c3-582e831f3926"
+            },
+            {
+              "id": "37752f04-cd72-4e27-8f78-91cf13cfb228",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-37752f04-cd72-4e27-8f78-91cf13cfb228"
+            },
+            {
+              "id": "5c6b9a4b-5898-4e21-b15b-a725c1aeacd2",
+              "name": "Resource not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-5c6b9a4b-5898-4e21-b15b-a725c1aeacd2"
+            },
+            {
+              "id": "2a44b17d-8cf7-43c6-9757-2310133f6fe0",
+              "name": "Insufficient quota for API route",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Retry contacting the endpoint *at least* after seconds.\nSee https://tools.ietf.org/html/rfc7231#section-7.1.3",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "<integer>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"details\": null,\n    \"message\": \"\"\n  }\n}",
+              "createdAt": "2026-06-05T15:18:29.000Z",
+              "updatedAt": "2026-06-05T15:18:29.000Z",
+              "uid": "35240-2a44b17d-8cf7-43c6-9757-2310133f6fe0"
+            }
+          ],
+          "createdAt": "2026-06-05T15:18:29.000Z",
+          "updatedAt": "2026-06-05T15:18:29.000Z",
+          "uid": "35240-ca832e32-60bd-4e13-a96d-fa43b5f0035f"
+        }
+      ],
+      "id": "b807d757-6344-4a7f-8c24-cea40ab94384",
+      "createdAt": "2026-06-05T15:18:29.000Z",
+      "updatedAt": "2026-06-05T15:18:29.000Z",
+      "uid": "35240-b807d757-6344-4a7f-8c24-cea40ab94384"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.socket.dev/v0"
+    }
+  ]
+}
