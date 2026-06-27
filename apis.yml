@@ -279,63 +279,48 @@ access: 3rd-Party
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/socket/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/socket-dev-audit-dependencies-workflow.yml
-        name: Socket Audit Organization Dependencies
-        summary: Search the organization's in-use dependencies by PURL, then pull alert metadata for those same packages.
-      - url: arazzo/socket-dev-create-and-report-full-scan-workflow.yml
-        name: Socket Create and Report a Full Scan
-        summary: >-
-          Ensure a repository exists, create a full scan from manifest files, poll until it finishes, then export the
-          alert CSV.
-      - url: arazzo/socket-dev-diff-from-scan-ids-workflow.yml
-        name: Socket Diff Two Full Scans by ID
-        summary: >-
-          List the two most recent full scans for a repository and create a diff scan comparing them, then poll the diff
-          until ready.
-      - url: arazzo/socket-dev-diff-repo-head-workflow.yml
-        name: Socket Diff a Repository Against Its HEAD Scan
-        summary: >-
-          Confirm a repository, create a diff scan against its current HEAD full scan, then poll the diff until cached
-          results are ready.
-      - url: arazzo/socket-dev-fix-repo-vulnerabilities-workflow.yml
-        name: Socket Fix Vulnerabilities in a Repository
-        summary: Confirm a repository and its HEAD scan, then fetch the available fixes for its vulnerabilities.
-      - url: arazzo/socket-dev-investigate-alert-scans-workflow.yml
-        name: Socket Investigate Alert Across Scans
-        summary: Pick the latest alert, find the full scans it appears in, then read the metadata of one of those scans.
-      - url: arazzo/socket-dev-latest-scan-pdf-report-workflow.yml
-        name: Socket Generate PDF Report for Latest Scan
-        summary: Find the most recent full scan for a repository, confirm its metadata, then generate a PDF report.
-      - url: arazzo/socket-dev-package-issues-and-fixes-workflow.yml
-        name: Socket Package Issues and Available Fixes
-        summary: >-
-          Look up alert metadata for a batch of packages by PURL, then fetch available fixes for the discovered
-          vulnerabilities.
-      - url: arazzo/socket-dev-poll-full-scan-completion-workflow.yml
-        name: Socket Poll Full Scan to Completion
-        summary: Create a full scan and poll its metadata until the scan_state leaves the processing states.
-      - url: arazzo/socket-dev-provision-webhook-workflow.yml
-        name: Socket Provision and Verify a Webhook
-        summary: Create an organization webhook for selected events, then read it back to confirm it was registered.
-      - url: arazzo/socket-dev-rescan-and-report-workflow.yml
-        name: Socket Rescan and Report a Full Scan
-        summary: >-
-          Rescan an existing full scan to apply the latest policies, poll the new scan to completion, then export its
-          alert CSV.
-      - url: arazzo/socket-dev-review-update-security-policy-workflow.yml
-        name: Socket Review and Update Org Security Policy
-        summary: Read the organization's current security policy, then write back an updated default level and rule set.
-      - url: arazzo/socket-dev-snapshot-and-list-workflow.yml
-        name: Socket Start and Poll Historical Snapshot
-        summary: >-
-          Start an on-demand historical data snapshot job, then poll the snapshot list until the job's request id
-          appears.
-      - url: arazzo/socket-dev-triage-latest-alerts-workflow.yml
-        name: Socket Triage Latest Alerts
-        summary: List the latest organization alerts and, when any are present, apply a triage state to one of them.
+  - type: Arazzo
+    url: arazzo/socket-dev-audit-dependencies-workflow.yml
+    name: Socket Audit Organization Dependencies
+  - type: Arazzo
+    url: arazzo/socket-dev-create-and-report-full-scan-workflow.yml
+    name: Socket Create and Report a Full Scan
+  - type: Arazzo
+    url: arazzo/socket-dev-diff-from-scan-ids-workflow.yml
+    name: Socket Diff Two Full Scans by ID
+  - type: Arazzo
+    url: arazzo/socket-dev-diff-repo-head-workflow.yml
+    name: Socket Diff a Repository Against Its HEAD Scan
+  - type: Arazzo
+    url: arazzo/socket-dev-fix-repo-vulnerabilities-workflow.yml
+    name: Socket Fix Vulnerabilities in a Repository
+  - type: Arazzo
+    url: arazzo/socket-dev-investigate-alert-scans-workflow.yml
+    name: Socket Investigate Alert Across Scans
+  - type: Arazzo
+    url: arazzo/socket-dev-latest-scan-pdf-report-workflow.yml
+    name: Socket Generate PDF Report for Latest Scan
+  - type: Arazzo
+    url: arazzo/socket-dev-package-issues-and-fixes-workflow.yml
+    name: Socket Package Issues and Available Fixes
+  - type: Arazzo
+    url: arazzo/socket-dev-poll-full-scan-completion-workflow.yml
+    name: Socket Poll Full Scan to Completion
+  - type: Arazzo
+    url: arazzo/socket-dev-provision-webhook-workflow.yml
+    name: Socket Provision and Verify a Webhook
+  - type: Arazzo
+    url: arazzo/socket-dev-rescan-and-report-workflow.yml
+    name: Socket Rescan and Report a Full Scan
+  - type: Arazzo
+    url: arazzo/socket-dev-review-update-security-policy-workflow.yml
+    name: Socket Review and Update Org Security Policy
+  - type: Arazzo
+    url: arazzo/socket-dev-snapshot-and-list-workflow.yml
+    name: Socket Start and Poll Historical Snapshot
+  - type: Arazzo
+    url: arazzo/socket-dev-triage-latest-alerts-workflow.yml
+    name: Socket Triage Latest Alerts
   - type: Portal
     url: https://socket.dev/
   - type: Documentation
@@ -347,7 +332,7 @@ common:
     url: https://docs.socket.dev/docs/getting-started
   - type: Authentication
     url: https://docs.socket.dev/reference/authentication-types
-  - type: SignUp
+  - type: Signup
     url: https://socket.dev/login
   - type: Blog
     url: https://socket.dev/blog
@@ -369,46 +354,46 @@ common:
     url: https://www.linkedin.com/company/socket-security
   - type: Twitter
     url: https://twitter.com/SocketSecurity
-  - type: SDK
+  - type: SDKs
     name: JavaScript / TypeScript SDK
     url: https://github.com/SocketDev/socket-sdk-js
-  - type: SDK
+  - type: SDKs
     name: Python SDK
     url: https://github.com/SocketDev/socket-sdk-python
-  - type: Tool
+  - type: Tools
     name: Socket CLI
     url: https://github.com/SocketDev/socket-cli
-  - type: Tool
+  - type: Tools
     name: Socket Python CLI
     url: https://github.com/SocketDev/socket-python-cli
-  - type: Tool
+  - type: Tools
     name: Socket MCP Server
     url: https://github.com/SocketDev/socket-mcp
-  - type: Tool
+  - type: Tools
     name: Socket Firewall (sfw-free)
     url: https://github.com/SocketDev/sfw-free
-  - type: Tool
+  - type: Tools
     name: Socket VSCode Extension
     url: https://github.com/SocketDev/socket-vscode
-  - type: Tool
+  - type: Tools
     name: Socket GitHub Action
     url: https://github.com/SocketDev/action
-  - type: Tool
+  - type: Tools
     name: Socket Basics (SAST + Secrets + Container)
     url: https://github.com/SocketDev/socket-basics
-  - type: Tool
+  - type: Tools
     name: Socket Patch CLI
     url: https://github.com/SocketDev/socket-patch
-  - type: Tool
+  - type: Tools
     name: Socket SIEM Connector
     url: https://github.com/SocketDev/socket-siem-connector
-  - type: Tool
+  - type: Tools
     name: Bun Security Scanner
     url: https://github.com/SocketDev/bun-security-scanner
-  - type: Tool
+  - type: Tools
     name: Socket Optimize (registry overrides)
     url: https://github.com/SocketDev/socket-registry
-  - type: Tool
+  - type: Tools
     name: Socket Config (socket.yml)
     url: https://github.com/SocketDev/socket-config-js
   - type: Integrations

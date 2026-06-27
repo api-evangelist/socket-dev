@@ -2,17 +2,17 @@
   "repo": "socket-dev",
   "feeds": [
     {
-      "source": "https://socket.dev/blog",
+      "source": "https://socket.dev/api/blog/feed.atom",
       "feed_url": "https://socket.dev/api/blog/feed.atom",
       "title": "",
-      "saved": 6,
-      "method": "discovered"
+      "saved": 5,
+      "method": "feed"
     },
     {
       "source": "https://socket.dev/login",
       "error": "HTTPError"
     }
   ],
-  "post_count": 11,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 24,
+  "fetched": "2026-06-27T12:03:07Z"
 }
