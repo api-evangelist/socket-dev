@@ -1,0 +1,51 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/socket-alerts-api-openapi.yml, openapi/socket-api-tokens-api-openapi.yml, openapi/socket-audit-log-api-openapi.yml,
+  openapi/socket-dependencies-api-openapi.yml, openapi/socket-diff-scans-api-openapi.yml, openapi/socket-fixes-api-openapi.yml,
+  openapi/socket-full-scans-api-openapi.yml, openapi/socket-metadata-api-openapi.yml, openapi/socket-org-settings-api-openapi.yml,
+  openapi/socket-org-snapshots-api-openapi.yml, openapi/socket-packages-api-openapi.yml, openapi/socket-repos-api-openapi.yml
+  ...
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Organization Tokens can be passed as a Bearer token
+  sources:
+  - openapi/socket-alerts-api-openapi.yml
+  - openapi/socket-api-tokens-api-openapi.yml
+  - openapi/socket-audit-log-api-openapi.yml
+  - openapi/socket-dependencies-api-openapi.yml
+  - openapi/socket-diff-scans-api-openapi.yml
+  - openapi/socket-fixes-api-openapi.yml
+  - openapi/socket-full-scans-api-openapi.yml
+  - openapi/socket-metadata-api-openapi.yml
+  - openapi/socket-org-settings-api-openapi.yml
+  - openapi/socket-org-snapshots-api-openapi.yml
+  - openapi/socket-packages-api-openapi.yml
+  - openapi/socket-repos-api-openapi.yml
+  - openapi/socket-threat-feed-api-openapi.yml
+  - openapi/socket-triage-api-openapi.yml
+  - openapi/socket-webhooks-api-openapi.yml
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: Organization Tokens can be passed as the user field in basic auth
+  sources:
+  - openapi/socket-alerts-api-openapi.yml
+  - openapi/socket-api-tokens-api-openapi.yml
+  - openapi/socket-audit-log-api-openapi.yml
+  - openapi/socket-dependencies-api-openapi.yml
+  - openapi/socket-diff-scans-api-openapi.yml
+  - openapi/socket-fixes-api-openapi.yml
+  - openapi/socket-full-scans-api-openapi.yml
+  - openapi/socket-metadata-api-openapi.yml
+  - openapi/socket-org-settings-api-openapi.yml
+  - openapi/socket-org-snapshots-api-openapi.yml
+  - openapi/socket-packages-api-openapi.yml
+  - openapi/socket-repos-api-openapi.yml
+  - openapi/socket-threat-feed-api-openapi.yml
+  - openapi/socket-triage-api-openapi.yml
+  - openapi/socket-webhooks-api-openapi.yml
