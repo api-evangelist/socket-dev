@@ -1,0 +1,36 @@
+generated: '2026-06-20'
+method: searched
+status: published
+source: https://github.com/SocketDev/socket-mcp
+description: >-
+  Socket operates an official Model Context Protocol server. A public hosted server runs at
+  https://mcp.socket.dev/ over HTTP with OAuth sign-in; a self-hosted stdio/HTTP build ships
+  as npx @socketsecurity/mcp, authenticated with a Socket API token (SOCKET_API_TOKEN). Tool
+  list captured verbatim from the socket-mcp repository documentation.
+server:
+  name: socket
+  transport: http
+  url: https://mcp.socket.dev/
+  auth: oauth2
+local:
+  name: "@socketsecurity/mcp"
+  transport: stdio
+  install: npx -y @socketsecurity/mcp@latest
+  http_mode: MCP_HTTP_MODE=true npx @socketsecurity/mcp@latest --http
+  auth: SOCKET_API_TOKEN
+  source: https://github.com/SocketDev/socket-mcp
+tools:
+  - name: depscore
+    description: Query the Socket API for dependency scoring information — supply chain, quality, maintenance, vulnerability, and license scores per package.
+  - name: organizations
+    description: List the Socket organizations the authenticated user belongs to; discovers the org_slug required by organization-scoped tools.
+  - name: alerts
+    description: List the latest security alerts for one Socket organization — supply-chain, vulnerability, quality, license, and maintenance issues across monitored packages.
+  - name: threat_feed
+    description: Look up items in a Socket organization's threat feed — packages recently flagged as malware, typosquats, obfuscated code, and similar.
+  - name: package_files
+    description: List the files published in a package — a tree of paths and sizes for any package on a supported ecosystem.
+  - name: package_file_contents
+    description: Read individual files from packages; accepts blob hashes from package_files output.
+  - name: package_file_grep
+    description: Search a single file from a package for lines matching a JavaScript regular expression, returning matches with line numbers.

@@ -1,0 +1,69 @@
+generated: '2026-06-20'
+method: searched
+source: https://docs.socket.dev/docs/socket-cli, https://github.com/SocketDev/socket-cli
+description: >-
+  Socket ships a first-party command-line interface, the `socket` binary, that brings
+  supply-chain scanning, auto-fixing, and policy enforcement to the terminal and CI. A
+  JavaScript build is published to npm as @socketsecurity/cli; a separate Python CLI ships
+  to PyPI as socketsecurity (repo socket-python-cli). The binaries are catalogued in
+  packages/socket-dev-packages.yml; this file is the command surface.
+install:
+  - npm install -g socket        # @socketsecurity/cli
+  - npm install -g @socketsecurity/cli
+  - pip install socketsecurity   # Python CLI
+login_flow: socket login   # authenticate and store the API token
+commands:
+  - name: scan
+    group: scanning
+    description: Create Socket Security scans from your terminal (subcommand create).
+  - name: package
+    group: scanning
+    description: Get the security score and alerts for a specific package (e.g. npm/express@4.18.0).
+  - name: ci
+    group: scanning
+    description: Automate workflow and policy-compliance checks in continuous integration.
+  - name: npm
+    group: install-guard
+    description: Run npm with Socket integration — audit an install before it runs.
+  - name: npx
+    group: install-guard
+    description: Run npx with Socket integration.
+  - name: raw-npm
+    group: install-guard
+    description: Run npm without Socket protection.
+  - name: raw-npx
+    group: install-guard
+    description: Run npx without Socket protection.
+  - name: wrapper
+    group: install-guard
+    description: Toggle the protective npm/npx wrapper on or off.
+  - name: fix
+    group: remediation
+    description: Apply security updates to packages.
+  - name: optimize
+    group: remediation
+    description: Apply enhanced package overrides (Socket Optimize registry overrides).
+  - name: threat-feed
+    group: intelligence
+    description: Access real-time threat-feed information from the terminal.
+  - name: analytics
+    group: reporting
+    description: View security health history dashboards in the terminal.
+  - name: manifest
+    group: manifests
+    description: Generate manifest files for various ecosystems.
+  - name: organization
+    group: administration
+    description: Control account and organization details.
+  - name: repository
+    group: administration
+    description: Manage repository information.
+  - name: audit-log
+    group: administration
+    description: Access organization audit-log information.
+  - name: login
+    group: auth
+    description: Authenticate and configure the CLI.
+  - name: logout
+    group: auth
+    description: Remove stored authentication.

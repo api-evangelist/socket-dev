@@ -1,0 +1,51 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/*-openapi.yml (shared response components)
+format: custom
+description: >-
+  Socket API error catalog derived from the 4xx/5xx responses declared across all fifteen
+  OpenAPI specifications. Socket does NOT use RFC 9457 problem+json; every error uses a
+  consistent envelope { "error": { "message": "..." } } returned as application/json. The
+  status set is uniform across the API (shared named response components SocketBadRequest,
+  SocketUnauthorized, SocketForbidden, SocketNotFoundResponse, and the 429/500 responses).
+envelope:
+  media_type: application/json
+  shape: '{ "error": { "message": string } }'
+  root_field: error
+  message_field: error.message
+problems:
+  - status: 400
+    component: SocketBadRequest
+    title: Bad Request
+    meaning: The request was malformed — invalid parameters, body, or an unparseable manifest upload.
+    occurrences: 71
+  - status: 401
+    component: SocketUnauthorized
+    title: Unauthorized
+    meaning: Missing or invalid API token / OAuth credential. Provide an Organization token as a Bearer header or the basic-auth username.
+    occurrences: 70
+  - status: 403
+    component: SocketForbidden
+    title: Forbidden
+    meaning: The authenticated token lacks the scope/permission for this resource or organization.
+    occurrences: 69
+  - status: 404
+    component: SocketNotFoundResponse
+    title: Not Found
+    meaning: The organization, repo, scan, alert, or other addressed resource does not exist.
+    occurrences: 74
+  - status: 409
+    title: Conflict
+    meaning: The request conflicts with current state (e.g. a resource already exists or an in-progress operation).
+    occurrences: 5
+  - status: 429
+    title: Too Many Requests
+    meaning: Rate limit exceeded (600 requests/minute). Retry with exponential backoff and jitter; unsuccessful requests still count against the limit.
+    occurrences: 76
+  - status: 500
+    title: Internal Server Error
+    meaning: An unexpected server-side error occurred.
+    occurrences: 2
+related:
+  rate_limits: rate-limits/socket-dev-rate-limits.yml
+  conventions: conventions/socket-dev-conventions.yml

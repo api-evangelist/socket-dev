@@ -1,13 +1,19 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/socket-alerts-api-openapi.yml, openapi/socket-api-tokens-api-openapi.yml, openapi/socket-audit-log-api-openapi.yml,
-  openapi/socket-dependencies-api-openapi.yml, openapi/socket-diff-scans-api-openapi.yml, openapi/socket-fixes-api-openapi.yml,
-  openapi/socket-full-scans-api-openapi.yml, openapi/socket-metadata-api-openapi.yml, openapi/socket-org-settings-api-openapi.yml,
-  openapi/socket-org-snapshots-api-openapi.yml, openapi/socket-packages-api-openapi.yml, openapi/socket-repos-api-openapi.yml
-  ...
+generated: '2026-06-20'
+method: searched
+source: openapi/*-openapi.yml + well-known/socket-dev-oauth-authorization-server.json (RFC 8414 metadata)
+docs: https://docs.socket.dev/reference/authentication-types
+note: >-
+  The OpenAPI specs declare only http bearer + basic (Organization tokens). A live probe of
+  api.socket.dev/.well-known/oauth-authorization-server additionally reveals a full OAuth 2.0
+  authorization server (authorization_code + client_credentials + refresh_token, PKCE S256,
+  97 scopes) — added below as the oauth2 scheme. Scope list in scopes/socket-dev-scopes.yml.
 summary:
   types:
   - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
 schemes:
 - name: bearerAuth
   type: http
@@ -49,3 +55,22 @@ schemes:
   - openapi/socket-threat-feed-api-openapi.yml
   - openapi/socket-triage-api-openapi.yml
   - openapi/socket-webhooks-api-openapi.yml
+- name: OAuth2
+  type: oauth2
+  description: >-
+    Live OAuth 2.0 authorization server advertised at
+    api.socket.dev/.well-known/oauth-authorization-server (RFC 8414). Client classes:
+    customer_user_delegated (authorization_code + refresh_token) and
+    customer_machine_to_machine (client_credentials).
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.socket.dev/v1/oauth2/authorize
+    tokenUrl: https://api.socket.dev/v1/oauth2/token
+    pkce: S256
+    scope_count: 97
+  - flow: clientCredentials
+    tokenUrl: https://api.socket.dev/v1/oauth2/token
+    scope_count: 97
+  scopes: scopes/socket-dev-scopes.yml
+  sources:
+  - well-known/socket-dev-oauth-authorization-server.json

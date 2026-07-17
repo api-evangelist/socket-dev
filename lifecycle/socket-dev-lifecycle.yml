@@ -1,0 +1,28 @@
+generated: '2026-06-20'
+method: searched
+source: https://docs.socket.dev/, openapi/*-openapi.yml, https://status.socket.dev/
+description: >-
+  Versioning, deprecation, and operational lifecycle for the Socket API. The API is served
+  under a URI-path major version (v0); the live machine-readable spec is published at
+  https://api.socket.dev/v0/openapi. Deprecated operations are flagged with the OpenAPI
+  `deprecated: true` marker.
+versioning:
+  scheme: uri-path
+  current: v0
+  base_url: https://api.socket.dev/v0
+  live_spec: https://api.socket.dev/v0/openapi
+  docs: https://docs.socket.dev/reference/introduction-to-socket-api
+deprecation:
+  policy: Operations are marked deprecated in the OpenAPI spec ahead of removal; no formal RFC 8594 Sunset/Deprecation response headers are documented.
+  sunset_header: false
+  deprecation_header: false
+status_page: https://status.socket.dev/
+sla:
+  url: https://socket.dev/pricing
+  note: Uptime/SLA terms are contract- and plan-dependent; not published as a fixed public number.
+changelog: https://socket.dev/blog/categories/product-updates
+deprecated_operations:
+  - operation: batchPackageFetch
+    spec: openapi/socket-packages-api-openapi.yml
+    path: POST /purl
+    note: Superseded by batchPackageFetchByOrg (organization-scoped PURL batch lookup).

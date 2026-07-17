@@ -1,0 +1,36 @@
+generated: '2026-06-20'
+method: searched
+source: https://socket.dev/blog/categories/product-updates
+description: >-
+  Recent Socket product updates. Socket publishes dated product announcements under the
+  blog "Product Updates" category rather than a numbered API changelog; the API itself is
+  unversioned-in-place under v0 (see lifecycle/). Entries below are the recent window of
+  first-party Socket feature announcements captured in this repo's blogs/ directory.
+scheme: dated-blog
+current_api_version: v0
+changelog_url: https://socket.dev/blog/categories/product-updates
+entries:
+  - date: '2026-06-20'
+    title: GitHub Actions checkout now blocks risky pull-request workflows
+    type: addition
+    source: blogs/2026-06-20-github-actions-checkout-now-blocks-risky-pull-request.md
+  - date: '2026-06-19'
+    title: Introducing repository access permissions and custom roles
+    type: addition
+    source: blogs/2026-06-19-introducing-repository-access-permissions-and-custom.md
+  - date: '2026-06-18'
+    title: Socket MCP adds org alerts, threat feed, review and more
+    type: addition
+    source: blogs/2026-06-18-socket-mcp-adds-org-alerts-threat-feed-review-and.md
+  - date: '2026-06-17'
+    title: Socket Firewall now blocks malicious VS Code and Open VSX extensions
+    type: addition
+    source: blogs/2026-06-17-socket-firewall-now-blocks-malicious-vs-code-and-open.md
+  - date: '2026-06-16'
+    title: Introducing Manifest Alerts
+    type: addition
+    source: blogs/2026-06-16-introducing-manifest-alerts.md
+  - date: '2026-06-10'
+    title: Socket partners with Replit to block malicious packages
+    type: addition
+    source: blogs/2026-06-10-socket-partners-with-replit-to-block-malicious-packages-in.md

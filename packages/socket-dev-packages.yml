@@ -1,0 +1,77 @@
+generated: '2026-06-20'
+method: searched
+source: https://github.com/SocketDev
+description: >-
+  First-party Socket client libraries and tools, verified against the public package
+  registries (npm registry.npmjs.org, PyPI) and the SocketDev GitHub organization. Each
+  npm/PyPI entry was confirmed live at fetch time. The `sfw` npm name is an unrelated
+  third-party package and is deliberately excluded; Socket Firewall ships from the
+  SocketDev/sfw-free repo. Registry HTTP 200 recorded for all entries below.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@socketsecurity/sdk"
+    url: https://www.npmjs.com/package/@socketsecurity/sdk
+    source: https://github.com/SocketDev/socket-sdk-js
+    install: npm install @socketsecurity/sdk
+    official: true
+    publisher: Socket Inc (eng@socket.dev)
+    latest: 4.0.1
+    note: JavaScript / TypeScript SDK for the Socket API
+  - language: javascript
+    registry: npm
+    name: "@socketsecurity/cli"
+    url: https://www.npmjs.com/package/@socketsecurity/cli
+    source: https://github.com/SocketDev/socket-cli
+    install: npm install -g @socketsecurity/cli
+    official: true
+    publisher: Socket Inc (eng@socket.dev)
+    latest: 1.1.102
+    note: Socket command-line interface (the `socket` binary)
+  - language: javascript
+    registry: npm
+    name: "@socketsecurity/mcp"
+    url: https://www.npmjs.com/package/@socketsecurity/mcp
+    source: https://github.com/SocketDev/socket-mcp
+    install: npx -y @socketsecurity/mcp@latest
+    official: true
+    publisher: Socket (eng@socket.dev)
+    latest: 0.0.20
+    note: Local (stdio) Socket MCP server; complements the hosted https://mcp.socket.dev/
+  - language: javascript
+    registry: npm
+    name: "@socketsecurity/config"
+    url: https://www.npmjs.com/package/@socketsecurity/config
+    source: https://github.com/SocketDev/socket-config-js
+    install: npm install @socketsecurity/config
+    official: true
+    latest: 3.0.1
+    note: Parser/validator for the socket.yml project configuration file
+  - language: python
+    registry: pypi
+    name: socket-sdk-python
+    url: https://pypi.org/project/socket-sdk-python/
+    source: https://github.com/SocketDev/socket-sdk-python
+    install: pip install socket-sdk-python
+    official: true
+    publisher: Douglas Coburn (douglas@socket.dev)
+    note: Python SDK for the Socket API
+  - language: python
+    registry: pypi
+    name: socketsecurity
+    url: https://pypi.org/project/socketsecurity/
+    source: https://github.com/SocketDev/socket-python-cli
+    install: pip install socketsecurity
+    official: true
+    publisher: Douglas Coburn (douglas@socket.dev)
+    note: Socket Python CLI — scans, diff reporting, reachability analysis, SARIF/GitLab exports
+tools_repos:
+  - name: Socket Firewall (sfw-free)
+    source: https://github.com/SocketDev/sfw-free
+    note: Registry proxy that blocks installation of malicious packages; distributed from the repo
+  - name: Socket GitHub Action
+    source: https://github.com/SocketDev/action
+  - name: Socket VS Code Extension
+    source: https://github.com/SocketDev/socket-vscode
+  - name: Socket Basics (SAST + Secrets + Container)
+    source: https://github.com/SocketDev/socket-basics

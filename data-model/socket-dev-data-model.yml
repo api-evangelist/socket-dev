@@ -1,0 +1,98 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/*-openapi.yml
+description: >-
+  Entity-relationship model for the Socket platform, derived from the resource tags and the
+  id-reference fields (organization_id/slug, repository_id/slug) that recur across the
+  fifteen OpenAPI specifications. Everything in the API is scoped to an Organization; most
+  operations address resources by an org slug and, where relevant, a repo slug.
+root_entity: organization
+entities:
+  - name: organization
+    key: organization_slug (also organization_id)
+    description: The top-level tenant; every API path is org-scoped (/orgs/{org_slug}/...).
+  - name: repository
+    key: repository_slug (also repository_id)
+    belongs_to: organization
+    description: A source repository Socket monitors within an organization.
+  - name: repo_label
+    belongs_to: repository
+    description: Labels attached to repos for policy targeting and per-label setting overrides.
+  - name: full_scan
+    belongs_to: organization
+    references: repository
+    description: A repository-wide dependency graph + alert report; exportable as CDX/SPDX/OpenVEX/CSV/PDF/GFM.
+  - name: diff_scan
+    belongs_to: organization
+    references: [full_scan, repository]
+    description: Comparison between two full scans (or a repo branch vs its HEAD scan); powers PR comments.
+  - name: alert
+    belongs_to: organization
+    references: full_scan
+    description: A security finding from Socket's 70+ alert categories, attributed to scans/packages.
+  - name: triage_alert
+    belongs_to: organization
+    references: alert
+    description: The disposition/decision record (ignore, acknowledge, escalate, allow) for an alert.
+  - name: fix
+    belongs_to: organization
+    references: [alert, dependency]
+    description: An available version bump/patch/override for a vulnerable or risky dependency.
+  - name: dependency
+    belongs_to: organization
+    description: A package+version consumed across the org's scanned repos (searchable, reverse-lookup).
+  - name: package
+    key: purl
+    description: An open-source package addressed by Package URL; the Packages API enrichment target.
+  - name: threat_feed_item
+    belongs_to: organization
+    description: A newly discovered malicious/suspicious package entry.
+  - name: snapshot
+    belongs_to: organization
+    description: A point-in-time historical aggregation of dependencies, alerts, and risk metrics.
+  - name: webhook
+    belongs_to: organization
+    description: An HTTP callback fired on scan/alert/triage/threat-feed events.
+  - name: api_token
+    belongs_to: organization
+    description: A scoped API token; provisioned, rotated, and revoked per organization.
+  - name: audit_log_entry
+    belongs_to: organization
+    description: Append-only record of administrative events.
+  - name: security_policy
+    belongs_to: organization
+    description: Which alerts block/warn/ignore; can be overridden per repo label.
+  - name: license_policy
+    belongs_to: organization
+    description: Allowed/denied SPDX license identifiers; overridable per repo label.
+relationships:
+  - from: repository
+    to: organization
+    kind: belongs_to
+    via: organization_slug
+  - from: full_scan
+    to: organization
+    kind: belongs_to
+    via: organization_slug
+  - from: full_scan
+    to: repository
+    kind: belongs_to
+    via: repository_slug
+  - from: diff_scan
+    to: full_scan
+    kind: references
+    via: full_scan_id (before/after)
+  - from: alert
+    to: full_scan
+    kind: belongs_to
+    via: full_scan attribution
+  - from: triage_alert
+    to: alert
+    kind: belongs_to
+    via: alert reference
+  - from: fix
+    to: alert
+    kind: references
+  - from: repo_label
+    to: repository
+    kind: belongs_to

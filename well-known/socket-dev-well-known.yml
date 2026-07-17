@@ -1,0 +1,30 @@
+generated: '2026-06-20'
+method: searched
+source: live probes of socket.dev and api.socket.dev /.well-known/*
+description: >-
+  Discovery documents probed on the Socket hosts. Each 200 is saved verbatim as a raw
+  file in this directory and indexed below with its HTTP status at fetch time.
+hosts:
+  - host: https://socket.dev
+    documents:
+      - path: /.well-known/security.txt          # RFC 9116
+        status: 200
+        file: socket-dev-security.txt
+  - host: https://api.socket.dev
+    documents:
+      - path: /.well-known/oauth-authorization-server   # RFC 8414
+        status: 200
+        file: socket-dev-oauth-authorization-server.json
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+notes: >-
+  api.socket.dev advertises a live OAuth 2.0 authorization server (RFC 8414) with a full
+  scopes_supported list — captured in scopes/socket-dev-scopes.yml. No OpenID Connect
+  discovery document is served (openid-configuration 404) even though openid/profile/email
+  scopes are advertised.

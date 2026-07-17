@@ -1,0 +1,121 @@
+generated: '2026-06-20'
+method: searched
+source: well-known/socket-dev-oauth-authorization-server.json
+docs: https://docs.socket.dev/reference/authentication-types
+description: >-
+  Socket operates a live OAuth 2.0 authorization server (RFC 8414 metadata at
+  https://api.socket.dev/.well-known/oauth-authorization-server) alongside organization
+  API tokens. Scopes below are captured verbatim from scopes_supported. Socket groups
+  clients into three classes (internal_socket_app, customer_user_delegated,
+  customer_machine_to_machine); customer M2M uses client_credentials, delegated uses
+  authorization_code + refresh_token (PKCE S256).
+schemes:
+  - name: OAuth2
+    source: well-known/socket-dev-oauth-authorization-server.json
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://api.socket.dev/v1/oauth2/authorize
+        tokenUrl: https://api.socket.dev/v1/oauth2/token
+      - flow: clientCredentials
+        tokenUrl: https://api.socket.dev/v1/oauth2/token
+client_classes: ["internal_socket_app", "customer_user_delegated", "customer_machine_to_machine"]
+grant_types: ["authorization_code", "refresh_token"]
+code_challenge_methods: ["S256"]
+scopes:
+  - scope: alerts
+  - scope: alerts:list
+  - scope: alerts:trend
+  - scope: alert-resolution
+  - scope: alert-resolution:list
+  - scope: alert-resolution:create
+  - scope: alert-resolution:read
+  - scope: alert-resolution:delete
+  - scope: threat-campaigns
+  - scope: threat-campaigns:list
+  - scope: api-tokens
+  - scope: api-tokens:create
+  - scope: api-tokens:update
+  - scope: api-tokens:revoke
+  - scope: api-tokens:rotate
+  - scope: api-tokens:list
+  - scope: audit-log
+  - scope: audit-log:list
+  - scope: dependencies
+  - scope: dependencies:list
+  - scope: dependencies:trend
+  - scope: fixes
+  - scope: fixes:list
+  - scope: full-scans
+  - scope: full-scans:list
+  - scope: full-scans:create
+  - scope: full-scans:delete
+  - scope: diff-scans
+  - scope: diff-scans:list
+  - scope: diff-scans:create
+  - scope: diff-scans:delete
+  - scope: entitlements
+  - scope: entitlements:list
+  - scope: historical
+  - scope: historical:snapshots-list
+  - scope: historical:snapshots-start
+  - scope: historical:alerts-list
+  - scope: historical:alerts-trend
+  - scope: historical:dependencies-list
+  - scope: historical:dependencies-trend
+  - scope: integration
+  - scope: integration:list
+  - scope: integration:create
+  - scope: integration:update
+  - scope: integration:delete
+  - scope: access-policy
+  - scope: access-policy:read
+  - scope: access-policy:attach
+  - scope: access-policy:update
+  - scope: license-policy
+  - scope: license-policy:update
+  - scope: license-policy:read
+  - scope: packages
+  - scope: packages:list
+  - scope: access-policy-definition
+  - scope: access-policy-definition:attach
+  - scope: access-policy-definition:read
+  - scope: access-policy-definition:update
+  - scope: report
+  - scope: report:list
+  - scope: report:read
+  - scope: report:write
+  - scope: repo
+  - scope: repo:list
+  - scope: repo:create
+  - scope: repo:update
+  - scope: repo:delete
+  - scope: repo-label
+  - scope: repo-label:list
+  - scope: repo-label:create
+  - scope: repo-label:update
+  - scope: repo-label:delete
+  - scope: security-policy
+  - scope: security-policy:update
+  - scope: security-policy:read
+  - scope: socket-basics
+  - scope: socket-basics:read
+  - scope: telemetry-policy
+  - scope: telemetry-policy:update
+  - scope: telemetry-events
+  - scope: telemetry-events:list
+  - scope: threat-feed
+  - scope: threat-feed:list
+  - scope: triage
+  - scope: triage:alerts-list
+  - scope: triage:alerts-update
+  - scope: uploaded-artifacts
+  - scope: uploaded-artifacts:create
+  - scope: uploaded-artifacts:list
+  - scope: webhooks
+  - scope: webhooks:create
+  - scope: webhooks:list
+  - scope: webhooks:update
+  - scope: webhooks:delete
+  - scope: openid
+  - scope: profile
+  - scope: email

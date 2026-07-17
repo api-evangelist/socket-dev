@@ -1,0 +1,24 @@
+generated: '2026-06-20'
+method: searched
+probe: true
+url: https://socket.dev/legal/trust
+source: https://socket.dev/blog/announcing-soc-2-type-i-compliance
+description: >-
+  Socket's public trust / compliance posture. Socket announced SOC 2 Type I compliance,
+  verifying its security controls against the AICPA Trust Services Criteria, and monitors
+  internal controls continuously via an automated compliance platform. A key privacy
+  property is that Socket is designed to operate without analyzing, uploading, or sharing
+  customer source code. The trust page (socket.dev/legal/trust) blocks automated fetches
+  (HTTP 403) so the certification set is captured from the public SOC 2 announcement.
+certifications:
+  - name: SOC 2 Type I
+    framework: AICPA Trust Services Criteria
+    source: https://socket.dev/blog/announcing-soc-2-type-i-compliance
+    status: announced
+privacy:
+  source_code_handling: Socket does not require analyzing, uploading, or sharing source code.
+evidence:
+  - source: https://socket.dev/blog/announcing-soc-2-type-i-compliance
+    keywords: [soc 2, aicpa, trust services, compliance]
+  - source: https://socket.dev/legal/trust
+    note: linked as TrustCenter in apis.yml; returns 403 to automated clients

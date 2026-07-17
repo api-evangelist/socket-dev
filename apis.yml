@@ -329,6 +329,81 @@ common:
   - type: Arazzo
     url: arazzo/socket-dev-triage-latest-alerts-workflow.yml
     name: Socket Triage Latest Alerts
+  - type: Packages
+    url: packages/socket-dev-packages.yml
+  - type: MCPServer
+    url: mcp/socket-dev-mcp.yml
+  - type: LLMsTxt
+    url: llms/socket-dev-llms.txt
+  - type: WellKnown
+    url: well-known/socket-dev-well-known.yml
+  - type: SecurityTxt
+    url: well-known/socket-dev-security.txt
+  - type: OAuthScopes
+    url: scopes/socket-dev-scopes.yml
+  - type: Conformance
+    url: conformance/socket-dev-conformance.yml
+  - type: ErrorCatalog
+    url: errors/socket-dev-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/socket-dev-lifecycle.yml
+  - type: Conventions
+    url: conventions/socket-dev-conventions.yml
+  - type: ChangeLog
+    name: Socket Product Updates (structured)
+    url: changelog/socket-dev-changelog.yml
+  - type: CLI
+    url: cli/socket-dev-cli.yml
+  - type: DataModel
+    url: data-model/socket-dev-data-model.yml
+  - type: TrustCenter
+    name: Socket Trust Center (artifact)
+    url: security/socket-dev-trust-center.yml
+  - type: Overlay
+    name: Socket Alerts API enhancements
+    url: overlays/socket-dev-socket-alerts-api-overlay.yaml
+  - type: Overlay
+    name: Socket API Tokens API enhancements
+    url: overlays/socket-dev-socket-api-tokens-api-overlay.yaml
+  - type: Overlay
+    name: Socket Audit Log API enhancements
+    url: overlays/socket-dev-socket-audit-log-api-overlay.yaml
+  - type: Overlay
+    name: Socket Dependencies API enhancements
+    url: overlays/socket-dev-socket-dependencies-api-overlay.yaml
+  - type: Overlay
+    name: Socket Diff Scans API enhancements
+    url: overlays/socket-dev-socket-diff-scans-api-overlay.yaml
+  - type: Overlay
+    name: Socket Fixes API enhancements
+    url: overlays/socket-dev-socket-fixes-api-overlay.yaml
+  - type: Overlay
+    name: Socket Full Scans API enhancements
+    url: overlays/socket-dev-socket-full-scans-api-overlay.yaml
+  - type: Overlay
+    name: Socket Metadata API enhancements
+    url: overlays/socket-dev-socket-metadata-api-overlay.yaml
+  - type: Overlay
+    name: Socket Organization Settings API enhancements
+    url: overlays/socket-dev-socket-org-settings-api-overlay.yaml
+  - type: Overlay
+    name: Socket Organization Snapshots API enhancements
+    url: overlays/socket-dev-socket-org-snapshots-api-overlay.yaml
+  - type: Overlay
+    name: Socket Packages API enhancements
+    url: overlays/socket-dev-socket-packages-api-overlay.yaml
+  - type: Overlay
+    name: Socket Repos API enhancements
+    url: overlays/socket-dev-socket-repos-api-overlay.yaml
+  - type: Overlay
+    name: Socket Threat Feed API enhancements
+    url: overlays/socket-dev-socket-threat-feed-api-overlay.yaml
+  - type: Overlay
+    name: Socket Triage API enhancements
+    url: overlays/socket-dev-socket-triage-api-overlay.yaml
+  - type: Overlay
+    name: Socket Webhooks API enhancements
+    url: overlays/socket-dev-socket-webhooks-api-overlay.yaml
   - type: Portal
     url: https://socket.dev/
   - type: Documentation
@@ -467,7 +542,7 @@ common:
       - https://docs.socket.dev/
       - https://github.com/SocketDev
 created: '2026-05-25'
-modified: '2026-05-25'
+modified: '2026-06-20'
 description: >-
   Socket is a developer-first supply-chain security platform that protects applications from malicious dependencies,
   vulnerable packages, license risk, and software-supply-chain attacks across npm, PyPI, Go, Maven, Cargo, NuGet,

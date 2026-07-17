@@ -1,0 +1,57 @@
+generated: '2026-06-20'
+method: searched
+source: https://docs.socket.dev/reference/rate-limits, openapi/*-openapi.yml
+description: >-
+  Cross-cutting request/response semantics for the Socket API, captured from the docs and
+  derived from the OpenAPI specs. One structured reference for authentication, pagination,
+  rate limiting, versioning, and the error envelope.
+base_url: https://api.socket.dev/v0
+authentication:
+  styles:
+    - http bearer (Organization token as `Authorization: Bearer <token>`)
+    - http basic (Organization token as the basic-auth username, empty password)
+    - oauth2 (authorization_code + client_credentials against api.socket.dev/v1/oauth2/*)
+  detail: authentication/socket-dev-authentication.yml
+  scopes: scopes/socket-dev-scopes.yml
+pagination:
+  style: page-number and cursor
+  request_params:
+    - name: page
+      note: 1-based page number
+    - name: per_page
+      note: page size
+    - name: sort
+      note: field to sort by
+    - name: direction
+      note: asc | desc
+    - name: cursor
+      note: opaque cursor on cursor-paginated endpoints (also page_cursor)
+  response_fields:
+    - nextPage
+    - next_page
+    - cursor
+idempotency:
+  supported: false
+  note: No idempotency-key header is documented; write operations are not declared idempotent.
+versioning:
+  style: uri-path major version (v0)
+  detail: lifecycle/socket-dev-lifecycle.yml
+rate_limiting:
+  limit: 600 requests per minute
+  throttled_status: 429
+  quota_status: 402
+  headers:
+    limit: x-ratelimit-limit
+    remaining: x-ratelimit-remaining
+    reset: x-ratelimit-reset
+    retry_after: retry-after
+  guidance: Retry with exponential backoff and jitter; unsuccessful requests still count against the per-minute limit.
+  quota_endpoint: https://api.socket.dev/v0/quota
+  detail: rate-limits/socket-dev-rate-limits.yml
+error_envelope:
+  media_type: application/json
+  shape: '{ "error": { "message": string } }'
+  detail: errors/socket-dev-problem-types.yml
+request_tracing:
+  request_id_header: null
+  note: No documented request-id / correlation header.

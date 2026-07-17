@@ -1,0 +1,60 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/*-openapi.yml, well-known/socket-dev-oauth-authorization-server.json, docs.socket.dev
+description: >-
+  Industry / cross-cutting standards the Socket API conforms to. Derived from the OpenAPI
+  specs, the live OAuth 2.0 authorization-server metadata, and documented behavior. SBOM
+  conformance reflects Socket's full-scan export formats (CycloneDX, SPDX, OpenVEX).
+standards:
+  - id: openapi-3.0
+    conforms: true
+    evidence: All fifteen specs declare openapi 3.0.0; a live spec is served at https://api.socket.dev/v0/openapi
+  - id: oauth2
+    conforms: true
+    evidence: RFC 8414 authorization-server metadata at /.well-known/oauth-authorization-server with authorization_code + client_credentials + refresh_token grants
+  - id: oauth2-pkce
+    conforms: true
+    evidence: code_challenge_methods_supported = [S256]
+  - id: rfc8414-oauth-metadata
+    conforms: true
+    evidence: /.well-known/oauth-authorization-server returns 200
+  - id: openid-connect
+    conforms: false
+    evidence: openid/profile/email scopes advertised but /.well-known/openid-configuration returns 404
+  - id: http-bearer-auth
+    conforms: true
+    evidence: securitySchemes bearerAuth (http bearer) across all specs
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: errors use a custom { error.message } envelope as application/json, not application/problem+json
+  - id: cyclonedx
+    conforms: true
+    evidence: Full Scans export supports CDX (CycloneDX) SBOM format
+  - id: spdx
+    conforms: true
+    evidence: Full Scans export supports SPDX SBOM format
+  - id: openvex
+    conforms: true
+    evidence: Full Scans export supports OpenVEX vulnerability-exploitability format
+  - id: purl
+    conforms: true
+    evidence: Packages API keys on Package URL (purl) across npm, PyPI, Go, Maven, Cargo, NuGet, RubyGems
+  - id: sarif
+    conforms: true
+    evidence: Socket Python CLI (socketsecurity) emits SARIF for CI integration
+  - id: pagination
+    conforms: true
+    evidence: page + per_page + sort + direction parameters with nextPage / cursor response fields
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: https://socket.dev/.well-known/security.txt returns 200
+  - id: rate-limit-headers
+    conforms: true
+    evidence: x-ratelimit-limit / x-ratelimit-remaining / x-ratelimit-reset / retry-after (see rate-limits/)
+  - id: webhooks
+    conforms: true
+    evidence: Webhooks API registers HTTP callbacks for scan/alert/triage/threat-feed events
+  - id: fhir-r4
+    conforms: false
+  - id: scim2
+    conforms: false

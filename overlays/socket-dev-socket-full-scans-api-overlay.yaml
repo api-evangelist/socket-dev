@@ -1,0 +1,23 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Socket Full Scans API
+  version: 1.0.0
+extends: openapi/socket-full-scans-api-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: socket-dev
+      x-apievangelist-rating: 4
+      x-apievangelist-artifacts:
+        authentication: authentication/socket-dev-authentication.yml
+        scopes: scopes/socket-dev-scopes.yml
+        errors: errors/socket-dev-problem-types.yml
+        lifecycle: lifecycle/socket-dev-lifecycle.yml
+        conventions: conventions/socket-dev-conventions.yml
+        mcp: mcp/socket-dev-mcp.yml
+  - target: $.info
+    update:
+      x-apievangelist-topics:
+        - Supply Chain Security
+        - Software Composition Analysis
+        - Malware Detection
