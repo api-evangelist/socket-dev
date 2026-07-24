@@ -1,10 +1,12 @@
 openapi: 3.0.0
 info:
-  description: Socket api tokens API endpoints.
-  title: Socket Api Tokens API
+  description: Socket alerts API endpoints.
+  title: Socket alerts api-tokens API
   version: '0'
 servers:
 - url: https://api.socket.dev/v0
+tags:
+- name: api-tokens
 paths:
   /orgs/{org_slug}/api-tokens:
     post:
@@ -1061,9 +1063,17 @@ paths:
           $ref: '#/components/responses/SocketTooManyRequestsResponse'
       x-readme: {}
 components:
-  requestBodies: {}
   responses:
-    SocketBadRequest:
+    SocketTooManyRequestsResponse:
+      description: Insufficient quota for API route
+      headers:
+        Retry-After:
+          description: 'Retry contacting the endpoint *at least* after seconds.
+
+            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
+          schema:
+            format: int32
+            type: integer
       content:
         application/json:
           schema:
@@ -1090,7 +1100,34 @@ components:
                 - message
             required:
             - error
-      description: Bad request
+    SocketNotFoundResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
+      description: Resource not found
     SocketUnauthorized:
       content:
         application/json:
@@ -1147,155 +1184,6 @@ components:
             required:
             - error
       description: Insufficient max_quota for API method
-    SocketNotFoundResponse:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource not found
-    SocketTooManyRequestsResponse:
-      description: Insufficient quota for API route
-      headers:
-        Retry-After:
-          description: 'Retry contacting the endpoint *at least* after seconds.
-
-            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
-          schema:
-            format: int32
-            type: integer
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-    SocketInternalServerError:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Internal server error
-    SocketConflict:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource already exists
-    SocketGone:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Gone
-  schemas: {}
   securitySchemes:
     bearerAuth:
       type: http

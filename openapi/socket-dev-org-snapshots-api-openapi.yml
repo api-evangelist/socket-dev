@@ -1,10 +1,12 @@
 openapi: 3.0.0
 info:
-  description: Socket org snapshots API endpoints.
-  title: Socket Org Snapshots API
+  description: Socket alerts API endpoints.
+  title: Socket alerts org-snapshots API
   version: '0'
 servers:
 - url: https://api.socket.dev/v0
+tags:
+- name: org-snapshots
 paths:
   /orgs/{org_slug}/historical/snapshots:
     get:
@@ -36,8 +38,7 @@ paths:
       - name: per_page
         in: query
         required: false
-        description: Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check "endCursor" in response body to know if there
-          are more pages)
+        description: Specify the maximum number of results to return per page (intermediate pages may have fewer than this limit and callers should always check "endCursor" in response body to know if there are more pages)
         schema:
           type: integer
           minimum: 1
@@ -296,8 +297,7 @@ paths:
         - historical:snapshots-start
       description: 'This API endpoint is used to start a historical snapshot job.
 
-        While snapshots are typically taken multiple times a day for paid plans and once a day for free plans, this endpoint can be used to start an "on demand" snapshot job to ensure the latest data is
-        collected and stored for historical purposes.
+        While snapshots are typically taken multiple times a day for paid plans and once a day for free plans, this endpoint can be used to start an "on demand" snapshot job to ensure the latest data is collected and stored for historical purposes.
 
 
         An historical snapshot will contain details and raw data for the following resources:
@@ -363,8 +363,43 @@ paths:
           $ref: '#/components/responses/SocketTooManyRequestsResponse'
       x-readme: {}
 components:
-  requestBodies: {}
   responses:
+    SocketTooManyRequestsResponse:
+      description: Insufficient quota for API route
+      headers:
+        Retry-After:
+          description: 'Retry contacting the endpoint *at least* after seconds.
+
+            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
+          schema:
+            format: int32
+            type: integer
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            description: ''
+            properties:
+              error:
+                type: object
+                additionalProperties: false
+                description: ''
+                properties:
+                  message:
+                    type: string
+                    description: ''
+                    default: ''
+                  details:
+                    type: object
+                    description: ''
+                    default: null
+                    nullable: true
+                required:
+                - details
+                - message
+            required:
+            - error
     SocketBadRequest:
       content:
         application/json:
@@ -393,34 +428,6 @@ components:
             required:
             - error
       description: Bad request
-    SocketUnauthorized:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Unauthorized
     SocketForbidden:
       content:
         application/json:
@@ -477,16 +484,7 @@ components:
             required:
             - error
       description: Resource not found
-    SocketTooManyRequestsResponse:
-      description: Insufficient quota for API route
-      headers:
-        Retry-After:
-          description: 'Retry contacting the endpoint *at least* after seconds.
-
-            See https://tools.ietf.org/html/rfc7231#section-7.1.3'
-          schema:
-            format: int32
-            type: integer
+    SocketUnauthorized:
       content:
         application/json:
           schema:
@@ -513,91 +511,7 @@ components:
                 - message
             required:
             - error
-    SocketInternalServerError:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Internal server error
-    SocketConflict:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Resource already exists
-    SocketGone:
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties: false
-            description: ''
-            properties:
-              error:
-                type: object
-                additionalProperties: false
-                description: ''
-                properties:
-                  message:
-                    type: string
-                    description: ''
-                    default: ''
-                  details:
-                    type: object
-                    description: ''
-                    default: null
-                    nullable: true
-                required:
-                - details
-                - message
-            required:
-            - error
-      description: Gone
-  schemas: {}
+      description: Unauthorized
   securitySchemes:
     bearerAuth:
       type: http
