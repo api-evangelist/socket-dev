@@ -1,261 +1,899 @@
 aid: socket-dev
 url: https://raw.githubusercontent.com/api-evangelist/socket-dev/refs/heads/main/apis.yml
 apis:
-  - aid: socket-dev:socket-packages-api
-    name: Socket Packages API
-    tags:
-      - Packages
-      - Supply Chain Security
-      - Risk Scoring
-      - PURL
-    humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
-    properties:
-      - url: https://docs.socket.dev/reference/introduction-to-socket-api
-        type: Documentation
-      - url: openapi/socket-packages-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/socket-package-schema.json
-        type: JSONSchema
-      - url: json-ld/socket-context.jsonld
-        type: JSONLD
-    description: >-
-      Look up risk scores, alerts, capabilities, license, and supply-chain metadata for any open-source package by
-      Package URL (purl). Supports npm, PyPI, Go, Maven, Cargo, NuGet, RubyGems, and other ecosystems. The /purl
-      endpoint accepts a list of package URLs and returns Socket's enriched package facts including capability use,
-      telemetry, alert categories, and depscore.
-  - aid: socket-dev:socket-full-scans-api
-    name: Socket Full Scans API
-    tags:
-      - Full Scans
-      - Supply Chain Security
-      - SBOM
-      - CycloneDX
-      - SPDX
-      - OpenVEX
-    humanURL: https://docs.socket.dev/reference/createorgfullscan
-    properties:
-      - url: https://docs.socket.dev/reference/createorgfullscan
-        type: Documentation
-      - url: openapi/socket-full-scans-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/socket-full-scan-schema.json
-        type: JSONSchema
-    description: >-
-      Create, list, fetch, rescan, archive, and export full-scan reports for an organization's repos. Upload manifest
-      files (package.json, requirements.txt, go.mod, pom.xml, Cargo.toml, etc.) and Socket returns a full dependency
-      graph with alerts. Exports include CDX (CycloneDX), SPDX, OpenVEX, CSV, PDF, and GFM diff formats.
-  - aid: socket-dev:socket-diff-scans-api
-    name: Socket Diff Scans API
-    tags:
-      - Diff Scans
-      - Supply Chain Security
-      - Pull Request
-      - Change Detection
-    humanURL: https://docs.socket.dev/reference/createorgdiffscanfromids
-    properties:
-      - url: https://docs.socket.dev/reference/createorgdiffscanfromids
-        type: Documentation
-      - url: openapi/socket-diff-scans-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Compute and inspect diff scans between two full scans — the engine that powers Socket's pull-request comments.
-      Identifies added, removed, and modified dependencies with their security implications. Returns added/removed
-      alerts in JSON or GFM markdown. Diff scans can be created from full-scan IDs or from a target repo branch.
-  - aid: socket-dev:socket-alerts-api
-    name: Socket Alerts API
-    tags:
-      - Alerts
-      - Supply Chain Security
-      - Historical Analytics
-    humanURL: https://docs.socket.dev/reference/getorgalerts
-    properties:
-      - url: https://docs.socket.dev/reference/getorgalerts
-        type: Documentation
-      - url: openapi/socket-alerts-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/socket-alert-schema.json
-        type: JSONSchema
-    description: >-
-      Query current and historical security alerts for an organization across all scans, repos, and packages. Supports
-      trend analysis, filtering by alert type and severity, and full-scan attribution. Backed by Socket's catalog of 70+
-      alert categories covering malware, typosquats, install scripts, telemetry, native code, crypto wallets, and other
-      supply-chain risks.
-  - aid: socket-dev:socket-triage-api
-    name: Socket Triage API
-    tags:
-      - Triage
-      - Alerts
-      - Workflow
-      - Governance
-    humanURL: https://docs.socket.dev/reference/listorgtriagealerts
-    properties:
-      - url: https://docs.socket.dev/reference/listorgtriagealerts
-        type: Documentation
-      - url: openapi/socket-triage-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Triage workflow for alerts — list and update the disposition (ignore, acknowledge, escalate, allow) of any alert
-      in an organization. Comments and decision history are recorded for audit. Triage is the human-in-the-loop
-      counterpart to Socket's automated security gates.
-  - aid: socket-dev:socket-repos-api
-    name: Socket Repos API
-    tags:
-      - Repositories
-      - Labels
-      - Organization
-    humanURL: https://docs.socket.dev/reference/getorgrepolist
-    properties:
-      - url: https://docs.socket.dev/reference/getorgrepolist
-        type: Documentation
-      - url: openapi/socket-repos-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Manage the repositories Socket is monitoring inside an organization, plus repo labels for policy targeting. CRUD
-      repos, attach/detach labels, and configure per-label settings that override organization-level security and
-      license policies.
-  - aid: socket-dev:socket-org-settings-api
-    name: Socket Organization Settings API
-    tags:
-      - Organization Settings
-      - Security Policy
-      - License Policy
-      - Telemetry
-    humanURL: https://docs.socket.dev/reference/getorgsecuritypolicy
-    properties:
-      - url: https://docs.socket.dev/reference/getorgsecuritypolicy
-        type: Documentation
-      - url: openapi/socket-org-settings-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Configure Socket at the organization level — security policy (which alerts block/warn/ignore), license policy
-      (allowed/denied SPDX identifiers), telemetry collection toggles, Socket Basics SAST/Secrets/Container scanning
-      configuration, and integration event hooks for GitHub/GitLab/Bitbucket apps.
-  - aid: socket-dev:socket-webhooks-api
-    name: Socket Webhooks API
-    tags:
-      - Webhooks
-      - Events
-      - Notifications
-    humanURL: https://docs.socket.dev/reference/listorgwebhooks
-    properties:
-      - url: https://docs.socket.dev/reference/listorgwebhooks
-        type: Documentation
-      - url: openapi/socket-webhooks-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Register, list, update, and delete webhooks that fire when scans complete, alerts trigger, triage decisions are
-      made, or threat-feed entries match an organization's packages. Useful for connecting Socket to Slack, Jira,
-      PagerDuty, or custom internal automation.
-  - aid: socket-dev:socket-threat-feed-api
-    name: Socket Threat Feed API
-    tags:
-      - Threat Feed
-      - Malware
-      - Real-Time Intelligence
-    humanURL: https://docs.socket.dev/reference/getorgthreatfeed
-    properties:
-      - url: https://docs.socket.dev/reference/getorgthreatfeed
-        type: Documentation
-      - url: openapi/socket-threat-feed-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Real-time feed of newly discovered malicious or suspicious packages across npm, PyPI, Go, RubyGems, and other
-      ecosystems. Filter by ecosystem, alert type, and time window. Powers Socket's malware research dashboards and the
-      public-disclosure firehose.
-  - aid: socket-dev:socket-fixes-api
-    name: Socket Fixes API
-    tags:
-      - Fixes
-      - Remediation
-      - Patches
-    humanURL: https://docs.socket.dev/reference/getorgfixes
-    properties:
-      - url: https://docs.socket.dev/reference/getorgfixes
-        type: Documentation
-      - url: openapi/socket-fixes-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      List available fixes — version bumps, patches, and overrides — for vulnerable or risky dependencies in an
-      organization's scanned projects. Powers Socket's auto-fix pull-request generation.
-  - aid: socket-dev:socket-dependencies-api
-    name: Socket Dependencies API
-    tags:
-      - Dependencies
-      - Search
-      - Reverse Lookup
-    humanURL: https://docs.socket.dev/reference/searchdependencies
-    properties:
-      - url: https://docs.socket.dev/reference/searchdependencies
-        type: Documentation
-      - url: openapi/socket-dependencies-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Search and reverse-look-up dependencies across all of an organization's scanned repos. Find every project
-      consuming a specific package and version, plus historical dependency-count trends used by Socket's analytics
-      dashboards.
-  - aid: socket-dev:socket-api-tokens-api
-    name: Socket API Tokens API
-    tags:
-      - API Tokens
-      - Authentication
-      - Administration
-      - Quota
-    humanURL: https://docs.socket.dev/reference/getorgtokens
-    properties:
-      - url: https://docs.socket.dev/reference/getorgtokens
-        type: Documentation
-      - url: openapi/socket-api-tokens-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Provision, rotate, and revoke API tokens for an organization, inspect the caller's quota, and list the
-      organizations the calling token has access to. Token-scoped permission grants are configured at creation and on
-      update.
-  - aid: socket-dev:socket-audit-log-api
-    name: Socket Audit Log API
-    tags:
-      - Audit Log
-      - Compliance
-      - Governance
-    humanURL: https://docs.socket.dev/reference/getauditlog
-    properties:
-      - url: https://docs.socket.dev/reference/getauditlog
-        type: Documentation
-      - url: openapi/socket-audit-log-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Append-only audit log of every administrative event in a Socket organization — policy changes, member changes,
-      token actions, triage decisions, and integration changes. Use for compliance evidence and incident review.
-  - aid: socket-dev:socket-org-snapshots-api
-    name: Socket Organization Snapshots API
-    tags:
-      - Snapshots
-      - Historical Analytics
-      - Reporting
-    humanURL: https://docs.socket.dev/reference/getorghistoricalsnapshots
-    properties:
-      - url: https://docs.socket.dev/reference/getorghistoricalsnapshots
-        type: Documentation
-      - url: openapi/socket-org-snapshots-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Retrieve historical organization-level snapshots — point-in-time aggregations of dependencies, alerts, and risk
-      metrics across all monitored repos. Used to populate trend dashboards and compliance posture reports.
-  - aid: socket-dev:socket-metadata-api
-    name: Socket Metadata API
-    tags:
-      - Metadata
-      - Reference Data
-      - OpenAPI
-    humanURL: https://docs.socket.dev/reference/getalerttypes
-    properties:
-      - url: https://docs.socket.dev/reference/getalerttypes
-        type: Documentation
-      - url: openapi/socket-metadata-api-openapi.yml
-        type: OpenAPI
-    description: >-
-      Reference metadata for the Socket platform — the live machine-readable OpenAPI spec, the catalog of alert types
-      and their severities, the catalog of license metadata used by license-policy, and the list of file types Socket
-      can detect and scan.
+- aid: socket-dev:socket-dev-alerts-api
+  name: Socket alerts API
+  description: The alerts API from Socket — 4 operation(s) for alerts.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - alerts
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-alerts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-api-tokens-api
+  name: Socket api-tokens API
+  description: The api-tokens API from Socket — 6 operation(s) for api-tokens.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - api-tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-api-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-audit-log-api
+  name: Socket audit-log API
+  description: The audit-log API from Socket — 1 operation(s) for audit-log.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - audit-log
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-audit-log-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-dependencies-api
+  name: Socket dependencies API
+  description: The dependencies API from Socket — 2 operation(s) for dependencies.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - dependencies
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-dependencies-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-diff-scans-api
+  name: Socket diff-scans API
+  description: The diff-scans API from Socket — 7 operation(s) for diff-scans.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - diff-scans
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-diff-scans-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-fixes-api
+  name: Socket fixes API
+  description: The fixes API from Socket — 1 operation(s) for fixes.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - fixes
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-fixes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-full-scans-api
+  name: Socket full-scans API
+  description: The full-scans API from Socket — 13 operation(s) for full-scans.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - full-scans
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-full-scans-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-license-policy-api
+  name: Socket license-policy API
+  description: The license-policy API from Socket — 4 operation(s) for license-policy.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - license-policy
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-license-policy-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-metadata-api
+  name: Socket metadata API
+  description: The metadata API from Socket — 5 operation(s) for metadata.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-org-settings-api
+  name: Socket org-settings API
+  description: The org-settings API from Socket — 2 operation(s) for org-settings.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - org-settings
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-org-settings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-org-snapshots-api
+  name: Socket org-snapshots API
+  description: The org-snapshots API from Socket — 1 operation(s) for org-snapshots.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - org-snapshots
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-org-snapshots-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-packages-api
+  name: Socket packages API
+  description: The packages API from Socket — 2 operation(s) for packages.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - packages
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-packages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-repo-labels-api
+  name: Socket repo-labels API
+  description: The repo-labels API from Socket — 5 operation(s) for repo-labels.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - repo-labels
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-repo-labels-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-repos-api
+  name: Socket repos API
+  description: The repos API from Socket — 2 operation(s) for repos.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - repos
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-repos-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-security-policy-api
+  name: Socket security-policy API
+  description: The security-policy API from Socket — 1 operation(s) for security-policy.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - security-policy
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-security-policy-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-telemetry-api
+  name: Socket telemetry API
+  description: The telemetry API from Socket — 1 operation(s) for telemetry.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - telemetry
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-telemetry-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-threat-feed-api
+  name: Socket threat-feed API
+  description: The threat-feed API from Socket — 1 operation(s) for threat-feed.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - threat-feed
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-threat-feed-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-triage-api
+  name: Socket triage API
+  description: The triage API from Socket — 2 operation(s) for triage.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - triage
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-triage-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
+- aid: socket-dev:socket-dev-webhooks-api
+  name: Socket webhooks API
+  description: The webhooks API from Socket — 2 operation(s) for webhooks.
+  humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
+  tags:
+  - webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/socket-dev-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.socket.dev/reference/introduction-to-socket-api
+  - type: JSONSchema
+    url: json-schema/socket-package-schema.json
+  - type: JSONLD
+    url: json-ld/socket-context.jsonld
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgfullscan
+  - type: JSONSchema
+    url: json-schema/socket-full-scan-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/createorgdiffscanfromids
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgalerts
+  - type: JSONSchema
+    url: json-schema/socket-alert-schema.json
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgtriagealerts
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgrepolist
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgsecuritypolicy
+  - type: Documentation
+    url: https://docs.socket.dev/reference/listorgwebhooks
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgthreatfeed
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgfixes
+  - type: Documentation
+    url: https://docs.socket.dev/reference/searchdependencies
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorgtokens
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getauditlog
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getorghistoricalsnapshots
+  - type: Documentation
+    url: https://docs.socket.dev/reference/getalerttypes
 name: Socket
 tags:
   - Supply Chain Security
@@ -274,7 +912,20 @@ tags:
   - RubyGems
   - Developer Security
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/socket-dev.png
 access: 3rd-Party
 common:
   - type: AgenticAccess
