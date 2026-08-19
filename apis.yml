@@ -1,5 +1,6 @@
 aid: socket-dev
 url: https://raw.githubusercontent.com/api-evangelist/socket-dev/refs/heads/main/apis.yml
+specificationVersion: '0.23'
 apis:
 - aid: socket-dev:socket-dev-alerts-api
   name: Socket alerts API
