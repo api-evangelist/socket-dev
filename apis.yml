@@ -7,6 +7,8 @@ apis:
   description: The alerts API from Socket — 4 operation(s) for alerts.
   humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
   tags:
+  - Alerts
+  tags_raw:
   - alerts
   properties:
   - type: OpenAPI
@@ -54,6 +56,8 @@ apis:
   description: The api-tokens API from Socket — 6 operation(s) for api-tokens.
   humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
   tags:
+  - API Tokens
+  tags_raw:
   - api-tokens
   properties:
   - type: OpenAPI
@@ -101,6 +105,8 @@ apis:
   description: The audit-log API from Socket — 1 operation(s) for audit-log.
   humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
   tags:
+  - Audit Log
+  tags_raw:
   - audit-log
   properties:
   - type: OpenAPI
@@ -148,6 +154,8 @@ apis:
   description: The dependencies API from Socket — 2 operation(s) for dependencies.
   humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
   tags:
+  - Dependencies
+  tags_raw:
   - dependencies
   properties:
   - type: OpenAPI
@@ -242,6 +250,8 @@ apis:
   description: The fixes API from Socket — 1 operation(s) for fixes.
   humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
   tags:
+  - Fixes
+  tags_raw:
   - fixes
   properties:
   - type: OpenAPI
@@ -383,6 +393,8 @@ apis:
   description: The metadata API from Socket — 5 operation(s) for metadata.
   humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
   tags:
+  - Metadata
+  tags_raw:
   - metadata
   properties:
   - type: OpenAPI
@@ -524,6 +536,8 @@ apis:
   description: The packages API from Socket — 2 operation(s) for packages.
   humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
   tags:
+  - Packages
+  tags_raw:
   - packages
   properties:
   - type: OpenAPI
@@ -618,6 +632,8 @@ apis:
   description: The repos API from Socket — 2 operation(s) for repos.
   humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
   tags:
+  - Repos
+  tags_raw:
   - repos
   properties:
   - type: OpenAPI
@@ -712,6 +728,8 @@ apis:
   description: The telemetry API from Socket — 1 operation(s) for telemetry.
   humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
   tags:
+  - Telemetry
+  tags_raw:
   - telemetry
   properties:
   - type: OpenAPI
@@ -853,6 +871,8 @@ apis:
   description: The webhooks API from Socket — 2 operation(s) for webhooks.
   humanURL: https://docs.socket.dev/reference/introduction-to-socket-api
   tags:
+  - Webhook
+  tags_raw:
   - webhooks
   properties:
   - type: OpenAPI
