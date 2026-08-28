@@ -14,7 +14,7 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: fullScansApi
-  url: ../openapi/socket-full-scans-api-openapi.yml
+  url: ../openapi/socket-dev-full-scans-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: rescan-and-report

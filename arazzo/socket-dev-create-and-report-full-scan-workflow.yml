@@ -12,11 +12,11 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: reposApi
-  url: ../openapi/socket-repos-api-openapi.yml
-  type: openapi
 - name: fullScansApi
-  url: ../openapi/socket-full-scans-api-openapi.yml
+  url: ../openapi/socket-dev-full-scans-api-openapi.yml
+  type: openapi
+- name: reposApi
+  url: ../openapi/socket-dev-repos-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-and-report-full-scan

@@ -14,7 +14,7 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: orgSnapshotsApi
-  url: ../openapi/socket-org-snapshots-api-openapi.yml
+  url: ../openapi/socket-dev-org-snapshots-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: snapshot-and-list

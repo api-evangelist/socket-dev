@@ -12,11 +12,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: reposApi
-  url: ../openapi/socket-repos-api-openapi.yml
-  type: openapi
 - name: fixesApi
-  url: ../openapi/socket-fixes-api-openapi.yml
+  url: ../openapi/socket-dev-fixes-api-openapi.yml
+  type: openapi
+- name: reposApi
+  url: ../openapi/socket-dev-repos-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: fix-repo-vulnerabilities

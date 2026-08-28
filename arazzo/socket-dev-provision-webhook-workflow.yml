@@ -12,7 +12,7 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: webhooksApi
-  url: ../openapi/socket-webhooks-api-openapi.yml
+  url: ../openapi/socket-dev-webhooks-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provision-webhook

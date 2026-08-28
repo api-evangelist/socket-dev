@@ -13,11 +13,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: reposApi
-  url: ../openapi/socket-repos-api-openapi.yml
-  type: openapi
 - name: diffScansApi
-  url: ../openapi/socket-diff-scans-api-openapi.yml
+  url: ../openapi/socket-dev-diff-scans-api-openapi.yml
+  type: openapi
+- name: reposApi
+  url: ../openapi/socket-dev-repos-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: diff-repo-head

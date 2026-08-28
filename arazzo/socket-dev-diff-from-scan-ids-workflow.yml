@@ -12,11 +12,11 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: fullScansApi
-  url: ../openapi/socket-full-scans-api-openapi.yml
-  type: openapi
 - name: diffScansApi
-  url: ../openapi/socket-diff-scans-api-openapi.yml
+  url: ../openapi/socket-dev-diff-scans-api-openapi.yml
+  type: openapi
+- name: fullScansApi
+  url: ../openapi/socket-dev-full-scans-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: diff-from-scan-ids

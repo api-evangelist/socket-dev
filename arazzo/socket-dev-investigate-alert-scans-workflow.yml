@@ -12,10 +12,10 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: alertsApi
-  url: ../openapi/socket-alerts-api-openapi.yml
+  url: ../openapi/socket-dev-alerts-api-openapi.yml
   type: openapi
 - name: fullScansApi
-  url: ../openapi/socket-full-scans-api-openapi.yml
+  url: ../openapi/socket-dev-full-scans-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: investigate-alert-scans

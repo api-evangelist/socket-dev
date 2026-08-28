@@ -13,10 +13,10 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: dependenciesApi
-  url: ../openapi/socket-dependencies-api-openapi.yml
+  url: ../openapi/socket-dev-dependencies-api-openapi.yml
   type: openapi
 - name: packagesApi
-  url: ../openapi/socket-packages-api-openapi.yml
+  url: ../openapi/socket-dev-packages-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: audit-dependencies

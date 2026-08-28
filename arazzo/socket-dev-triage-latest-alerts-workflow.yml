@@ -12,10 +12,10 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: alertsApi
-  url: ../openapi/socket-alerts-api-openapi.yml
+  url: ../openapi/socket-dev-alerts-api-openapi.yml
   type: openapi
 - name: triageApi
-  url: ../openapi/socket-triage-api-openapi.yml
+  url: ../openapi/socket-dev-triage-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: triage-latest-alerts
