@@ -961,6 +961,8 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/socket-dev.png
 access: 3rd-Party
 common:
+  - type: Website
+    url: https://www.socket.dev/
   - type: AgenticAccess
     url: agentic-access/socket-dev-agentic-access.yml
   - type: VulnerabilityDisclosure
